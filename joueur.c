@@ -6,3 +6,7 @@
 //
 
 #include "joueur.h"
+
+JOUEUR* cree_joueur(){
+	
+}
