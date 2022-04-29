@@ -1,6 +1,6 @@
 # Blackjack
 
-
+Jeu de blackjack en C
 
 ## Getting started
 
