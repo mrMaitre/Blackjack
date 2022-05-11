@@ -4,7 +4,14 @@ CROUPIER *init_croupier(){
     /*initialise la structure croupier */
     CROUPIER *c = (CROUPIER*) malloc(sizeof(CROUPIER));
     c->nb_cartes = 0;
+    c->score = 0;
     return c;
+}
+
+void affiche_carte_croupier(CROUPIER *c){
+	for(int i = 0; i<c->nb_cartes; i++){
+    	printf("Carte %d : %d\n",i+1,c->tab_cartes[i].num);
+	}
 }
 
 void tirage_carte_croupier_debut(PIOCHE *p,CROUPIER *c){

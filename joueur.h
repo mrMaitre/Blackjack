@@ -20,8 +20,9 @@ typedef struct joueur{
 
 JOUEUR* saisie_joueur(int num);
 void affiche_joueur(JOUEUR* j);
+void affiche_carte_joueur(JOUEUR* j);
 void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j);
-void tirage_carte_croupier_mises(PIOCHE *p,JOUEUR *j);
+void tirage_carte_joueur_mises(PIOCHE *p,JOUEUR *j);
 void liberer_joueur(JOUEUR *j);
 int joueur_a_blackjack(JOUEUR *j);
 

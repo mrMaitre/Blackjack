@@ -22,7 +22,7 @@ void saisie_joueurs_croupier_dans_table(TABLE* table);
 void affiche_table(TABLE* p);
 void demande_mises(TABLE* p);
 int comptage_score_croupier(CROUPIER *c);
-int comptage_score_joueurs(JOUEUR *j);
+int comptage_score_joueur(JOUEUR *j);
 int compter_score(CARTE* tab_cartes, int nb_cartes);
 void repartition_gains(TABLE *t);
 void tirage_debut_partie(PIOCHE *p,TABLE *t);

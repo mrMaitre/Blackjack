@@ -10,6 +10,7 @@ JOUEUR* saisie_joueur(int num){
     printf("\tEntrez le capital du joueur : ");
     scanf("%f",&j->capital);
     j->mise=0;
+    j->score = 0;
     j->en_jeu=1;
     j->nb_cartes=0;
     j->suivant=NULL;
@@ -19,6 +20,13 @@ JOUEUR* saisie_joueur(int num){
 
 void affiche_joueur(JOUEUR* j){
     printf("Joueur n%d :\n\tnom : %s\n\tcapital : %f\n",j->num,j->nom,j->capital);
+}
+
+void affiche_carte_joueur(JOUEUR* j){
+	printf("Joueur %d :\n",j->num);
+	for(int i = 0; i<j->nb_cartes; i++){
+    	printf("Carte %d : %d\n",i+1,j->tab_cartes[i].num);
+	}
 }
 
 void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j){

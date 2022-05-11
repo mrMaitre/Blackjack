@@ -134,7 +134,6 @@ void repartition_gains(TABLE *t){
 }
 	
 	
-	
 void reste_sur_table(TABLE *t){
 	JOUEUR *j;
 	int statut;
