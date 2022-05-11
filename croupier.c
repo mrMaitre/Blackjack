@@ -25,14 +25,6 @@ void tirage_carte_croupier_debut(PIOCHE *p,CROUPIER *c){
     }
 }
 
-void tirage_carte_croupier_apres_mises(PIOCHE *p,CROUPIER *c){
-    /* permet au croupier de tirer des cartes jusqu'a avoir un score superieur a 16 */
-    CARTE *carte_tiree;
-    carte_tiree = tirer_carte(p);
-    c->tab_cartes[c->nb_cartes] = *carte_tiree;
-    c->nb_cartes++;
-}
-
 
 void liberer_croupier(CROUPIER *c){
     /* libere l'espace alouee par le croupier */
