@@ -9,6 +9,7 @@ int main(int argc, char **argv){
     saisie_joueurs_dans_table(table);
     affiche_table(table);
     demande_mises(table);
+    reste_sur_table(table);
 
     return 0;
 }

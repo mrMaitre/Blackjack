@@ -25,5 +25,6 @@ int comptage_score_croupier(CROUPIER *c);
 int comptage_score_joueurs(JOUEUR *j);
 int compter_score(CARTE* tab_cartes, int nb_cartes);
 void repartition_gains(TABLE *t);
+void reste_sur_table(TABLE *t);
 
 #endif //TABLE_H_INCLUDED

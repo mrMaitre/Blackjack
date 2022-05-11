@@ -112,7 +112,21 @@ void repartition_gains(TABLE *t){
 	
 	
 	
-	
+void reste_sur_table(TABLE *t){
+	JOUEUR *j;
+	int statut;
+    printf("\n---------- Qui reste dans la partie ? ----------\n");
+    if (table_est_vide(t)==1) printf("La table est vide");
+    else{
+        j=t->tete;
+        while(j!=NULL){
+            printf("Joueur %d (pour rester tapper 1, pour quitter tapper 0) : ",j->num);
+            scanf("%d",&statut);
+            j->en_jeu = statut;
+            j=j->suivant;
+        }
+    }
+}	
 	
 	
 	
