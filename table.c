@@ -118,6 +118,16 @@ int compter_score(CARTE* tab_cartes, int nb_cartes){
 
 
 void repartition_gains(TABLE *t){
+    int i;
+    JOUEUR *j;
+    j=t->tete;
+    for(i=0;i<t->nb_joueurs;i++){
+        if(j->score > 21);
+        else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)) j->capital+=j->mise;
+        else if(joueur_a_blackjack(j)) j->capital+=(j->mise*2.5);
+        else if(j->score > t->croupier->score || t->croupier->score >21) j->capital+=(j->mise*2);
+        j=j->suivant;
+    }
     
 }
 	
