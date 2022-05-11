@@ -8,7 +8,7 @@ TABLE* init_table(){
     return table;
 }
 
-void saisie_joueurs_dans_table(TABLE* table){
+void saisie_joueurs_croupier_dans_table(TABLE* table){
     int nb,i;
     /* initialisation du nombre de joueurs dans la table */
     do {
@@ -27,6 +27,9 @@ void saisie_joueurs_dans_table(TABLE* table){
         j->suivant=j_suiv;
         j=j_suiv;
     }
+    CROUPIER *c;
+    c = init_croupier();
+    table->croupier = c;
 }
 
 int table_est_pleine(TABLE* t){
@@ -72,6 +75,14 @@ void demande_mises(TABLE* t){
     }
 }
 
+void tirage_debut_partie(PIOCHE *p,TABLE *t){
+    j=t->tete;
+        while(j!=NULL){
+            tirage_carte_joueur_debut()
+            j=j->suivant;
+
+}
+
 int comptage_score_croupier(CROUPIER *c){
     /*permet de compter le score du croupier */
     int res;
@@ -107,6 +118,16 @@ int compter_score(CARTE* tab_cartes, int nb_cartes){
 
 
 void repartition_gains(TABLE *t){
+    int i;
+    JOUEUR *j;
+    j=t->tete;
+    for(i=0;i<t->nb_joueurs;i++){
+        if(j->score > 21);
+        else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)) j->capital+=j->mise;
+        else if(joueur_a_blackjack(j)) j->capital+=(j->mise*2.5);
+        else if(j->score > t->croupier->score || t->croupier->score >21) j->capital+=(j->mise*2);
+        j=j->suivant;
+    }
     
 }
 	
