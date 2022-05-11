@@ -29,5 +29,7 @@ void repartition_gains(TABLE *t);
 void tirage_debut_partie(TABLE *t);
 void reste_sur_table(TABLE *t);
 void assigner_pioche(TABLE *t, PIOCHE *p);
+void tirage_carte_croupier_apres_mises(TABLE *t);
+void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j);
 
 #endif //TABLE_H_INCLUDED
