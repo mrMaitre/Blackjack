@@ -1,3 +1,5 @@
+#ifndef PIOCHE_H_INCLUDED
+#define PIOCHE_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,3 +20,5 @@ typedef struct pioche{
 
 PIOCHE* init_pioche();
 CARTE* tirer_carte(PIOCHE *p);
+
+#endif // PIOCHE_H_INCLUDED

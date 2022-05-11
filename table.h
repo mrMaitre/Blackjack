@@ -1,3 +1,5 @@
+#ifndef TABLE_H_INCLUDED
+#define TABLE_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
 #include "joueur.h"
@@ -8,6 +10,7 @@
 typedef struct table{
     int nb_joueurs;
     JOUEUR * tete;
+    CROUPIER * croupier;
 } TABLE;
 
 
@@ -22,3 +25,5 @@ int comptage_score_croupier(CROUPIER *c);
 int comptage_score_joueurs(JOUEUR *j);
 void repartition_gains(TABLE *t);
 void compter_score(CARTE* tab_cartes, int nb_cartes);
+
+#endif //TABLE_H_INCLUDED

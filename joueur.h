@@ -1,3 +1,5 @@
+#ifndef JOUEUR_H_INCLUDED
+#define JOUEUR_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
 #include <pioche.h>
@@ -21,3 +23,5 @@ void affiche_joueur(JOUEUR* j);
 void tirer_carte_joueur_debut(JOUEUR *j);
 void tirage_carte_croupier_mises(PIOCHE *p,JOUEUR *j);
 void liberer_joueur(JOUEUR *j);
+
+#endif // JOUEUR_H_INCLUDED
