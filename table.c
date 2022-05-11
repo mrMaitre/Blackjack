@@ -77,15 +77,32 @@ int comptage_score_croupier(CROUPIER *c){
     return res;
 }
 
-int comptage_score_croupier(CROUPIER *c){
+int comptage_score_joueur(JOUEUR* j){
     /*permet de compter le score d'un joueur */
     int res;
-    res = compter_score(c->tab_cartes,c->nb_cartes);
+    res = compter_score(j->tab_cartes,j->nb_cartes);
     return res;
 }
 
-void compter_score(CARTES* tab, int nb_cartes){
-	
+int compter_score(CARTE* tab_cartes, int nb_cartes){
+	int carte;
+	int score = 0;
+	int nb_as = 0;
+	for(int i=0; i<nb_cartes; i++){
+		carte = tab_cartes[i];
+		if(carte.num>1 && carte.num<=10){
+			score += carte.num;
+		}
+		if(carte.num>10 && carte.num<=13){
+			score += 10;
+		}
+		else nb_as++;
+	}
+	for(int j=0; j<nb_as; j++){
+		if(score<11) score+=11;
+		else score+=1;
+	}
+	return score;
 }
 	
 	

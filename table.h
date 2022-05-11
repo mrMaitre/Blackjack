@@ -20,4 +20,4 @@ void affiche_table(TABLE* p);
 void demande_mises(TABLE* p);
 int comptage_score_croupier(CROUPIER *c);
 int comptage_score_joueurs(JOUEUR *j);
-void compter_score(CARTES* tab, int nb_cartes);
+void compter_score(CARTE* tab_cartes, int nb_cartes);
