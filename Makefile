@@ -8,11 +8,20 @@ EXE = code
 $(EXE) : $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -o $(EXE)
 	
-main.o : joueur.h table.h pioche.h main.c
+main.o : table.h main.c
 	$(CC) $(FLAGS) -c main.c -o main.o
 	
-ensemble.o : joueur.h joueur.c table.h table.c
-	$(CC) $(FLAGS) -c joueur.c table.c -o joueur.o
+table.o : joueur.h croupier.h table.h table.c
+	$(CC) $(FLAGS) -c table.c -o table.o
+	
+joueur.o : pioche.h joueur.h joueur.c
+	$(CC) $(FLAGS) -c joueur.c -o joueur.o
+	
+croupier.o : pioche.h croupier.h croupier.c
+	$(CC) $(FLAGS) -c croupier.c -o croupier.o
+	
+pioche.o : pioche.h pioche.c
+	$(CC) $(FLAGS) -c pioche.c -o pioche.o
 	
 clean :
 	rm *.o $(EXE)

@@ -2,7 +2,7 @@
 #define JOUEUR_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
-#include <pioche.h>
+#include "pioche.h"
 
 
 typedef struct joueur{
