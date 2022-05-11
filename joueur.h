@@ -17,3 +17,5 @@ typedef struct joueur{
 
 JOUEUR* saisie_joueur(int num);
 void affiche_joueur(JOUEUR* j);
+void tirer_carte_joueur_debut(JOUEUR *j);
+void tirage_carte_croupier_mises(PIOCHE *p,JOUEUR *j);

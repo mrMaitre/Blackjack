@@ -22,7 +22,7 @@ void affiche_joueur(JOUEUR* j){
 }
 
 void tirer_carte_joueur_debut(JOUEUR *j){
-    /*permet au croupier de tirer ses 2 premieres cartes */
+    /*permet au joueur de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
     for(i=0;i++;i<2){
@@ -30,4 +30,16 @@ void tirer_carte_joueur_debut(JOUEUR *j){
         j->tab_cartes[i] = *carte_tiree;
         j->nb_cartes++;
     }
+}
+
+void tirage_carte_croupier_mises(PIOCHE *p,JOUEUR *j){
+    /* permet au joueur de tirer des cartes pendant les mises */
+    CARTE *carte_tiree;
+    carte_tiree = tirer_carte(PIOCHE *p);
+    j->tab_cartes[i] = *carte_tiree;
+    j->nb_cartes++;
+}
+
+void liberer_joueur(JOUEUR *j){
+    free(j);
 }
