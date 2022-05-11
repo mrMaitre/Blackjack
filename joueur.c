@@ -36,7 +36,7 @@ void tirage_carte_croupier_mises(PIOCHE *p,JOUEUR *j){
     /* permet au joueur de tirer des cartes pendant les mises */
     CARTE *carte_tiree;
     carte_tiree = tirer_carte(p);
-    j->tab_cartes[i] = *carte_tiree;
+    j->tab_cartes[j->nb_cartes] = *carte_tiree;
     j->nb_cartes++;
 }
 
