@@ -8,7 +8,7 @@ EXE = code
 $(EXE) : $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -o $(EXE)
 	
-main.o : joueur.h table.h main.c
+main.o : joueur.h table.h pioche.h main.c
 	$(CC) $(FLAGS) -c main.c -o main.o
 	
 ensemble.o : joueur.h joueur.c table.h table.c
