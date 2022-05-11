@@ -5,6 +5,7 @@ TABLE* init_table(){
     table = (TABLE *) malloc(sizeof(TABLE));
     table->nb_joueurs=0;
     table->tete=NULL;
+    table->pioche=NULL;
     return table;
 }
 
@@ -75,14 +76,14 @@ void demande_mises(TABLE* t){
     }
 }
 
-void tirage_debut_partie(PIOCHE *p,TABLE *t){
+void tirage_debut_partie(TABLE *t){
     JOUEUR *j;
     j=t->tete;
     while(j!=NULL){
-        tirage_carte_joueur_debut(p,j);
+        tirage_carte_joueur_debut(t->pioche,j);
         j=j->suivant;
     }
-    tirage_carte_croupier_debut(p,t->croupier);
+    tirage_carte_croupier_debut(t->pioche,t->croupier);
 }
 
 int comptage_score_croupier(CROUPIER *c){
@@ -151,6 +152,9 @@ void reste_sur_table(TABLE *t){
     }
 }	
 	
+void assigner_pioche(TABLE *t, PIOCHE *p){
+    t->pioche=p;
+}
 	
 	
 	

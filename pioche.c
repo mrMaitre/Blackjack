@@ -53,3 +53,7 @@ void afficher_pioche(PIOCHE *p){
     }
     printf("couleur : %d et num : %d\n",c->couleur,c->num);
 }
+
+void liberer_pioche(PIOCHE *p){
+    free(p);
+}
