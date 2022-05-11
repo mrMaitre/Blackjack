@@ -11,7 +11,7 @@ void tirage_carte_croupier_debut(PIOCHE *p,CROUPIER *c){
     /*permet au croupier de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
-    for(i=0;i++;i<2){
+    for(i=0;i<2;i++){
         carte_tiree = tirer_carte(p);
         c->tab_cartes[i] = *carte_tiree;
         c->nb_cartes++;
