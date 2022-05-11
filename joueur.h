@@ -1,17 +1,15 @@
-#ifndef joueur_h
-#define joueur_h
-
 #include <stdio.h>
-
-#endif /* joueur_h */
-
+#include <stdlib.h>
 
 typedef struct joueur{
     int num;
-    char[25] name;
-    int play;
+    char nom[25];
+    int en_jeu;
     int capital;
+    int mise;
+    struct joueur * suivant;
 } JOUEUR;
 
 
-JOUEUR* cree_joueur();
+JOUEUR* saisie_joueur(int num);
+void affiche_joueur(JOUEUR* j);
