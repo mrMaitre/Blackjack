@@ -62,7 +62,8 @@ void demande_mises(TABLE* t){
         while(j!=NULL){
         	do {
 		        printf("Mise du joueur %d :",j->num);
-		        scanf("%f",mise);
+		        scanf("%f",&mise);
+		    }
 		    while((mise<2) || (mise>j->capital));
 		    j->mise = mise;
             j=j->suivant;
@@ -85,15 +86,13 @@ int comptage_score_joueur(JOUEUR* j){
 }
 
 int compter_score(CARTE* tab_cartes, int nb_cartes){
-	int carte;
 	int score = 0;
 	int nb_as = 0;
 	for(int i=0; i<nb_cartes; i++){
-		carte = tab_cartes[i];
-		if(carte.num>1 && carte.num<=10){
-			score += carte.num;
+		if(tab_cartes[i].num>1 && tab_cartes[i].num<=10){
+			score += tab_cartes[i].num;
 		}
-		if(carte.num>10 && carte.num<=13){
+		if(tab_cartes[i].num>10 && tab_cartes[i].num<=13){
 			score += 10;
 		}
 		else nb_as++;
