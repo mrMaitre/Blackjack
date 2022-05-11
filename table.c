@@ -52,3 +52,17 @@ void affiche_table(TABLE* t){
     }
 }
 
+void demande_mises(TABLE* t){
+	JOUEUR *j;
+	printf("\n---------- Demande des mises ----------\n");
+	if (table_est_vide(t)==1) printf("La table est vide");
+    else{
+        j=t->tete;
+        while(j!=NULL){
+            printf("Mise du joueur %d :",j->num);
+            scanf("%f",&j->mise);
+            j=j->suivant;
+        }
+    }
+}
+

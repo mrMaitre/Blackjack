@@ -8,6 +8,7 @@ int main(int argc, char **argv){
     table=init_table();
     saisie_joueurs_dans_table(table);
     affiche_table(table);
+    demande_mises(table);
 
     return 0;
 }

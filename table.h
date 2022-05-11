@@ -9,8 +9,11 @@ typedef struct table{
     JOUEUR * tete;
 } TABLE;
 
+
+
 TABLE* init_table();
 int table_est_pleine(TABLE* p);
 int table_est_vide(TABLE* p);
 void saisie_joueurs_dans_table(TABLE* table);
 void affiche_table(TABLE* p);
+void demande_mises(TABLE* p);

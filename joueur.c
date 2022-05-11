@@ -8,7 +8,7 @@ JOUEUR* saisie_joueur(int num){
     printf("\tEntrez le nom du joueur : ");
     scanf("%s",j->nom);
     printf("\tEntrez le capital du joueur : ");
-    scanf("%d",&j->capital);
+    scanf("%f",&j->capital);
     j->mise=0;
     j->en_jeu=1;
     j->suivant=NULL;
@@ -17,5 +17,5 @@ JOUEUR* saisie_joueur(int num){
 
 
 void affiche_joueur(JOUEUR* j){
-    printf("Joueur n%d :\n\tnom : %s\n\tcapital : %d\n",j->num,j->nom,j->capital);
+    printf("Joueur n%d :\n\tnom : %s\n\tcapital : %f\n",j->num,j->nom,j->capital);
 }
