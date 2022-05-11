@@ -21,7 +21,7 @@ void affiche_joueur(JOUEUR* j){
     printf("Joueur n%d :\n\tnom : %s\n\tcapital : %f\n",j->num,j->nom,j->capital);
 }
 
-void tirer_carte_joueur_debut(JOUEUR *j){
+void tirer_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
     /*permet au joueur de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
