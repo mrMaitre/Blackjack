@@ -31,3 +31,8 @@ void liberer_croupier(CROUPIER *c){
     /* libere l'espace alouee par le croupier */
     free(c);
 }
+
+int croupier_a_blackjack(CROUPIER *c){
+    if(c->score == 21 && c->nb_cartes == 2) return 1;
+    return 0;
+}
