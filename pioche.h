@@ -15,3 +15,6 @@ typedef struct pioche{
     int nb_cartes;
     CARTE * tete;
 }PIOCHE;
+
+PIOCHE* init_pioche();
+CARTE* tirer_carte(PIOCHE *p);
