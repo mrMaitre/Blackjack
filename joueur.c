@@ -25,7 +25,7 @@ void tirer_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
     /*permet au joueur de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
-    for(i=0;i++;i<2){
+    for(i=0;i<2;i++){
         carte_tiree = tirer_carte(p);
         j->tab_cartes[i] = *carte_tiree;
         j->nb_cartes++;
