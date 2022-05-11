@@ -14,7 +14,7 @@ JOUEUR* saisie_joueur(int num){
     j->en_jeu=1;
     j->nb_cartes=0;
     j->suivant=NULL;
-    return j; 
+    return j;
 }
 
 
@@ -40,13 +40,7 @@ void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
     }
 }
 
-void tirage_carte_joueur_mises(PIOCHE *p,JOUEUR *j){
-    /* permet au joueur de tirer des cartes pendant les mises */
-    CARTE *carte_tiree;
-    carte_tiree = tirer_carte(p);
-    j->tab_cartes[j->nb_cartes] = *carte_tiree;
-    j->nb_cartes++;
-}
+
 
 void liberer_joueur(JOUEUR *j){
     free(j);
