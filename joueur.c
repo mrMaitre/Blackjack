@@ -21,12 +21,12 @@ void affiche_joueur(JOUEUR* j){
     printf("Joueur n%d :\n\tnom : %s\n\tcapital : %f\n",j->num,j->nom,j->capital);
 }
 
-void tirer_carte_joueur_debut(JOUEUR *j){
+void tirer_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
     /*permet au joueur de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
     for(i=0;i++;i<2){
-        carte_tiree = tirer_carte(PIOCHE *p);
+        carte_tiree = tirer_carte(p);
         j->tab_cartes[i] = *carte_tiree;
         j->nb_cartes++;
     }
@@ -35,8 +35,8 @@ void tirer_carte_joueur_debut(JOUEUR *j){
 void tirage_carte_croupier_mises(PIOCHE *p,JOUEUR *j){
     /* permet au joueur de tirer des cartes pendant les mises */
     CARTE *carte_tiree;
-    carte_tiree = tirer_carte(PIOCHE *p);
-    j->tab_cartes[i] = *carte_tiree;
+    carte_tiree = tirer_carte(p);
+    j->tab_cartes[j->nb_cartes] = *carte_tiree;
     j->nb_cartes++;
 }
 
