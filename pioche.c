@@ -43,3 +43,13 @@ CARTE* tirer_carte(PIOCHE *p){
     p->nb_cartes--;
     return c;
 }
+
+void afficher_pioche(PIOCHE *p){
+    printf("___ affichge pioche ___\n");
+    CARTE *c = p->tete;
+    while(c->suivant != NULL){
+        printf("couleur : %d et num : %d\n",c->couleur,c->num);
+        c = c->suivant;
+    }
+    printf("couleur : %d et num : %d\n",c->couleur,c->num);
+}
