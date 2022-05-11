@@ -20,5 +20,6 @@ typedef struct pioche{
 
 PIOCHE* init_pioche();
 CARTE* tirer_carte(PIOCHE *p);
+void afficher_pioche(PIOCHE *p);
 
 #endif // PIOCHE_H_INCLUDED
