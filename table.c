@@ -8,7 +8,7 @@ TABLE* init_table(){
     return table;
 }
 
-void saisie_joueurs_dans_table(TABLE* table){
+void saisie_joueurs_croupier_dans_table(TABLE* table){
     int nb,i;
     /* initialisation du nombre de joueurs dans la table */
     do {
@@ -27,6 +27,9 @@ void saisie_joueurs_dans_table(TABLE* table){
         j->suivant=j_suiv;
         j=j_suiv;
     }
+    CROUPIER *c;
+    c = init_croupier();
+    table->croupier = c;
 }
 
 int table_est_pleine(TABLE* t){
@@ -70,6 +73,14 @@ void demande_mises(TABLE* t){
             j=j->suivant;
         }
     }
+}
+
+void tirage_debut_partie(PIOCHE *p,TABLE *t){
+    j=t->tete;
+        while(j!=NULL){
+            tirage_carte_joueur_debut()
+            j=j->suivant;
+
 }
 
 int comptage_score_croupier(CROUPIER *c){
