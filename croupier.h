@@ -5,6 +5,7 @@
 typedef struct croupier{
     CARTE tab_cartes[10]; /*cartes tirees par le croupier */
     int nb_cartes; /* nombre de cartes tirees */
+    int score;
 } CROUPIER;
 
 CROUPIER *init_croupier();

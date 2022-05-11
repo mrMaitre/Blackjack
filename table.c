@@ -87,6 +87,11 @@ int comptage_score_croupier(CROUPIER *c){
 void compter_score(CARTES* tab, int nb_cartes){
 	
 }
+
+
+void repartition_gains(TABLE *t){
+    
+}
 	
 	
 	

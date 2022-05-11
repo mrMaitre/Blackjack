@@ -9,6 +9,7 @@ typedef struct joueur{
     int en_jeu;
     float capital;
     float mise;
+    int score;
     CARTE tab_cartes[10];
     int nb_cartes;
     struct joueur * suivant;
