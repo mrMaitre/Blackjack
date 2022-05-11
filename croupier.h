@@ -12,6 +12,7 @@ CROUPIER *init_croupier();
 void tirage_carte_croupier_debut(PIOCHE *p,CROUPIER *c);
 void tirage_carte_croupier_apres_mises(PIOCHE *p,CROUPIER *c);
 void liberer_croupier(CROUPIER *c);
+int croupier_a_blackjack(CROUPIER *c);
 
 
 #endif // CROUPIER_H_INCLUDED
