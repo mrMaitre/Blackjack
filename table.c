@@ -76,11 +76,13 @@ void demande_mises(TABLE* t){
 }
 
 void tirage_debut_partie(PIOCHE *p,TABLE *t){
+    JOUEUR *j;
     j=t->tete;
-        while(j!=NULL){
-            tirage_carte_joueur_debut()
-            j=j->suivant;
-
+    while(j!=NULL){
+        tirage_carte_joueur_debut()
+        j=j->suivant;
+    }
+    tirage_carte_croupier_debut(p,t->croupier);
 }
 
 int comptage_score_croupier(CROUPIER *c){
