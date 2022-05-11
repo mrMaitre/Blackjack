@@ -21,12 +21,9 @@ void tirage_carte_croupier_debut(PIOCHE *p,CROUPIER *c){
 void tirage_carte_croupier_apres_mises(PIOCHE *p,CROUPIER *c){
     /* permet au croupier de tirer des cartes jusqu'a avoir un score superieur a 16 */
     CARTE *carte_tiree;
-    int i;
-    while(comptage_score_croupier(c)<17){
-        carte_tiree = tirer_carte(PIOCHE *p);
-        c->tab_cartes[i] = *carte_tiree;
-        c->nb_cartes++;
-    }
+    carte_tiree = tirer_carte(PIOCHE *p);
+    c->tab_cartes[i] = *carte_tiree;
+    c->nb_cartes++;
 }
 
 

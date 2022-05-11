@@ -20,3 +20,14 @@ JOUEUR* saisie_joueur(int num){
 void affiche_joueur(JOUEUR* j){
     printf("Joueur n%d :\n\tnom : %s\n\tcapital : %f\n",j->num,j->nom,j->capital);
 }
+
+void tirer_carte_joueur_debut(JOUEUR *j){
+    /*permet au croupier de tirer ses 2 premieres cartes */
+    CARTE *carte_tiree;
+    int i;
+    for(i=0;i++;i<2){
+        carte_tiree = tirer_carte(PIOCHE *p);
+        j->tab_cartes[i] = *carte_tiree;
+        j->nb_cartes++;
+    }
+}
