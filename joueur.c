@@ -26,7 +26,7 @@ void tirer_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
     CARTE *carte_tiree;
     int i;
     for(i=0;i++;i<2){
-        carte_tiree = tirer_carte(PIOCHE *p);
+        carte_tiree = tirer_carte(p);
         j->tab_cartes[i] = *carte_tiree;
         j->nb_cartes++;
     }
@@ -35,7 +35,7 @@ void tirer_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
 void tirage_carte_croupier_mises(PIOCHE *p,JOUEUR *j){
     /* permet au joueur de tirer des cartes pendant les mises */
     CARTE *carte_tiree;
-    carte_tiree = tirer_carte(PIOCHE *p);
+    carte_tiree = tirer_carte(p);
     j->tab_cartes[i] = *carte_tiree;
     j->nb_cartes++;
 }
