@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "joueur.h"
+#include "croupier.h"
 
 #define MAX_JOUEURS 5
 
@@ -17,3 +18,6 @@ int table_est_vide(TABLE* p);
 void saisie_joueurs_dans_table(TABLE* table);
 void affiche_table(TABLE* p);
 void demande_mises(TABLE* p);
+int comptage_score_croupier(CROUPIER *c);
+int comptage_score_joueurs(JOUEUR *j);
+void compter_score(CARTES* tab, int nb_cartes);

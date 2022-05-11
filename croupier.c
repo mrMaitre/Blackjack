@@ -29,12 +29,6 @@ void tirage_carte_croupier_apres_mises(PIOCHE *p,CROUPIER *c){
     }
 }
 
-int comptage_score_croupier(CROUPIER *c){
-    /*permet de compter le score du croupier */
-    int res;
-    res = compter_score(c->tab_cartes,c->nb_cartes);
-    return res;
-}
 
 void liberer_croupier(CROUPIER *c){
     /* libere l'espace alouee par le croupier */

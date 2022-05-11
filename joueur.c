@@ -11,6 +11,7 @@ JOUEUR* saisie_joueur(int num){
     scanf("%f",&j->capital);
     j->mise=0;
     j->en_jeu=1;
+    j->nb_cartes=0;
     j->suivant=NULL;
     return j; 
 }

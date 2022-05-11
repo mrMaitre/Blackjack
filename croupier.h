@@ -10,7 +10,6 @@ typedef struct croupier{
 CROUPIER *init_croupier();
 void tirage_carte_croupier_debut(PIOCHE *p,CROUPIER *c);
 void tirage_carte_croupier_apres_mises(PIOCHE *p,CROUPIER *c);
-int comptage_score_croupier(CROUPIER *c);
 void liberer_croupier(CROUPIER *c);
 
 

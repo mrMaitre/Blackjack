@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pioche.h>
+
 
 typedef struct joueur{
     int num;
@@ -7,6 +9,8 @@ typedef struct joueur{
     int en_jeu;
     float capital;
     float mise;
+    CARTE tab_cartes[10];
+    int nb_cartes;
     struct joueur * suivant;
 } JOUEUR;
 

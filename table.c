@@ -54,15 +54,52 @@ void affiche_table(TABLE* t){
 
 void demande_mises(TABLE* t){
 	JOUEUR *j;
+	float mise;
 	printf("\n---------- Demande des mises ----------\n");
 	if (table_est_vide(t)==1) printf("La table est vide");
     else{
         j=t->tete;
         while(j!=NULL){
-            printf("Mise du joueur %d :",j->num);
-            scanf("%f",&j->mise);
+        	do {
+		        printf("Mise du joueur %d :",j->num);
+		        scanf("%f",mise);
+		    while((mise<2) || (mise>j->capital));
+		    j->mise = mise;
             j=j->suivant;
         }
     }
 }
+
+int comptage_score_croupier(CROUPIER *c){
+    /*permet de compter le score du croupier */
+    int res;
+    res = compter_score(c->tab_cartes,c->nb_cartes);
+    return res;
+}
+
+int comptage_score_croupier(CROUPIER *c){
+    /*permet de compter le score d'un joueur */
+    int res;
+    res = compter_score(c->tab_cartes,c->nb_cartes);
+    return res;
+}
+
+void compter_score(CARTES* tab, int nb_cartes){
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 
