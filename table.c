@@ -61,11 +61,12 @@ void demande_mises(TABLE* t){
         j=t->tete;
         while(j!=NULL){
         	do {
-		        printf("Mise du joueur %d :",j->num);
+		        printf("Mise du joueur %d (mise mini = 2) :",j->num);
 		        scanf("%f",&mise);
 		    }
 		    while((mise<2) || (mise>j->capital));
 		    j->mise = mise;
+		    j->capital -= mise;
             j=j->suivant;
         }
     }

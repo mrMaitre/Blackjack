@@ -2,7 +2,7 @@
 
 CC = gcc
 FLAGS = -std=c11 -Wall
-OBJS = main.o joueur.o table.o
+OBJS = main.o table.o joueur.o croupier.o pioche.o
 EXE = code
 
 $(EXE) : $(OBJS)
