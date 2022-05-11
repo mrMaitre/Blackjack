@@ -10,7 +10,7 @@ int main(int argc, char **argv){
     affiche_table(table);
     demande_mises(table);
     reste_sur_table(table);
-
+	
     return 0;
 }
 
