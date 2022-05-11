@@ -43,3 +43,8 @@ void tirage_carte_joueur_mises(PIOCHE *p,JOUEUR *j){
 void liberer_joueur(JOUEUR *j){
     free(j);
 }
+
+int joueur_a_blackjack(JOUEUR *j){
+    if(j->score == 21 && j->nb_cartes == 2) return 1;
+    return 0;
+}
