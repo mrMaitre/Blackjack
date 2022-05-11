@@ -79,7 +79,7 @@ void tirage_debut_partie(PIOCHE *p,TABLE *t){
     JOUEUR *j;
     j=t->tete;
     while(j!=NULL){
-        tirage_carte_joueur_debut()
+        tirage_carte_joueur_debut(p,j)
         j=j->suivant;
     }
     tirage_carte_croupier_debut(p,t->croupier);
