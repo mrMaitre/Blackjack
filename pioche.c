@@ -34,7 +34,7 @@ CARTE* tirer_carte(PIOCHE *p){
     int alea,i;
     CARTE *c,*c_prec;;
     c=p->tete;
-    alea = rand() % (p->nb_cartes+1);
+    alea = rand()% (p->nb_cartes);
     for(i=0;i<=alea;i++){
         c_prec=c;
         c=c->suivant;
