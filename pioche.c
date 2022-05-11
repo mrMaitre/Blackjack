@@ -14,7 +14,7 @@ PIOCHE* init_pioche(){
     for(k=0;k<NB_JEUX_CARTES;k++){
         for(i=0;i<4;i++){
             for(j=1;j<14;j++){
-                if(p->nb_cartes==1);
+                if((k==0)&&(i==0)&&(j==1));
                 else{
                     c_prec=c;
                     c=(CARTE*) malloc(sizeof(CARTE));
