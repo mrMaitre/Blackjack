@@ -33,13 +33,16 @@ int main(int argc, char **argv){
 			if(j->en_jeu){
 				printf("\n---------- Tour du joueur %d ----------\n",j->num);
 				j->score = comptage_score_joueur(j);
-				while(tirage!=0 && j->score<21){
+				while(tirage!=0 && tirage!=2 && j->score<21){
 					affiche_carte_joueur(j);
 					printf("score : %d\n",j->score);
-					printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui) ");
+					if(j->nb_cartes==2) printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui, 2 : Doubler) ");
+					else printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui) ");
 					scanf("%d",&tirage);
 					if(tirage == 1){
 						tirage_carte_joueur_mises(table,j);
+					}else if(tirage==2 && j->nb_cartes==2){ 
+						joueur_double(j,table);
 					}
 					j->score = comptage_score_joueur(j);
 				}

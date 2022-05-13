@@ -50,3 +50,4 @@ int joueur_a_blackjack(JOUEUR *j){
     if(j->score == 21 && j->nb_cartes == 2) return 1;
     return 0;
 }
+

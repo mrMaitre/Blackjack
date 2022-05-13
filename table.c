@@ -206,7 +206,14 @@ void sortie_joueur_table(JOUEUR *j,TABLE *t){
     }
     j_ancien->suivant=j_cour->suivant;
     t->nb_joueurs--;
-    free(j);
+    liberer_joueur(j);
+}
+
+void joueur_double(JOUEUR *j, TABLE *t){
+    j->capital-=j->mise;
+    j->mise*=2;
+    j->tab_cartes[j->nb_cartes]=*tirer_carte(t->pioche);
+    j->nb_cartes++;
 }
 
 
