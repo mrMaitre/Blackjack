@@ -50,7 +50,7 @@ void affiche_table(TABLE* t){
     else{
         j=t->tete;
         while(j!=NULL){
-            affiche_joueur(j);
+            if(j->en_jeu) affiche_joueur(j);
             j=j->suivant;
         }
     }
@@ -64,14 +64,16 @@ void demande_mises(TABLE* t){
     else{
         j=t->tete;
         while(j!=NULL){
-        	do {
+            if(j->en_jeu){
+                do {
 		        printf("Mise du joueur %d (mise minimum = 2) : ",j->num);
 		        scanf("%f",&mise);
-		    }
-		    while((mise<2) || (mise>j->capital));
-		    j->mise = mise;
-		    j->capital -= mise;
+                } while((mise<2) || (mise>j->capital));
+                j->mise = mise;
+                j->capital -= mise;
+            }
             j=j->suivant;
+        	
         }
     }
 }
@@ -80,7 +82,7 @@ void tirage_debut_partie(TABLE *t){
     JOUEUR *j;
     j=t->tete;
     while(j!=NULL){
-        tirage_carte_joueur_debut(t->pioche,j);
+        if(j->en_jeu) tirage_carte_joueur_debut(t->pioche,j);
         j=j->suivant;
     }
     tirage_carte_croupier_debut(t->pioche,t->croupier);
@@ -123,24 +125,25 @@ int compter_score(CARTE* tab_cartes, int nb_cartes){
 
 
 void repartition_gains(TABLE *t){
-    int i;
     JOUEUR *j;
     j=t->tete;
-    for(i=0;i<t->nb_joueurs;i++){
-        if(j->score > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
-        else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)){
-            j->capital+=j->mise;
-            printf("%s : egalite, vous recuperez la mise!\n",j->nom);
+    while(j!=NULL){
+        if(j->en_jeu){
+            if(j->score > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
+            else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)){
+                j->capital+=j->mise;
+                printf("%s : egalite, vous recuperez la mise!\n",j->nom);
+            }
+            else if(joueur_a_blackjack(j)){
+                printf("%s : Bravo vous gangnez 2.5x votre mise (Blackjack)!\n",j->nom);
+                j->capital+=(j->mise*2.5);
+            }
+            else if(j->score > t->croupier->score || t->croupier->score >21){
+                j->capital+=(j->mise*2);
+                printf("%s : Bravo vous doublez votre mise (score plus eleve que celui du croupier/croupier out)!\n",j->nom);
+            }
+            else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
         }
-        else if(joueur_a_blackjack(j)){
-            printf("%s : Bravo vous gangnez 2.5x votre mise (Blackjack)!\n",j->nom);
-            j->capital+=(j->mise*2.5);
-        }
-        else if(j->score > t->croupier->score || t->croupier->score >21){
-            j->capital+=(j->mise*2);
-            printf("%s : Bravo vous doublez votre mise (score plus eleve que celui du croupier/croupier out)!\n",j->nom);
-        }
-        else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
         j=j->suivant;
     }
 
@@ -182,6 +185,28 @@ void tirage_carte_croupier_apres_mises(TABLE *t){
     carte_tiree = tirer_carte(t->pioche);
     c->tab_cartes[c->nb_cartes] = *carte_tiree;
     c->nb_cartes++;
+}
+
+void sortie_joueur_table(JOUEUR *j,TABLE *t){
+    JOUEUR *j_cour,*j_ancien;
+    if(j==t->tete){
+        t->tete=j->suivant;
+        t->nb_joueurs--;
+        return;
+    }
+    j_cour=t->tete;
+    j_ancien=j_cour;
+    while(j_cour!=NULL && j->num!=j_cour->num){
+        j_ancien=j_cour;
+        j_cour=j_cour->suivant;
+    }
+    if (j_cour==NULL){
+        printf("Impossible de supprimer ce joueur : il n'est pas sur la table\n");
+        return;
+    }
+    j_ancien->suivant=j_cour->suivant;
+    t->nb_joueurs--;
+    free(j);
 }
 
 

@@ -25,7 +25,7 @@ void affiche_joueur(JOUEUR* j){
 void affiche_carte_joueur(JOUEUR* j){
 	printf("Joueur %d :\n",j->num);
 	for(int i = 0; i<j->nb_cartes; i++){
-    	printf("Carte %d : %d\n",i+1,j->tab_cartes[i].num);
+    	printf("\tCarte %d : %d\n",i+1,j->tab_cartes[i].num);
 	}
 }
 
