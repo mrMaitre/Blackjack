@@ -13,6 +13,10 @@ JOUEUR* saisie_joueur(int num){
     j->score = 0;
     j->en_jeu=1;
     j->nb_cartes=0;
+    j->split=0;
+    j->mise_split=0;
+    j->nb_cartes_split=0;
+    j->score_split=0;
     j->suivant=NULL;
     return j;
 }
@@ -23,10 +27,17 @@ void affiche_joueur(JOUEUR* j){
 }
 
 void affiche_carte_joueur(JOUEUR* j){
+    int i;
 	printf("Joueur %d :\n",j->num);
-	for(int i = 0; i<j->nb_cartes; i++){
+	for(i = 0; i<j->nb_cartes; i++){
     	printf("\tCarte %d : %d\n",i+1,j->tab_cartes[i].num);
 	}
+    if(j->split){
+        printf("Jeu split :\n");
+        for(i=0;i<j->nb_cartes_split;i++){
+            printf("\tCarte %d : %d\n",i+1,j->tab_cartes_split[i].num);
+        }
+    }
 }
 
 void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
@@ -49,5 +60,13 @@ void liberer_joueur(JOUEUR *j){
 int joueur_a_blackjack(JOUEUR *j){
     if(j->score == 21 && j->nb_cartes == 2) return 1;
     return 0;
+}
+
+int joueur_split(JOUEUR *j){
+    j->split=1;
+    j->mise_split=j->mise;
+    j->tab_cartes_split[0]=j->tab_cartes[1];
+    j->nb_cartes--;
+    j->nb_cartes_split++;
 }
 
