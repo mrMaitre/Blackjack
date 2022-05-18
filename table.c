@@ -21,16 +21,47 @@ void saisie_joueurs_croupier_dans_table(TABLE* table){
     /* initialisation des joueurs dans la table */
     JOUEUR* j,*j_suiv;
     printf("\n---------- Saisie des joueurs dans la table ----------\n");
-    j=saisie_joueur(1);
+    j=saisie_joueur();
     table->tete=j;
     for (i=2;i<=nb;i++){
-        j_suiv=saisie_joueur(i);
+        j_suiv=saisie_joueur();
         j->suivant=j_suiv;
         j=j_suiv;
     }
     CROUPIER *c;
     c = init_croupier();
     table->croupier = c;
+}
+
+void saisie_joueurs_en_partie(TABLE *table){
+    int nb,i,cpt;
+    /* initialisation du nombre de joueurs dans la table */
+    do {
+        printf("\nCombien y a t-il de joueurs en plus sur la table (max %d) ? ",MAX_JOUEURS);
+        scanf("%d",&nb);
+    } while (nb<0 || (nb+ table->nb_joueurs)>5);
+
+    /* initialisation des joueurs dans la table */
+    JOUEUR* j,*j_suiv;
+    printf("\n---------- Saisie des joueurs dans la table ----------\n");
+    if(table->nb_joueurs == 0){
+        j=saisie_joueur();
+        table->tete=j;
+        cpt = nb;
+    }
+    else{
+        j = table->tete;
+        while(j->suivant != NULL){
+            j = j->suivant;
+        }
+        cpt = nb+1;
+    }
+    for (i=2;i<=cpt;i++){
+        j_suiv=saisie_joueur();
+        j->suivant=j_suiv;
+        j=j_suiv;
+    }
+    table->nb_joueurs += nb;
 }
 
 int table_est_pleine(TABLE* t){
@@ -65,7 +96,7 @@ void demande_mises(TABLE* t){
         j=t->tete;
         while(j!=NULL){
             do {
-            printf("Mise du joueur %d (mise minimum = 2, 0 si passer son tour) : ",j->num);
+            printf("Mise de %s (mise minimum = 2, 0 si passer son tour) : ",j->nom);
             scanf("%f",&mise);
             } while((mise<2 && mise !=0 )|| mise>j->capital);
             if(mise==0) j->en_jeu=0;
@@ -179,9 +210,12 @@ void reste_sur_table(TABLE *t){
     else{
         j=t->tete;
         while(j!=NULL){
-            printf("Joueur %d (pour rester tapper 1, pour quitter tapper 0) : ",j->num);
+            printf("%s : (pour rester tapper 1, pour quitter tapper 0) : ",j->nom);
             scanf("%d",&statut);
-            if(statut) j->split=0;
+            if(statut){
+                j->split=0;
+                j->en_jeu = 1;
+            }
             else sortie_joueur_table(j,t);
             j=j->suivant;
         }
@@ -227,7 +261,7 @@ void sortie_joueur_table(JOUEUR *j,TABLE *t){
     }
     j_cour=t->tete;
     j_ancien=j_cour;
-    while(j_cour!=NULL && j->num!=j_cour->num){
+    while(j_cour!=NULL && j->nom!=j_cour->nom){
         j_ancien=j_cour;
         j_cour=j_cour->suivant;
     }
