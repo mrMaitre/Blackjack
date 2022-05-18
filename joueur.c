@@ -1,10 +1,9 @@
 #include "joueur.h"
 
-JOUEUR* saisie_joueur(int num){
+JOUEUR* saisie_joueur(){
 	JOUEUR * j;
     j=(JOUEUR *) malloc(sizeof(JOUEUR));
-    j->num=num;
-    printf("Saisie du joueur n%d\n",num);
+    printf("Saisie du joueur\n");
     printf("\tEntrez le nom du joueur : ");
     scanf("%s",j->nom);
     printf("\tEntrez le capital du joueur : ");
@@ -23,12 +22,12 @@ JOUEUR* saisie_joueur(int num){
 
 
 void affiche_joueur(JOUEUR* j){
-    printf("Joueur n%d :\n\tnom : %s\n\tcapital : %f\n",j->num,j->nom,j->capital);
+    printf("Joueur enregistre !:\n\tnom : %s\n\tcapital : %f\n",j->nom,j->capital);
 }
 
 void affiche_carte_joueur(JOUEUR* j){
     int i;
-	printf("Joueur %d :\n",j->num);
+	printf("%s :\n",j->nom);
 	for(i = 0; i<j->nb_cartes; i++){
     	printf("\tCarte %d : %d\n",i+1,j->tab_cartes[i].num);
 	}
@@ -65,11 +64,11 @@ int joueur_a_blackjack(JOUEUR *j){
 void joueur_split(JOUEUR *j){
     j->split=1;
     j->mise_split=j->mise;
-    j->capital-=j->mise;
+    j->capital -= j->mise;
     j->tab_cartes_split[0]=j->tab_cartes[1];
     j->nb_cartes--;
     j->nb_cartes_split++;
-    j->score-=j->tab_cartes_split[0].num;
-    j->score_split+=j->tab_cartes_split[0].num;
+    j->score = j->tab_cartes_split[0].num;
+    j->score_split = j->tab_cartes_split[0].num;
 }
 
