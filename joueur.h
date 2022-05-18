@@ -6,7 +6,6 @@
 
 
 typedef struct joueur{
-    int num;
     char nom[25];
     int en_jeu;
     float capital;
@@ -23,7 +22,7 @@ typedef struct joueur{
 } JOUEUR;
 
 
-JOUEUR* saisie_joueur(int num);
+JOUEUR* saisie_joueur();
 void affiche_joueur(JOUEUR* j);
 void affiche_carte_joueur(JOUEUR* j);
 void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j);
