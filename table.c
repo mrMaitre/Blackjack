@@ -151,7 +151,7 @@ void repartition_gains(TABLE *t){
             }
             else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
             if(j->split){
-                if(j->score > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
+                if(j->score_split > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
                 else if((j->score_split == t->croupier->score)){
                     j->capital+=j->mise_split;
                     printf("%s : egalite, vous recuperez la mise!\n",j->nom);
@@ -180,6 +180,7 @@ void reste_sur_table(TABLE *t){
             printf("Joueur %d (pour rester tapper 1, pour quitter tapper 0) : ",j->num);
             scanf("%d",&statut);
             j->en_jeu = statut;
+            j->split=0;
             j=j->suivant;
         }
     }
