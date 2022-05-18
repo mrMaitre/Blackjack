@@ -18,6 +18,7 @@ int main(int argc, char **argv){
         j=table->tete;
         while(j!=NULL){
             j->nb_cartes=0;
+            j->nb_cartes_split = 0;
             j=j->suivant;
         }
         table->croupier->nb_cartes = 0;
@@ -36,18 +37,34 @@ int main(int argc, char **argv){
 				while(tirage!=0 && tirage!=2 && j->score<21){
 					affiche_carte_joueur(j);
 					printf("score : %d\n",j->score);
-					if(j->nb_cartes==2 && j->capital >= j->mise) printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui, 2 : Doubler) ");
-					else printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui) ");
+					if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num== j->tab_cartes[1].num && j->split == 0) printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui, 2 : Doubler, 3 : Split) ");
+					else if(j->nb_cartes==2 && j->capital >= j->mise && j->split == 0) printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui, 2 : Doubler) ");
+					else printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui)");
 					scanf("%d",&tirage);
 					if(tirage == 1){
 						tirage_carte_joueur_mises(table,j);
 					}else if(tirage==2 && j->nb_cartes==2 && j->capital >= j->mise){
 						joueur_double(j,table);
 					}
+					else if(tirage == 3 && j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num== j->tab_cartes[1].num){
+                        joueur_split(j);
+					}
 					j->score = comptage_score_joueur(j);
+				}
+                tirage = 1;
+				if(j->split){
+                   while(tirage != 0 && j->score_split<21){
+                        affiche_carte_joueur(j);
+                        printf("score split : %d\n",j->score_split);
+                        printf("Voulez-vous tirer une carte ? (0 : Non, 1 : Oui)");
+                        scanf("%d",&tirage);
+                        if(tirage == 1) tirage_carte_joueur_split(table,j);
+                        j->score_split = comptage_score_split_joueur(j);
+                   }
 				}
 				affiche_carte_joueur(j);
 				printf("score final : %d\n",j->score);
+				if(j->split) printf("score final split : %d\n",j->score_split);
 				tirage = 1;
 			}
 			j=j->suivant;
