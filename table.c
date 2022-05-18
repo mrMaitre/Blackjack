@@ -64,11 +64,13 @@ void demande_mises(TABLE* t){
     else{
         j=t->tete;
         while(j!=NULL){
-            if(j->en_jeu){
-                do {
-		        printf("Mise du joueur %d (mise minimum = 2) : ",j->num);
-		        scanf("%f",&mise);
-                } while((mise<2) || (mise>j->capital));
+            do {
+            printf("Mise du joueur %d (mise minimum = 2, 0 si passer son tour) : ",j->num);
+            scanf("%f",&mise);
+            } while((mise<2 && mise !=0 )|| mise>j->capital);
+            if(mise==0) j->en_jeu=0;
+            else {
+                j->en_jeu=1;
                 j->mise = mise;
                 j->capital -= mise;
             }
@@ -179,8 +181,8 @@ void reste_sur_table(TABLE *t){
         while(j!=NULL){
             printf("Joueur %d (pour rester tapper 1, pour quitter tapper 0) : ",j->num);
             scanf("%d",&statut);
-            j->en_jeu = statut;
-            j->split=0;
+            if(statut) j->split=0;
+            else sortie_joueur_table(j,t);
             j=j->suivant;
         }
     }
