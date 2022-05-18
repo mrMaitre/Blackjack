@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
     statut = EXIT_SUCCESS;
     
-        
+    SDL_Rect rect_click = {960, 600, 71, 96};    
     SDL_Rect rect_carte = {60, 60, 71, 96};
     
     int nb_joueur = 0;
@@ -60,8 +60,10 @@ Menu:
 	}
 	
 	SDL_Delay(500);
-	
     reinitialiser_plateau(renderer);
+	SDL_Delay(20);
+    afficher_carte("cartes/3c.bmp", renderer, &rect_click, 0, 0);
+    SDL_Delay(20);
 	
 	while(1){
 		if ( SDL_PollEvent(&event) )
@@ -96,6 +98,12 @@ Menu:
 				    {
 						afficher_texte(renderer, "Roboto-Regular.ttf", 50, TextColor, "mange tes morts", 0, 0);
 				    }
+				    break;
+				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
+					if(event.button.button == SDL_BUTTON_LEFT && event.button.x<1031 && event.button.x>960 && event.button.y<696 && event.button.y>600)
+					{
+            			printf("Clic en x = %d, y = %d\n", event.button.x, event.button.y);
+					}
 				    break;
 			}
 		}
