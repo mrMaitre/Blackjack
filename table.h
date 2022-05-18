@@ -33,5 +33,6 @@ void tirage_carte_croupier_apres_mises(TABLE *t);
 void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j);
 void sortie_joueur_table(JOUEUR *j,TABLE *t);
 void joueur_double(JOUEUR *j, TABLE *t);
+int comptage_score_split_joueur(JOUEUR* j);
 
 #endif //TABLE_H_INCLUDED

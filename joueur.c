@@ -68,5 +68,7 @@ int joueur_split(JOUEUR *j){
     j->tab_cartes_split[0]=j->tab_cartes[1];
     j->nb_cartes--;
     j->nb_cartes_split++;
+    j->score-=j->tab_cartes[1].num;
+    j->score_split+=j->tab_cartes[1].num;
 }
 

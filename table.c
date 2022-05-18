@@ -102,6 +102,13 @@ int comptage_score_joueur(JOUEUR* j){
     return res;
 }
 
+int comptage_score_split_joueur(JOUEUR* j){
+    /*permet de compter le score_split d'un joueur */
+    int res;
+    res = compter_score(j->tab_cartes_split,j->nb_cartes_split);
+    return res;
+}
+
 int compter_score(CARTE* tab_cartes, int nb_cartes){
 	int score = 0;
 	int nb_as = 0;
@@ -143,6 +150,18 @@ void repartition_gains(TABLE *t){
                 printf("%s : Bravo vous doublez votre mise (score plus eleve que celui du croupier/croupier out)!\n",j->nom);
             }
             else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
+            if(j->split){
+                if(j->score > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
+                else if((j->score_split == t->croupier->score)){
+                    j->capital+=j->mise_split;
+                    printf("%s : egalite, vous recuperez la mise!\n",j->nom);
+                }
+                else if(j->score_split > t->croupier->score || t->croupier->score >21){
+                    j->capital+=(j->mise_split*2);
+                    printf("%s : Bravo vous doublez votre mise (score plus eleve que celui du croupier/croupier out)!\n",j->nom);
+                }
+                else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
+            }
         }
         j=j->suivant;
     }
