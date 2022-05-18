@@ -10,7 +10,7 @@ int main(int argc, char **argv){
     TABLE* table;
     PIOCHE* pioche;
     JOUEUR *j;
-    int tirage = 1;
+    int tirage = 1,choix;
     table = init_table();
     saisie_joueurs_croupier_dans_table(table);
     int continuer = 1;
@@ -32,7 +32,7 @@ int main(int argc, char **argv){
 		printf("Croupier :\n\tCarte 1 : %d\n",table->croupier->tab_cartes[0].num);
 		while(j!=NULL){
 			if(j->en_jeu){
-				printf("\n---------- Tour du joueur %d ----------\n",j->num);
+				printf("\n---------- Tour de %s ----------\n",j->nom);
 				j->score = comptage_score_joueur(j);
 				while(tirage!=0 && tirage!=2 && j->score<21){
 					affiche_carte_joueur(j);
@@ -83,6 +83,11 @@ int main(int argc, char **argv){
 		printf("\nVoulez-vous refaire une partie ? (Oui : 1, Non : 0) ");
 		scanf("%d",&continuer);
 		if(continuer) reste_sur_table(table);
+		if(continuer){
+            printf("voulez vous ajouter des joueurs ? (Oui : 1, Non : 0)\n");
+            scanf("%d",&choix);
+            if(choix == 1) saisie_joueurs_en_partie(table);
+		}
 		free(pioche);
 
 	}
