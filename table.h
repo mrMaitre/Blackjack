@@ -34,5 +34,6 @@ void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j);
 void sortie_joueur_table(JOUEUR *j,TABLE *t);
 void joueur_double(JOUEUR *j, TABLE *t);
 int comptage_score_split_joueur(JOUEUR* j);
+void tirage_carte_joueur_split(TABLE *t,JOUEUR *j);
 
 #endif //TABLE_H_INCLUDED
