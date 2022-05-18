@@ -14,6 +14,11 @@ typedef struct joueur{
     int score;
     CARTE tab_cartes[10];
     int nb_cartes;
+    int split;
+    float mise_split;
+    int score_split;
+    CARTE tab_cartes_split[10];
+    int nb_cartes_split;
     struct joueur * suivant;
 } JOUEUR;
 
