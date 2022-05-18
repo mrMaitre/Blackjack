@@ -29,6 +29,6 @@ void affiche_carte_joueur(JOUEUR* j);
 void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j);
 void liberer_joueur(JOUEUR *j);
 int joueur_a_blackjack(JOUEUR *j);
-int joueur_split(JOUEUR *j);
+void joueur_split(JOUEUR *j);
 
 #endif // JOUEUR_H_INCLUDED

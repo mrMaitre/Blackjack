@@ -152,7 +152,7 @@ void repartition_gains(TABLE *t){
             else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
             if(j->split){
                 if(j->score_split > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
-                else if((j->score_split == t->croupier->score)){
+                else if(j->score_split == t->croupier->score){
                     j->capital+=j->mise_split;
                     printf("%s : egalite, vous recuperez la mise!\n",j->nom);
                 }

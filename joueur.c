@@ -62,13 +62,14 @@ int joueur_a_blackjack(JOUEUR *j){
     return 0;
 }
 
-int joueur_split(JOUEUR *j){
+void joueur_split(JOUEUR *j){
     j->split=1;
     j->mise_split=j->mise;
+    j->capital-=j->mise;
     j->tab_cartes_split[0]=j->tab_cartes[1];
     j->nb_cartes--;
     j->nb_cartes_split++;
-    j->score-=j->tab_cartes[1].num;
-    j->score_split+=j->tab_cartes[1].num;
+    j->score-=j->tab_cartes_split[0].num;
+    j->score_split+=j->tab_cartes_split[0].num;
 }
 
