@@ -17,7 +17,6 @@ int main(int argc, char **argv)
     SDL_Texture *image = NULL;
     int statut = EXIT_FAILURE;
     SDL_Renderer *renderer = NULL;
-    SDL_Renderer *renderer_save = NULL;
     SDL_Event event;
     	
     if(init(&window, &renderer, 1080, 720) != 0 )
