@@ -73,7 +73,7 @@ void demande_mises(TABLE* t){
                 j->capital -= mise;
             }
             j=j->suivant;
-        	
+
         }
     }
 }
@@ -176,6 +176,15 @@ void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j){
     carte_tiree = tirer_carte(t->pioche);
     j->tab_cartes[j->nb_cartes] = *carte_tiree;
     j->nb_cartes++;
+}
+
+void tirage_carte_joueur_split(TABLE *t,JOUEUR *j){
+    /* permet au joueur de tirer des cartes pendant les mises */
+    CARTE *carte_tiree;
+    carte_tiree = tirer_carte(t->pioche);
+    /*tableau carte de split*/
+    j->tab_cartes_split[j->nb_cartes_split] = *carte_tiree;
+    j->nb_cartes_split++;
 }
 
 void tirage_carte_croupier_apres_mises(TABLE *t){
