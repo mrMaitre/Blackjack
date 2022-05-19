@@ -10,6 +10,7 @@ void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *
 void reinitialiser_plateau(SDL_Renderer *renderer);
 void afficher_menu();
 void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect);
+void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect);
 
 int main(int argc, char **argv)
 {
@@ -63,6 +64,13 @@ int main(int argc, char **argv)
     SDL_Rect mise_emp3 = {560, 660, 0, 0}; 
     SDL_Rect mise_emp4 = {816, 660, 0, 0};
     SDL_Rect mise_emp5 = {1072, 660, 0, 0}; 
+    
+    /* Rectangles avec l'emplacement de la zone a supprimer pour split */
+    SDL_Rect split_emp1 = {26, 424, 220, 170}; 
+    SDL_Rect split_emp2 = {282, 424, 220, 170};
+    SDL_Rect split_emp3 = {536, 424, 220, 170}; 
+    SDL_Rect split_emp4 = {795, 424, 220, 170};
+    SDL_Rect split_emp5 = {1050, 424, 220, 170}; 
     
 Menu:    
 	afficher_menu(renderer);
@@ -165,6 +173,16 @@ Menu:
 				    {
 						afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "mange tes morts", nomj_emp1);
 				    }
+				    if ( event.key.keysym.sym == SDLK_f) 
+				    {
+						remp_carte(renderer, &split_emp3);
+
+				    }
+				    if ( event.key.keysym.sym == SDLK_g) 
+				    {
+						remp_carte(renderer, &split_emp2);
+
+				    }
 				    break;
 			}
 		}
@@ -245,7 +263,7 @@ void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *
 /* Fonction qui revient au plateau vide */
 void reinitialiser_plateau(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
-	image = loadImage("Plateau.bmp", renderer);
+	image = loadImage("Plateau2.bmp", renderer);
 	SDL_RenderCopy(renderer, image, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
@@ -276,5 +294,13 @@ void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SD
 	
 	SDL_FreeSurface(surf);
 	TTF_CloseFont(Font);
+}
+
+void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect){
+	SDL_Texture *image = NULL;
+	image = loadImage("remp.bmp", renderer);
+    if(NULL == image) return;
+	SDL_RenderCopy(renderer, image, NULL, dstrect);
+	SDL_RenderPresent(renderer);
 }
 
