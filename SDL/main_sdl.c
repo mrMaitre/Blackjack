@@ -265,7 +265,7 @@ void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *
 /* Fonction qui revient au plateau vide */
 void reinitialiser_plateau(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
-	image = loadImage("Plateau2.bmp", renderer);
+	image = loadImage("Plateau.bmp", renderer);
 	SDL_RenderCopy(renderer, image, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
