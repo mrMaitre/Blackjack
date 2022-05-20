@@ -3,13 +3,21 @@
 CC = gcc
 FLAGS = -std=c11 -Wall
 OBJS = main.o table.o joueur.o croupier.o pioche.o
+OBJS1 = main_sdl.o table.o joueur.o croupier.o pioche.o
 EXE = code
+EXE1 = sdl
 
 $(EXE) : $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -o $(EXE)
 	
+$(EXE1) : $(OBJS1)
+	$(CC) $(FLAGS) $(OBJS1) -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -o $(EXE1)
+	
 main.o : table.h main.c
 	$(CC) $(FLAGS) -c main.c -o main.o
+	
+main_sdl.o : table.h main_sdl.c
+	$(CC) $(FLAGS) -c main_sdl.c $(sdl2-config --cflags --libs) -o main_sdl.o
 	
 table.o : joueur.h croupier.h table.h table.c
 	$(CC) $(FLAGS) -c table.c -o table.o
