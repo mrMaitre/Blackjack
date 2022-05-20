@@ -12,7 +12,7 @@ void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *
 void reinitialiser_plateau(SDL_Renderer *renderer);
 void afficher_menu();
 void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect);
-void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect);
+void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n);
 
 int main(int argc, char **argv)
 {
@@ -68,11 +68,11 @@ int main(int argc, char **argv)
     SDL_Rect mise_emp5 = {1072, 660, 0, 0}; 
     
     /* Rectangles avec l'emplacement de la zone a supprimer pour split */
-    SDL_Rect split_emp1 = {26, 424, 220, 170}; 
-    SDL_Rect split_emp2 = {282, 424, 220, 170};
-    SDL_Rect split_emp3 = {536, 424, 220, 170}; 
-    SDL_Rect split_emp4 = {795, 424, 220, 170};
-    SDL_Rect split_emp5 = {1050, 424, 220, 170}; 
+    SDL_Rect split_emp1 = {44, 410, 200, 160}; 
+    SDL_Rect split_emp2 = {292, 410, 200, 160};
+    SDL_Rect split_emp3 = {540, 410, 200, 160}; 
+    SDL_Rect split_emp4 = {788, 410, 200, 160};
+    SDL_Rect split_emp5 = {1036, 410, 200, 160}; 
     
 Menu:    
 	afficher_menu(renderer);
@@ -180,12 +180,27 @@ Menu:
 				    }
 				    if ( event.key.keysym.sym == SDLK_f) 
 				    {
-						remp_carte(renderer, &split_emp3);
+						remp_carte(renderer, &split_emp1, 1);
 
 				    }
 				    if ( event.key.keysym.sym == SDLK_g) 
 				    {
-						remp_carte(renderer, &split_emp2);
+						remp_carte(renderer, &split_emp2, 2);
+
+				    }
+				    if ( event.key.keysym.sym == SDLK_h) 
+				    {
+						remp_carte(renderer, &split_emp3, 3);
+
+				    }
+				    if ( event.key.keysym.sym == SDLK_j) 
+				    {
+						remp_carte(renderer, &split_emp4, 4);
+
+				    }
+				    if ( event.key.keysym.sym == SDLK_k) 
+				    {
+						remp_carte(renderer, &split_emp5, 5);
 
 				    }
 				    break;
@@ -301,9 +316,14 @@ void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SD
 	TTF_CloseFont(Font);
 }
 
-void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect){
+void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
-	image = loadImage("remp.bmp", renderer);
+	if(n==1) image = loadImage("remp1.bmp", renderer);
+	if(n==2) image = loadImage("remp2.bmp", renderer);
+	if(n==3) image = loadImage("remp3.bmp", renderer);
+	if(n==4) image = loadImage("remp4.bmp", renderer);
+	if(n==5) image = loadImage("remp5.bmp", renderer);
+	
     if(NULL == image) return;
 	SDL_RenderCopy(renderer, image, NULL, dstrect);
 	SDL_RenderPresent(renderer);
