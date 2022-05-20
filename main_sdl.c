@@ -23,6 +23,14 @@ int main(int argc, char **argv)
     SDL_Event event;
     
     int nb_joueur = 0;
+    
+    time_t heure;
+    srand((unsigned int) time(&heure));
+    TABLE* table;
+    PIOCHE* pioche;
+    JOUEUR *j;
+    int tirage = 1,choix;
+    table = init_table();
 
 	/* Couleur du texte ici blanc*/
 	SDL_Color TextColor;
@@ -77,7 +85,7 @@ int main(int argc, char **argv)
 Menu:    
 	afficher_menu(renderer);
     
-    while(nb_joueur == 0){	
+    while(table->nb_joueurs == 0){	
 		if ( SDL_PollEvent(&event) )
 		{
 			switch(event.type)
@@ -87,11 +95,11 @@ Menu:
 				    break;
 				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
 					if(event.button.y>420 && event.button.y<470){
-						if(event.button.x>190 && event.button.x<240) nb_joueur = 1;
-						if(event.button.x>400 && event.button.x<450) nb_joueur = 2;
-						if(event.button.x>610 && event.button.x<660) nb_joueur = 3;
-						if(event.button.x>830 && event.button.x<880) nb_joueur = 4;
-						if(event.button.x>1040 && event.button.x<1090) nb_joueur = 5;
+						if(event.button.x>190 && event.button.x<240) table->nb_joueurs = 1;
+						if(event.button.x>400 && event.button.x<450) table->nb_joueurs = 2;
+						if(event.button.x>610 && event.button.x<660) table->nb_joueurs = 3;
+						if(event.button.x>830 && event.button.x<880) table->nb_joueurs = 4;
+						if(event.button.x>1040 && event.button.x<1090) table->nb_joueurs = 5;
 					}
 				    break;
 			}
