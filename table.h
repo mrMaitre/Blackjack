@@ -1,11 +1,13 @@
-#ifndef TABLE_H_INCLUDED
-#define TABLE_H_INCLUDED
+#ifndef __TABLE_H__
+#define __TABLE_H__
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "joueur.h"
 #include "croupier.h"
 #include "fonction_sdl.h"
-
 #define MAX_JOUEURS 5
 
 typedef struct table{

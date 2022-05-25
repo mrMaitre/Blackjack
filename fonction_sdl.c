@@ -1,4 +1,9 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "fonction_sdl.h"
+
+
+
 
 
 int quitter(){
@@ -62,6 +67,16 @@ int setWindowColor(SDL_Renderer *renderer, SDL_Color color)
     return 0;  
 }
 
+void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *dstrect, int x_offset, int y_offset){
+	SDL_Texture *image = NULL;
+	dstrect->x += x_offset;
+	dstrect->y += y_offset;
+	image = loadImage(nom_fichier, renderer);
+    if(NULL == image) return;
+	SDL_RenderCopy(renderer, image, NULL, dstrect);
+	SDL_RenderPresent(renderer);
+}
+
 /* Fonction qui revient au plateau vide */
 void reinitialiser_plateau(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
@@ -85,15 +100,23 @@ void afficher_menu(SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 }
 
+/* Fonction qui affiche le menu du jeu */
+void afficher_vierge(SDL_Renderer *renderer){
+	SDL_Texture *image = NULL;
+	image = loadImage("Vierge.bmp", renderer);
+	SDL_RenderCopy(renderer, image, NULL, NULL);
+    SDL_RenderPresent(renderer);
+}
+
 /* Affiche texte */
-void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect){
+void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect, int offsetX){
 	TTF_Font* Font = TTF_OpenFont(police, taille_police); /* Charge une police depuis un fichier .ttf*/
 	if(!Font)
 	{
 		printf("Erreur de création de la police : %s", TTF_GetError());
 		return;
 	}
-
+	DstRect.x += offsetX;
 	SDL_Surface * surf = TTF_RenderText_Blended(Font, texte, TextColor);
 	SDL_Texture * TextSurface = SDL_CreateTextureFromSurface(renderer, surf);
 	SDL_QueryTexture(TextSurface, NULL, NULL, &DstRect.w, &DstRect.h);

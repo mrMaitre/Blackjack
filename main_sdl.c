@@ -3,21 +3,72 @@
 #include <stdlib.h>
 #include <time.h>
 #include "table.h"
-#include "fonction_sdl.h"
+
 #include <SDL2/SDL_ttf.h>
 
-int init(SDL_Window **window, SDL_Renderer **renderer, int w, int h);
-SDL_Texture *loadImage(const char path[], SDL_Renderer *renderer);
-int setWindowColor(SDL_Renderer *renderer, SDL_Color color);
-void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *dstrect, int x_offset, int y_offset);
-void reinitialiser_plateau(SDL_Renderer *renderer);
-void saisie_des_joueurs(SDL_Renderer *renderer);
-void afficher_menu();
-void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect);
-void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n);
 
 int main(int argc, char **argv)
 {
+	window = NULL;
+    image = NULL;
+    statut = EXIT_FAILURE;
+    renderer = NULL;
+    
+
+	/* Couleur du texte ici blanc*/
+	TextColor.r = 0;
+	TextColor.g = 0;
+	TextColor.b = 255;
+	
+    /* Rectangles avec l'emplacement des cartes du croupier */
+    carte_croup_dos.x = 380;
+    carte_croup_dos.y = 180;
+    carte_croup_dos.w = 71;
+    carte_croup_dos.h = 96;
+    carte_croup_autre.x = 380;
+    carte_croup_autre.y = 180;
+    carte_croup_autre.w = 71;
+    carte_croup_autre.h = 96;
+        
+    /* Rectangles avec l'emplacement de la première carte de gauche à droite */
+    carte_emp1 = {38, 410, 71, 96};
+    carte_emp2 = {294, 410, 71, 96};
+    carte_emp3 = {550, 410, 71, 96};
+    carte_emp4 = {806, 410, 71, 96};
+    carte_emp5 = {1062, 410, 71, 96};
+    
+    /* Rectangles avec l'emplacement du nom du joueur de gauche à droite */
+    nomj_emp1 = {48, 320, 0, 0}; 
+    nomj_emp2 = {304, 320, 0, 0};
+    nomj_emp3 = {560, 320, 0, 0}; 
+    nomj_emp4 = {816, 320, 0, 0};
+    nomj_emp5 = {1072, 320, 0, 0}; 
+    
+    /* Rectangles avec l'emplacement du capital du joueur de gauche à droite */
+    capital_emp1 = {48, 345, 0, 0}; 
+    capital_emp2 = {304, 345, 0, 0};
+    capital_emp3 = {560, 345, 0, 0}; 
+    capital_emp4 = {816, 345, 0, 0};
+    capital_emp5 = {1072, 345, 0, 0}; 
+    
+    /* Rectangles avec l'emplacement de la mise du joueur de gauche à droite */
+    mise_emp1 = {48, 660, 0, 0}; 
+    mise_emp2 = {304, 660, 0, 0};
+    mise_emp3 = {560, 660, 0, 0}; 
+    mise_emp4 = {816, 660, 0, 0};
+    mise_emp5 = {1072, 660, 0, 0}; 
+    
+    /* Rectangles avec l'emplacement de la zone a supprimer pour split */
+    split_emp1 = {44, 410, 200, 160}; 
+    split_emp2 = {292, 410, 200, 160};
+    split_emp3 = {540, 410, 200, 160}; 
+    split_emp4 = {788, 410, 200, 160};
+    split_emp5 = {1036, 410, 200, 160}; 
+    
+    /*Rectangle écriture mise*/
+    mise = {500, 400, 0, 0};
+    
+    
     if(init(&window, &renderer, 1280, 720) != 0 ) quitter();
 
     statut = EXIT_SUCCESS;
@@ -42,7 +93,7 @@ Menu:
 			switch(event.type)
 			{
 				case SDL_WINDOWEVENT: // Événement de la fenêtre
-				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) goto Quit;
+				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) quitter();
 				    break;
 				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
 					if(event.button.y>420 && event.button.y<470){
@@ -68,25 +119,25 @@ Menu:
     SDL_Delay(20);
     
     /* Test affichage nom, capital et mises joueurs */
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur1", nomj_emp1);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp1);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp1);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur1", nomj_emp1, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp1, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp1, 0);
     
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur2", nomj_emp2);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp2);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp2);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur2", nomj_emp2, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp2, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp2, 0);
     
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur3", nomj_emp3);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp3);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp3);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur3", nomj_emp3, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp3, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp3, 0);
     
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur4", nomj_emp4);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp4);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp4);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur4", nomj_emp4, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp4, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp4, 0);
     
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur5", nomj_emp5);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp5);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp5);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur5", nomj_emp5, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp5, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp5, 0);
     
     demande_mises(table);
 	
@@ -135,14 +186,15 @@ Menu:
 				    {
 				        afficher_carte("cartes/Ah.bmp", renderer, &carte_croup_autre, 0, 73);
 				    }
+				    if ( event.key.keysym.sym == SDLK_z) 
+				    {
+						afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "mange tes morts", nomj_emp1, 0);
+				    }
 				    if ( event.key.keysym.sym == SDLK_c ) 
 				    {
 				        reinitialiser_plateau(renderer);
 				    }
-				    if ( event.key.keysym.sym == SDLK_z) 
-				    {
-						afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "mange tes morts", nomj_emp1);
-				    }
+				   
 				    if ( event.key.keysym.sym == SDLK_f) 
 				    {
 						remp_carte(renderer, &split_emp1, 1);
@@ -172,4 +224,5 @@ Menu:
 			}
 		}
 	}
+}
 	

@@ -1,5 +1,8 @@
 #include "table.h"
 
+#include <math.h>
+
+
 TABLE* init_table(){
     TABLE * table;
     table = (TABLE *) malloc(sizeof(TABLE));
@@ -89,19 +92,16 @@ void affiche_table(TABLE* t){
 
 void demande_mises(TABLE* t){
 	JOUEUR *j;
-	int mise;
-	int tab[5];
+	int joueur = 1;
+	int mise = 0;
+	char tab[5];
 	int i=0;
-	printf("\n---------- Demande des mises ----------\n");
 	if (table_est_vide(t)==1) return;
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp1);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp2);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp3);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp4);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp5);
-    else{
+	
         j=t->tete;
         while(j!=NULL){
+        	afficher_vierge(renderer);
+        	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise Joueur 1 : ", mise_emp1, 0);
             while(event.key.keysym.sym == SDLK_RETURN){
 				if (SDL_PollEvent(&event))
 				{
@@ -123,71 +123,86 @@ void demande_mises(TABLE* t){
 							}
 							break;
 						case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
-							if ( event.key.keysym.sym == SDLK_1 ) //Touche Échap
-							{
-								tab[i] = 1;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_2 ) //Touche Échap
-							{
-								tab[i] = 2;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_3 ) //Touche Échap
-							{
-								tab[i] = 3;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_4 ) //Touche Échap
-							{
-								tab[i] = 4;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_5 ) //Touche Échap
-							{
-								tab[i] = 5;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_6 ) //Touche Échap
-							{
-								tab[i] = 6;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_7 ) //Touche Échap
-							{
-								tab[i] = 7;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_8 ) //Touche Échap
-							{
-								tab[i] = 8;
-								i++;
-							}
-							if ( event.key.keysym.sym == SDLK_9 ) //Touche Échap
-							{
-								tab[i] = 9;
-								i++;
+							switch(event.key.keysym.sym){
+								case SDLK_1: //Touche Échap
+								{
+									tab[i] = '1';
+									i++;
+								}
+								break;
+								case SDLK_2: //Touche Échap
+								{
+									tab[i] = '2';
+									i++;
+								}
+								break;
+								case SDLK_3: //Touche Échap
+								{
+									tab[i] = '3';
+									i++;
+								}
+								break;
+								case SDLK_4: //Touche Échap
+								{
+									tab[i] = '4';
+									i++;
+								}
+								break;
+								case SDLK_5: //Touche Échap
+								{
+									tab[i] = '5';
+									i++;
+								}
+								break;
+								case SDLK_6: //Touche Échap
+								{
+									tab[i] = '6';
+									i++;
+								}
+								break;
+								case SDLK_7: //Touche Échap
+								{
+									tab[i] = '7';
+									i++;
+								}
+								break;
+								case SDLK_8: //Touche Échap
+								{
+									tab[i] = '8';
+									i++;
+								}
+								break;
+								case SDLK_9: //Touche Échap
+								{
+									tab[i] = '9';
+									i++;
+								}
+								break;
+								case SDLK_0: //Touche Échap
+								{
+									tab[i] = '0';
+									i++;
+								}
+								break;
 							}
 						}
 					}
 				}
-				for(int j=0; j<i; j++){
+				
+				afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, tab[0], nomj_emp1, 100);
+				for(int j=1; j<i; j++){
+					afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, tab[0], nomj_emp1, 25);
+				}
+				for(int j=i; j>0; j--){
+					mise += tab[i]-'0';
+				}
 					
 							
-            printf("Mise de %s (mise minimum = 2, 0 si passer son tour) : ",j->nom);
-            scanf("%f",&mise);
-            } while((mise<2 && mise !=0 )|| mise>j->capital);
-            if(mise==0) j->en_jeu=0;
-            else {
-                j->en_jeu=1;
-                j->mise = mise;
-                j->capital -= mise;
-            }
-            j=j->suivant;
+           
 
         }
     }
-}
+
 
 void tirage_debut_partie(TABLE *t){
     JOUEUR *j;

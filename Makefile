@@ -3,7 +3,7 @@
 CC = gcc
 FLAGS = -std=c11 -Wall
 OBJS = main.o table.o joueur.o croupier.o pioche.o
-OBJS1 = main_sdl.o table.o joueur.o croupier.o pioche.o
+OBJS1 = main_sdl.o table.o joueur.o croupier.o pioche.o fonction_sdl.o
 EXE = code
 EXE1 = sdl
 
@@ -16,13 +16,13 @@ $(EXE1) : $(OBJS1)
 main.o : table.h main.c
 	$(CC) $(FLAGS) -c main.c -o main.o
 	
-main_sdl.o : fonction_sdl.h table.h main_sdl.c
+main_sdl.o : table.h main_sdl.c
 	$(CC) $(FLAGS) -c main_sdl.c $(sdl2-config --cflags --libs) -o main_sdl.o
 	
 table.o : fonction_sdl.h joueur.h croupier.h table.h table.c
 	$(CC) $(FLAGS) -c table.c -o table.o
 	
-joueur.o : fonction_sdl.h pioche.h joueur.h joueur.c
+joueur.o : pioche.h joueur.h joueur.c
 	$(CC) $(FLAGS) -c joueur.c -o joueur.o
 	
 croupier.o : pioche.h croupier.h croupier.c
@@ -31,5 +31,8 @@ croupier.o : pioche.h croupier.h croupier.c
 pioche.o : pioche.h pioche.c
 	$(CC) $(FLAGS) -c pioche.c -o pioche.o
 	
+fonction_sdl.o : fonction_sdl.h fonction_sdl.c
+	$(CC) $(FLAGS) -c fonction_sdl.c -o fonction_sdl.o
+	
 clean :
-	rm *.o $(EXE)
+	rm *.o $(EXE1)
