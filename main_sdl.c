@@ -16,8 +16,8 @@ int main(int argc, char **argv)
     
 
 	/* Couleur du texte ici blanc*/
-	TextColor.r = 0;
-	TextColor.g = 0;
+	TextColor.r = 255;
+	TextColor.g = 255;
 	TextColor.b = 255;
 	
     /* Rectangles avec l'emplacement des cartes du croupier */
@@ -25,6 +25,7 @@ int main(int argc, char **argv)
     carte_croup_dos.y = 180;
     carte_croup_dos.w = 71;
     carte_croup_dos.h = 96;
+    
     carte_croup_autre.x = 380;
     carte_croup_autre.y = 180;
     carte_croup_autre.w = 71;
@@ -43,7 +44,7 @@ int main(int argc, char **argv)
     
     carte_emp3.x = 550;
     carte_emp3.y = 410;
-    carte_emp3.W = 71;
+    carte_emp3.w = 71;
     carte_emp3.h = 96;
     
     carte_emp4.x = 806;
@@ -57,35 +58,118 @@ int main(int argc, char **argv)
     carte_emp5.h = 96;
     
     /* Rectangles avec l'emplacement du nom du joueur de gauche à droite */
-    nomj_emp1 = {48, 320, 0, 0}; 
-    nomj_emp2 = {304, 320, 0, 0};
-    nomj_emp3 = {560, 320, 0, 0}; 
-    nomj_emp4 = {816, 320, 0, 0};
-    nomj_emp5 = {1072, 320, 0, 0}; 
+    nomj_emp1.x = 48; 
+    nomj_emp1.y = 320;
+    nomj_emp1.w = 0;
+    nomj_emp1.h = 0;
+    
+    nomj_emp2.x = 304; 
+    nomj_emp2.y = 320;
+    nomj_emp2.w = 0;
+    nomj_emp2.h = 0;
+    
+    nomj_emp3.x = 560; 
+    nomj_emp3.y = 320;
+    nomj_emp3.w = 0;
+    nomj_emp3.h = 0;
+    
+    nomj_emp4.x = 816; 
+    nomj_emp4.y = 320;
+    nomj_emp4.w = 0;
+    nomj_emp4.h = 0;
+    
+    nomj_emp5.x = 1072; 
+    nomj_emp5.y = 320;
+    nomj_emp5.w = 0;
+    nomj_emp5.h = 0;
+    
     
     /* Rectangles avec l'emplacement du capital du joueur de gauche à droite */
-    capital_emp1 = {48, 345, 0, 0}; 
-    capital_emp2 = {304, 345, 0, 0};
-    capital_emp3 = {560, 345, 0, 0}; 
-    capital_emp4 = {816, 345, 0, 0};
-    capital_emp5 = {1072, 345, 0, 0}; 
+    capital_emp1.x = 48; 
+    capital_emp1.y = 345;
+    capital_emp1.w = 0;
+    capital_emp1.h = 0;
+    
+    capital_emp2.x = 304; 
+    capital_emp2.y = 345;
+    capital_emp2.w = 0;
+    capital_emp2.h = 0;
+    
+    capital_emp3.x = 560; 
+    capital_emp3.y = 345;
+    capital_emp3.w = 0;
+    capital_emp3.h = 0;
+    
+    capital_emp4.x = 816; 
+    capital_emp4.y = 345;
+    capital_emp4.w = 0;
+    capital_emp4.h = 0;
+    
+    capital_emp5.x = 1072; 
+    capital_emp5.y = 345;
+    capital_emp5.w = 0;
+    capital_emp5.h = 0;
+    
     
     /* Rectangles avec l'emplacement de la mise du joueur de gauche à droite */
-    mise_emp1 = {48, 660, 0, 0}; 
-    mise_emp2 = {304, 660, 0, 0};
-    mise_emp3 = {560, 660, 0, 0}; 
-    mise_emp4 = {816, 660, 0, 0};
-    mise_emp5 = {1072, 660, 0, 0}; 
+    mise_emp1.x = 48; 
+    mise_emp1.y = 660;
+    mise_emp1.w = 0;
+    mise_emp1.h = 0;
+    
+    mise_emp2.x = 304; 
+    mise_emp2.y = 660;
+    mise_emp2.w = 0;
+    mise_emp2.h = 0;
+    
+    mise_emp3.x = 560; 
+    mise_emp3.y = 660;
+    mise_emp3.w = 0;
+    mise_emp3.h = 0;
+    
+    mise_emp4.x = 816; 
+    mise_emp4.y = 660;
+    mise_emp4.w = 0;
+    mise_emp4.h = 0;
+    
+    mise_emp5.x = 1072; 
+    mise_emp5.y = 660;
+    mise_emp5.w = 0;
+    mise_emp5.h = 0;
+    
     
     /* Rectangles avec l'emplacement de la zone a supprimer pour split */
-    split_emp1 = {44, 410, 200, 160}; 
-    split_emp2 = {292, 410, 200, 160};
-    split_emp3 = {540, 410, 200, 160}; 
-    split_emp4 = {788, 410, 200, 160};
-    split_emp5 = {1036, 410, 200, 160}; 
+    split_emp1.x = 44; 
+    split_emp1.y = 410;
+    split_emp1.w = 200;
+    split_emp1.h = 160;
+    
+    split_emp2.x = 292; 
+    split_emp2.y = 410;
+    split_emp2.w = 200;
+    split_emp2.h = 160;
+    
+    split_emp3.x = 540; 
+    split_emp3.y = 410;
+    split_emp3.w = 200;
+    split_emp3.h = 160;
+    
+    split_emp4.x = 788; 
+    split_emp4.y = 410;
+    split_emp4.w = 200;
+    split_emp4.h = 160;
+    
+    split_emp5.x = 1036; 
+    split_emp5.y = 410;
+    split_emp5.w = 200;
+    split_emp5.h = 160;
+    
     
     /*Rectangle écriture mise*/
-    mise = {500, 400, 0, 0};
+    mise.x = 500;
+    mise.y = 400;
+    mise.w = 0;
+    mise.h = 0;
     
     
     if(init(&window, &renderer, 1280, 720) != 0 ) quitter();
@@ -203,7 +287,7 @@ Menu:
 				    }
 				    if ( event.key.keysym.sym == SDLK_i ) 
 				    {
-				        afficher_carte("cartes/Ah.bmp", renderer, &carte_croup_autre, 0, 73);
+				        afficher_carte("cartes/Ah.bmp", renderer, &carte_croup_autre, 73, 0);
 				    }
 				    if ( event.key.keysym.sym == SDLK_z) 
 				    {

@@ -303,15 +303,15 @@ void reste_sur_table(TABLE *t){
     SDL_Rect joueur = {700,200,0,0};
     char txt[40];
     /*printf("\n---------- Qui reste dans la partie ? ----------\n");*/
-    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "Qui reste dans la partie ?", phrase);
-    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "(pour rester tapper 1, pour quitter tapper 0)", phrase2);
+    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "Qui reste dans la partie ?", phrase, 0);
+    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "(pour rester tapper 1, pour quitter tapper 0)", phrase2, 0);
     if (table_est_vide(t)==1) printf("La table est vide");
     else{
         j=t->tete;
         while(j!=NULL){
             strcpy(txt,j->nom);
             strcat(txt, " ? ");
-            afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, txt, joueur);
+            afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, txt, joueur, 0);
             while(event.key.keysym.sym == SDLK_RETURN){
 				if (SDL_PollEvent(&event))
 				{
