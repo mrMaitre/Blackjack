@@ -31,11 +31,30 @@ int main(int argc, char **argv)
     carte_croup_autre.h = 96;
         
     /* Rectangles avec l'emplacement de la première carte de gauche à droite */
-    carte_emp1 = {38, 410, 71, 96};
-    carte_emp2 = {294, 410, 71, 96};
-    carte_emp3 = {550, 410, 71, 96};
-    carte_emp4 = {806, 410, 71, 96};
-    carte_emp5 = {1062, 410, 71, 96};
+    carte_emp1.x = 38;
+    carte_emp1.y = 410;
+    carte_emp1.w = 71;
+    carte_emp1.h = 96;
+    
+    carte_emp2.x = 294;
+    carte_emp2.y = 410;
+    carte_emp2.w = 71;
+    carte_emp2.h = 96;
+    
+    carte_emp3.x = 550;
+    carte_emp3.y = 410;
+    carte_emp3.W = 71;
+    carte_emp3.h = 96;
+    
+    carte_emp4.x = 806;
+    carte_emp4.y = 410;
+    carte_emp4.w = 71;
+    carte_emp4.h = 96;
+    
+    carte_emp5.x = 1062;
+    carte_emp5.y = 410;
+    carte_emp5.w = 71;
+    carte_emp5.h = 96;
     
     /* Rectangles avec l'emplacement du nom du joueur de gauche à droite */
     nomj_emp1 = {48, 320, 0, 0}; 
