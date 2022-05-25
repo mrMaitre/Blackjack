@@ -11,6 +11,7 @@ typedef struct carte{
     int num;
     COULEUR couleur;
     struct carte * suivant;
+    char nom_image[14];
 }CARTE;
 
 typedef struct pioche{
@@ -22,5 +23,6 @@ PIOCHE* init_pioche();
 CARTE* tirer_carte(PIOCHE *p);
 void afficher_pioche(PIOCHE *p);
 void liberer_pioche(PIOCHE *p);
+char *StructToChaine(CARTE *c);
 
 #endif // PIOCHE_H_INCLUDED
