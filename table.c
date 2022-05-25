@@ -298,13 +298,51 @@ void repartition_gains(TABLE *t){
 void reste_sur_table(TABLE *t){
 	JOUEUR *j;
 	int statut;
-    printf("\n---------- Qui reste dans la partie ? ----------\n");
+    SDL_Rect phrase = {500,200,0,0};
+    SDL_Rect phrase2 = {600,200,0,0};
+    SDL_Rect joueur = {700,200,0,0};
+    char txt[40];
+    /*printf("\n---------- Qui reste dans la partie ? ----------\n");*/
+    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "Qui reste dans la partie ?", phrase);
+    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "(pour rester tapper 1, pour quitter tapper 0)", phrase2);
     if (table_est_vide(t)==1) printf("La table est vide");
     else{
         j=t->tete;
         while(j!=NULL){
-            printf("%s : (pour rester tapper 1, pour quitter tapper 0) : ",j->nom);
-            scanf("%d",&statut);
+            strcpy(txt,j->nom);
+            strcat(txt, " ? ");
+            afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, txt, joueur);
+            while(event.key.keysym.sym == SDLK_RETURN){
+				if (SDL_PollEvent(&event))
+				{
+					switch(event.type)
+					{
+						case SDL_WINDOWEVENT: // Événement de la fenêtre
+							if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
+							{
+								if(NULL != image)
+									SDL_DestroyTexture(image);
+								if(NULL != renderer)
+									SDL_DestroyRenderer(renderer);
+								if(NULL != window)
+									SDL_DestroyWindow(window);
+								
+								TTF_Quit();
+								SDL_Quit();
+									return statut;
+							}
+							break;
+						case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
+							if ( event.key.keysym.sym == SDLK_1 ) //Touche 1
+							{
+								statut=1;
+							}if ( event.key.keysym.sym == SDLK_0 ) //Touche 1
+							{
+								statut=0;
+							}
+                    }
+                }
+            }
             if(statut){
                 j->split=0;
                 j->en_jeu = 1;
