@@ -96,16 +96,16 @@ char *StructToChaine(CARTE *c){
     switch(color){
 
         case CARREAU :
-            nom_carte[8] = 'D';
+            nom_carte[8] = 'd';
             break;
         case COEUR :
-            nom_carte[8] = 'H';
+            nom_carte[8] = 'h';
             break;
         case PIC :
-            nom_carte[8] = 'S';
+            nom_carte[8] = 's';
             break;
         case TREFLE :
-            nom_carte[8] = 'C';
+            nom_carte[8] = 'c';
             break;
     }
     return nom_carte;
