@@ -1,5 +1,4 @@
 #include "pioche.h"
-#include "string.h"
 
 char nom_carte[14];
 
