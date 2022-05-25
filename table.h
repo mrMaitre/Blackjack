@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "joueur.h"
 #include "croupier.h"
+#include "fonction_sdl.h"
 
 #define MAX_JOUEURS 5
 

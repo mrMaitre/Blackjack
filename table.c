@@ -89,13 +89,91 @@ void affiche_table(TABLE* t){
 
 void demande_mises(TABLE* t){
 	JOUEUR *j;
-	float mise;
+	int mise;
+	int tab[5];
+	int i=0;
 	printf("\n---------- Demande des mises ----------\n");
-	if (table_est_vide(t)==1) printf("La table est vide");
+	if (table_est_vide(t)==1) return;
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp1);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp2);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp3);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp4);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise :", mise_emp5);
     else{
         j=t->tete;
         while(j!=NULL){
-            do {
+            while(event.key.keysym.sym == SDLK_RETURN){
+				if (SDL_PollEvent(&event))
+				{
+					switch(event.type)
+					{
+						case SDL_WINDOWEVENT: // Événement de la fenêtre
+							if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
+							{
+								if(NULL != image)
+									SDL_DestroyTexture(image);
+								if(NULL != renderer)
+									SDL_DestroyRenderer(renderer);
+								if(NULL != window)
+									SDL_DestroyWindow(window);
+								
+								TTF_Quit();
+								SDL_Quit();
+									return statut;
+							}
+							break;
+						case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
+							if ( event.key.keysym.sym == SDLK_1 ) //Touche Échap
+							{
+								tab[i] = 1;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_2 ) //Touche Échap
+							{
+								tab[i] = 2;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_3 ) //Touche Échap
+							{
+								tab[i] = 3;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_4 ) //Touche Échap
+							{
+								tab[i] = 4;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_5 ) //Touche Échap
+							{
+								tab[i] = 5;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_6 ) //Touche Échap
+							{
+								tab[i] = 6;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_7 ) //Touche Échap
+							{
+								tab[i] = 7;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_8 ) //Touche Échap
+							{
+								tab[i] = 8;
+								i++;
+							}
+							if ( event.key.keysym.sym == SDLK_9 ) //Touche Échap
+							{
+								tab[i] = 9;
+								i++;
+							}
+						}
+					}
+				}
+				for(int j=0; j<i; j++){
+					
+							
             printf("Mise de %s (mise minimum = 2, 0 si passer son tour) : ",j->nom);
             scanf("%f",&mise);
             } while((mise<2 && mise !=0 )|| mise>j->capital);
