@@ -2,6 +2,7 @@
 #define PIOCHE_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
+#include "string.h"
 
 #define NB_JEUX_CARTES 3
 
