@@ -296,7 +296,7 @@ void reste_sur_table(TABLE *t){
         while(j!=NULL){
             strcpy(txt,j->nom);
             strcat(txt, " ? ");
-            afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, txt, phrase);
+            afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, txt, joueur);
             while(event.key.keysym.sym == SDLK_RETURN){
 				if (SDL_PollEvent(&event))
 				{
