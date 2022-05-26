@@ -3,21 +3,16 @@
 #include "fonction_sdl.h"
 
 
-
-
-
-
-int quitter(){
+int quitter(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer){
 	if(NULL != image)
 	    SDL_DestroyTexture(image);
 	if(NULL != renderer)
 	    SDL_DestroyRenderer(renderer);
 	if(NULL != window)
 	    SDL_DestroyWindow(window);
-	
 	TTF_Quit();
 	SDL_Quit();
-	return statut;
+	return 0;
 }
 
 /* Initialisation de la SDL*/

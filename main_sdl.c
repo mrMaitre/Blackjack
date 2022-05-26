@@ -8,6 +8,62 @@
 
 int main(int argc, char **argv)
 {
+
+	SDL_Window *window;
+	SDL_Texture *image;
+	int statut;
+	SDL_Renderer *renderer;
+	SDL_Event event;
+
+
+	/* Couleur du texte ici blanc*/
+	SDL_Color TextColor;
+
+
+
+	/* Rectangles avec l'emplacement des cartes du croupier */
+	SDL_Rect carte_croup_dos;
+	SDL_Rect carte_croup_autre;
+		
+	/* Rectangles avec l'emplacement de la première carte de gauche à droite */
+	SDL_Rect carte_emp1;
+	SDL_Rect carte_emp2;
+	SDL_Rect carte_emp3;
+	SDL_Rect carte_emp4;
+	SDL_Rect carte_emp5;
+
+	/* Rectangles avec l'emplacement du nom du joueur de gauche à droite */
+	SDL_Rect nomj_emp1; 
+	SDL_Rect nomj_emp2;
+	SDL_Rect nomj_emp3; 
+	SDL_Rect nomj_emp4;
+	SDL_Rect nomj_emp5; 
+
+	/* Rectangles avec l'emplacement du capital du joueur de gauche à droite */
+	SDL_Rect capital_emp1; 
+	SDL_Rect capital_emp2;
+	SDL_Rect capital_emp3; 
+	SDL_Rect capital_emp4;
+	SDL_Rect capital_emp5; 
+
+	/* Rectangles avec l'emplacement de la mise du joueur de gauche à droite */
+	SDL_Rect mise_emp1; 
+	SDL_Rect mise_emp2;
+	SDL_Rect mise_emp3; 
+	SDL_Rect mise_emp4;
+	SDL_Rect mise_emp5; 
+
+	/* Rectangles avec l'emplacement de la zone a supprimer pour split */
+	SDL_Rect split_emp1; 
+	SDL_Rect split_emp2;
+	SDL_Rect split_emp3; 
+	SDL_Rect split_emp4;
+	SDL_Rect split_emp5; 
+
+	/*Rectangle écriture mise*/
+	SDL_Rect mise;
+    
+
 	window = NULL;
     image = NULL;
     statut = EXIT_FAILURE;
@@ -171,7 +227,7 @@ int main(int argc, char **argv)
     mise.h = 0;
     
     
-    if(init(&window, &renderer, 1280, 720) != 0 ) quitter();
+    if(init(&window, &renderer, 1280, 720) != 0 ) quitter(window, image, renderer);
 
     statut = EXIT_SUCCESS;
     
@@ -193,7 +249,7 @@ Menu:
 			switch(event.type)
 			{
 				case SDL_WINDOWEVENT: // Événement de la fenêtre
-				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) quitter();
+				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) quitter(window, image, renderer);
 				    break;
 				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
 					if(event.button.y>420 && event.button.y<470){
@@ -209,18 +265,21 @@ Menu:
 	}
 	
 	SDL_Delay(500);
-	saisie_joueurs_dans_table(table);
+	saisie_joueurs_dans_table(renderer, table);
 	SDL_Delay(1000);
     reinitialiser_plateau(renderer);
-    SDL_Delay(100);
-    
-    /* Test affichage nom, capital et mises joueurs */
+    SDL_Delay(500);
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
     table->croupier->nb_cartes = 0;
    	pioche = init_pioche();
    	assigner_pioche(table,pioche);
    	SDL_Delay(2000);
     demande_mises(renderer,table);
+    SDL_Delay(500);
+    reinitialiser_plateau(renderer);
+    SDL_Delay(500);
+    afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
+    
 	
 	while(1){
 		if ( SDL_PollEvent(&event) )
@@ -230,7 +289,7 @@ Menu:
 				case SDL_WINDOWEVENT: // Événement de la fenêtre
 				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
 				    {
-				        quitter();
+				        quitter(window, image, renderer);
 				    }
 				    break;
 				case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier

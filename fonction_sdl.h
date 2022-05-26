@@ -8,63 +8,9 @@
 #include <SDL2/SDL_ttf.h>
 
 
-SDL_Window *window;
-SDL_Texture *image;
-int statut;
-SDL_Renderer *renderer;
-SDL_Event event;
-
-
-/* Couleur du texte ici blanc*/
-SDL_Color TextColor;
-
-
-
-/* Rectangles avec l'emplacement des cartes du croupier */
-SDL_Rect carte_croup_dos;
-SDL_Rect carte_croup_autre;
-    
-/* Rectangles avec l'emplacement de la première carte de gauche à droite */
-SDL_Rect carte_emp1;
-SDL_Rect carte_emp2;
-SDL_Rect carte_emp3;
-SDL_Rect carte_emp4;
-SDL_Rect carte_emp5;
-
-/* Rectangles avec l'emplacement du nom du joueur de gauche à droite */
-SDL_Rect nomj_emp1; 
-SDL_Rect nomj_emp2;
-SDL_Rect nomj_emp3; 
-SDL_Rect nomj_emp4;
-SDL_Rect nomj_emp5; 
-
-/* Rectangles avec l'emplacement du capital du joueur de gauche à droite */
-SDL_Rect capital_emp1; 
-SDL_Rect capital_emp2;
-SDL_Rect capital_emp3; 
-SDL_Rect capital_emp4;
-SDL_Rect capital_emp5; 
-
-/* Rectangles avec l'emplacement de la mise du joueur de gauche à droite */
-SDL_Rect mise_emp1; 
-SDL_Rect mise_emp2;
-SDL_Rect mise_emp3; 
-SDL_Rect mise_emp4;
-SDL_Rect mise_emp5; 
-
-/* Rectangles avec l'emplacement de la zone a supprimer pour split */
-SDL_Rect split_emp1; 
-SDL_Rect split_emp2;
-SDL_Rect split_emp3; 
-SDL_Rect split_emp4;
-SDL_Rect split_emp5; 
-
-/*Rectangle écriture mise*/
-SDL_Rect mise;
-    
 
 	
-int quitter();
+int quitter(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer);
 
 void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *dstrect, int x_offset, int y_offset);
 

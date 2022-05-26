@@ -36,13 +36,15 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 	image = loadImage("Vierge.bmp", renderer);
 	SDL_RenderCopy(renderer, image, NULL, NULL);
 	SDL_RenderPresent(renderer);
+	SDL_Event event;
+	SDL_Color TextColor = {255,255,255};
 		
 	SDL_Rect rect = {100, 275, 0, 0};
 	SDL_Delay(20);
 	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le nom du joueur ", rect, 0);
-	SDL_Delay(20);
+		SDL_Delay(20);
 	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 370);
-	SDL_Delay(20);
+		SDL_Delay(20);
 	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
 
 	/* Boucle pour afficher les lettres tapées au clavier */ 
@@ -199,11 +201,13 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 	rect.y = 400;
 	RectTexte.y = 450;
 	RectTexte.x = 360;
+	SDL_Delay(20);
 	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le capital du joueur ", rect, 0);
 	SDL_Delay(20);
 	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 405);
 	SDL_Delay(20);
 	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 435);
+	SDL_Delay(20);
 	
 	continuer = 1;
 
@@ -280,7 +284,7 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 	return j;
 }
 
-void saisie_joueurs_dans_table(TABLE* table){
+void saisie_joueurs_dans_table(SDL_Renderer *renderer, TABLE* table){
     
     /* initialisation des joueurs dans la table */
     JOUEUR* j,*j_suiv;
@@ -352,23 +356,27 @@ void affiche_table(TABLE* t){
 
 void demande_mises(SDL_Renderer* renderer, TABLE* t){
 	JOUEUR *j;
-	char tab_mise[6] = "";
+	char tab_mise[6];
 	int num=1;
 	int continuer;
 	SDL_Rect RectTexte = {360, 325, 0, 0};
 	SDL_Rect rect = {100, 275, 0, 0};
+	SDL_Event event;
+	SDL_Color TextColor = {255,255,255};
 	if (table_est_vide(t)==1) return;
     j=t->tete;
     while(j!=NULL){
+    	strcpy(tab_mise, "");
     	continuer = 1;
     	SDL_Delay(20);
     	afficher_vierge(renderer);
-		SDL_Delay(100);
+    	SDL_Delay(20);
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez la mise du joueur ", rect, 0);
 		SDL_Delay(20);
 		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 370);
 		SDL_Delay(20);
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
+		SDL_Delay(20);
 		num++;
         while(continuer){
 			if ( SDL_PollEvent(&event) )
@@ -441,7 +449,6 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 		j->mise = atoi(tab_mise);
 		j=j->suivant;
 	}
-	
 }
 
 
@@ -536,12 +543,14 @@ void repartition_gains(TABLE *t){
 }
 
 
-void reste_sur_table(TABLE *t){
+void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t){
 	JOUEUR *j;
 	int statut;
     SDL_Rect phrase = {500,200,0,0};
     SDL_Rect phrase2 = {600,200,0,0};
     SDL_Rect joueur = {700,200,0,0};
+    SDL_Event event;
+	SDL_Color TextColor = {255,255,255};
     char txt[40];
     /*printf("\n---------- Qui reste dans la partie ? ----------\n");*/
     afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "Qui reste dans la partie ?", phrase, 0);
@@ -561,7 +570,7 @@ void reste_sur_table(TABLE *t){
 						case SDL_WINDOWEVENT: // Événement de la fenêtre
 							if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
 							{
-								quitter();
+								quitter(window, image, renderer);
 							}
 							break;
 						case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
@@ -648,10 +657,16 @@ void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_em
 	JOUEUR * j;
 	j=table->tete;
 	int offset = 0;
+	SDL_Color TextColor = {255,255,255};
+	SDL_Event *event;
 	while(j!=NULL){
+		SDL_Delay(20);
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, j->nom, nomj_emp, offset);
+		SDL_Delay(20);
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", capital_emp, offset);
+		SDL_Delay(20);
 		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
+		SDL_Delay(20);
 		j=j->suivant;
 		offset+=256;
 	}
