@@ -350,118 +350,99 @@ void affiche_table(TABLE* t){
     }
 }
 
-void demande_mises(TABLE* t){
+void demande_mises(SDL_Renderer* renderer, TABLE* t){
 	JOUEUR *j;
-	int joueur = 1;
-	int mise = 0;
-	char tab[5];
-	int i=0;
+	char tab_mise[6] = "";
+	int num=1;
+	int continuer;
+	SDL_Rect RectTexte = {360, 325, 0, 0};
+	SDL_Rect rect = {100, 275, 0, 0};
 	if (table_est_vide(t)==1) return;
-	
-        j=t->tete;
-        while(j!=NULL){
-        	afficher_vierge(renderer);
-        	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Mise Joueur 1 : ", mise_emp1, 0);
-            while(event.key.keysym.sym == SDLK_RETURN){
-				if (SDL_PollEvent(&event))
+    j=t->tete;
+    while(j!=NULL){
+    	continuer = 1;
+    	SDL_Delay(20);
+    	afficher_vierge(renderer);
+		SDL_Delay(100);
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez la mise du joueur ", rect, 0);
+		SDL_Delay(20);
+		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 370);
+		SDL_Delay(20);
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
+		num++;
+        while(continuer){
+			if ( SDL_PollEvent(&event) )
+			{
+				switch(event.type)
 				{
-					switch(event.type)
-					{
-						case SDL_WINDOWEVENT: // Événement de la fenêtre
-							if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
-							{
-								if(NULL != image)
-									SDL_DestroyTexture(image);
-								if(NULL != renderer)
-									SDL_DestroyRenderer(renderer);
-								if(NULL != window)
-									SDL_DestroyWindow(window);
-								
-								TTF_Quit();
-								SDL_Quit();
-									return statut;
-							}
+					case SDL_WINDOWEVENT: // Événement de la fenêtre
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) return;
+						break;
+					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
+						switch(event.key.keysym.sym){
+							case SDLK_RETURN :
+								continuer = 0;
 							break;
-						case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
-							switch(event.key.keysym.sym){
-								case SDLK_1: //Touche Échap
-								{
-									tab[i] = '1';
-									i++;
-								}
-								break;
-								case SDLK_2: //Touche Échap
-								{
-									tab[i] = '2';
-									i++;
-								}
-								break;
-								case SDLK_3: //Touche Échap
-								{
-									tab[i] = '3';
-									i++;
-								}
-								break;
-								case SDLK_4: //Touche Échap
-								{
-									tab[i] = '4';
-									i++;
-								}
-								break;
-								case SDLK_5: //Touche Échap
-								{
-									tab[i] = '5';
-									i++;
-								}
-								break;
-								case SDLK_6: //Touche Échap
-								{
-									tab[i] = '6';
-									i++;
-								}
-								break;
-								case SDLK_7: //Touche Échap
-								{
-									tab[i] = '7';
-									i++;
-								}
-								break;
-								case SDLK_8: //Touche Échap
-								{
-									tab[i] = '8';
-									i++;
-								}
-								break;
-								case SDLK_9: //Touche Échap
-								{
-									tab[i] = '9';
-									i++;
-								}
-								break;
-								case SDLK_0: //Touche Échap
-								{
-									tab[i] = '0';
-									i++;
-								}
-								break;
-							}
+							case SDLK_1 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "1", RectTexte, 0);
+								strcat(tab_mise, "1");
+								RectTexte.x+=30;
+							break;
+							case SDLK_2 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "2", RectTexte, 0);
+								strcat(tab_mise, "2");
+								RectTexte.x+=30;
+							break;
+							case SDLK_3 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "3", RectTexte, 0);
+								strcat(tab_mise, "3");
+								RectTexte.x+=30;
+							break;
+							case SDLK_4 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "4", RectTexte, 0);
+								strcat(tab_mise, "4");
+								RectTexte.x+=30;
+							break;
+							case SDLK_5 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "5", RectTexte, 0);
+								strcat(tab_mise, "5");
+								RectTexte.x+=30;
+							break;
+							case SDLK_6 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "6", RectTexte, 0);
+								strcat(tab_mise, "6");
+								RectTexte.x+=30;
+							break;
+							case SDLK_7 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "7", RectTexte, 0);
+								strcat(tab_mise, "7");
+								RectTexte.x+=30;
+							break;
+							case SDLK_8 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "8", RectTexte, 0);
+								strcat(tab_mise, "8");
+								RectTexte.x+=30;
+							break;
+							case SDLK_9 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "9", RectTexte, 0);
+								strcat(tab_mise, "9");
+								RectTexte.x+=30;
+							break;
+							case SDLK_0 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "0", RectTexte, 0);
+								strcat(tab_mise, "0");
+								RectTexte.x+=30;
+							break;
 						}
-					}
+						break;
 				}
-				
-				afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, tab[0], nomj_emp1, 100);
-				for(int j=1; j<i; j++){
-					afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, tab[0], nomj_emp1, 25);
-				}
-				for(int j=i; j>0; j--){
-					mise += tab[i]-'0';
-				}
-					
-							
-           
-
-        }
-    }
+			}
+		}
+		j->mise = atoi(tab_mise);
+		j=j->suivant;
+	}
+	
+}
 
 
 void tirage_debut_partie(TABLE *t){
@@ -580,16 +561,7 @@ void reste_sur_table(TABLE *t){
 						case SDL_WINDOWEVENT: // Événement de la fenêtre
 							if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
 							{
-								if(NULL != image)
-									SDL_DestroyTexture(image);
-								if(NULL != renderer)
-									SDL_DestroyRenderer(renderer);
-								if(NULL != window)
-									SDL_DestroyWindow(window);
-								
-								TTF_Quit();
-								SDL_Quit();
-									return statut;
+								quitter();
 							}
 							break;
 						case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier

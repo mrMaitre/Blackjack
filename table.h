@@ -26,7 +26,7 @@ int table_est_vide(TABLE* p);
 JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num);
 void saisie_joueurs_dans_table(TABLE* table);
 void affiche_table(TABLE* p);
-void demande_mises(TABLE* p);
+void demande_mises(SDL_Renderer* renderer, TABLE* t);
 int comptage_score_croupier(CROUPIER *c);
 int comptage_score_joueur(JOUEUR *j);
 int compter_score(CARTE* tab_cartes, int nb_cartes);

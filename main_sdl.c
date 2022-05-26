@@ -175,14 +175,12 @@ int main(int argc, char **argv)
 
     statut = EXIT_SUCCESS;
     
-    int nb_joueur = 0;
-    
     time_t heure;
     srand((unsigned int) time(&heure));
     TABLE* table;
     PIOCHE* pioche;
-    JOUEUR *j;
-    int tirage = 1,choix;
+    //JOUEUR *j;
+    //int tirage = 1,choix;
     table = init_table();
 
     
@@ -214,14 +212,15 @@ Menu:
 	saisie_joueurs_dans_table(table);
 	SDL_Delay(1000);
     reinitialiser_plateau(renderer);
-    SDL_Delay(20);
+    SDL_Delay(100);
     
     /* Test affichage nom, capital et mises joueurs */
-    
-    
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
-    
-    //demande_mises(table);
+    table->croupier->nb_cartes = 0;
+   	pioche = init_pioche();
+   	assigner_pioche(table,pioche);
+   	SDL_Delay(2000);
+    demande_mises(renderer,table);
 	
 	while(1){
 		if ( SDL_PollEvent(&event) )
@@ -237,7 +236,6 @@ Menu:
 				case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
 				    if ( event.key.keysym.sym == SDLK_ESCAPE ) //Touche Échap
 				    {
-				    	nb_joueur = 0;
 				        goto Menu;
 				    }
 				    if ( event.key.keysym.sym == SDLK_a) //Touche a
