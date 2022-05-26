@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include "table.h"
-
 #include <SDL2/SDL_ttf.h>
 
 
@@ -213,8 +212,8 @@ Menu:
 	
 	SDL_Delay(500);
 	
-	saisie_des_joueurs(renderer);
-	
+	saisie_joueurs_dans_table(table);
+		
 	SDL_Delay(1000);
 	
     reinitialiser_plateau(renderer);

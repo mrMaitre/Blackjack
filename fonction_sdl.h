@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "joueur.h"
 #include <SDL2/SDL_ttf.h>
 
 
@@ -82,6 +83,7 @@ void afficher_menu(SDL_Renderer *renderer);
 void afficher_vierge(SDL_Renderer *renderer);
 void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect, int offsetX);
 void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n);
+
 	
 
 

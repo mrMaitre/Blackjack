@@ -1,7 +1,5 @@
 #include "table.h"
 
-#include <math.h>
-
 
 TABLE* init_table(){
     TABLE * table;
@@ -12,28 +10,200 @@ TABLE* init_table(){
     return table;
 }
 
-void saisie_joueurs_croupier_dans_table(TABLE* table){
-    int nb,i;
-    /* initialisation du nombre de joueurs dans la table */
-    do {
-        printf("\nCombien y a t-il de joueurs sur la table (max %d) ? ",MAX_JOUEURS);
-        scanf("%d",&nb);
-    } while (nb<0 || nb>5);
-    table->nb_joueurs=nb;
+JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer){
+	JOUEUR * j;
+    j=(JOUEUR *) malloc(sizeof(JOUEUR));
+	
+	char tab_nom[10] = "";
+	SDL_Rect RectTexte = {360, 425, 0, 0};
+	
+	/* Remplir la structure */ 
+	j->mise=0;
+    j->score = 0;
+    j->en_jeu=1;
+    j->nb_cartes=0;
+    j->split=0;
+    j->mise_split=0;
+    j->nb_cartes_split=0;
+    j->score_split=0;
+    j->suivant=NULL;
 
+	int continuer = 1;
+	
+	/*Affiche le plateau vierge*/
+	SDL_Texture *image = NULL;
+	image = loadImage("Vierge.bmp", renderer);
+	SDL_RenderCopy(renderer, image, NULL, NULL);
+	SDL_RenderPresent(renderer);
+		
+	SDL_Rect rect = {100, 275, 0, 0};
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le nom du joueur(entrez pour valider)", rect, 0);
+
+	/* Boucle pour afficher les lettres tapées au clavier */ 
+	while(continuer){
+			if ( SDL_PollEvent(&event) )
+			{
+				switch(event.type)
+				{
+					case SDL_WINDOWEVENT: // Événement de la fenêtre
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) return j;
+						break;
+					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
+						switch(event.key.keysym.sym){
+							case SDLK_RETURN :
+								continuer = 0;
+							break;
+							case SDLK_a :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "a", RectTexte, 0);
+								strcat(tab_nom, "a");
+								RectTexte.x+=35;
+							break;
+							case SDLK_b :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "b", RectTexte, 0);
+								strcat(tab_nom, "b");
+								RectTexte.x+=35;
+							break;
+							case SDLK_c :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "c", RectTexte, 0);
+								strcat(tab_nom, "c");
+								RectTexte.x+=35;
+							break;
+							case SDLK_d :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "d", RectTexte, 0);
+								strcat(tab_nom, "d");
+								RectTexte.x+=35;
+							break;
+							case SDLK_e :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "e", RectTexte, 0);
+								strcat(tab_nom, "e");
+								RectTexte.x+=35;
+							break;
+							case SDLK_f :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "f", RectTexte, 0);
+								strcat(tab_nom, "f");
+								RectTexte.x+=30;
+							break;
+							case SDLK_g :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "g", RectTexte, 0);
+								strcat(tab_nom, "g");
+								RectTexte.x+=35;
+							break;
+							case SDLK_h :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "h", RectTexte, 0);
+								strcat(tab_nom, "h");
+								RectTexte.x+=35;
+							break;
+							case SDLK_i :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "i", RectTexte, 0);
+								strcat(tab_nom, "i");
+								RectTexte.x+=25;
+							break;
+							case SDLK_j :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "j", RectTexte, 0);
+								strcat(tab_nom, "j");
+								RectTexte.x+=25;
+							break;
+							case SDLK_k :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "k", RectTexte, 0);
+								strcat(tab_nom, "k");
+								RectTexte.x+=35;
+							break;
+							case SDLK_l :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "l", RectTexte, 0);
+								strcat(tab_nom, "l");
+								RectTexte.x+=25;
+							break;
+							case SDLK_m :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "m", RectTexte, 0);
+								strcat(tab_nom, "m");
+								RectTexte.x+=35;
+							break;
+							case SDLK_n :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "n", RectTexte, 0);
+								strcat(tab_nom, "n");
+								RectTexte.x+=35;
+							break;
+							case SDLK_o :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "o", RectTexte, 0);
+								strcat(tab_nom, "o");
+								RectTexte.x+=35;
+							break;
+							case SDLK_p :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "p", RectTexte, 0);
+								strcat(tab_nom, "p");
+								RectTexte.x+=35;
+							break;
+							case SDLK_q :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "q", RectTexte, 0);
+								strcat(tab_nom, "q");
+								RectTexte.x+=35;
+							break;
+							case SDLK_r :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "r", RectTexte, 0);
+								strcat(tab_nom, "r");
+								RectTexte.x+=30;
+							break;
+							case SDLK_s :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "s", RectTexte, 0);
+								strcat(tab_nom, "s");
+								RectTexte.x+=35;
+							break;
+							case SDLK_t :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "t", RectTexte, 0);
+								strcat(tab_nom, "t");
+								RectTexte.x+=30;
+							break;
+							case SDLK_u :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "u", RectTexte, 0);
+								strcat(tab_nom, "u");
+								RectTexte.x+=35;
+							break;
+							case SDLK_v :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "v", RectTexte, 0);
+								strcat(tab_nom, "v");
+								RectTexte.x+=35;
+							break;
+							case SDLK_w :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "w", RectTexte, 0);
+								strcat(tab_nom, "w");
+								RectTexte.x+=35;
+							break;
+							case SDLK_x :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "x", RectTexte, 0);
+								strcat(tab_nom, "x");
+								RectTexte.x+=35;
+							break;
+							case SDLK_y :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "y", RectTexte, 0);
+								strcat(tab_nom, "y");
+								RectTexte.x+=35;
+							break;
+							case SDLK_z :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "z", RectTexte, 0);
+								strcat(tab_nom, "z");
+								RectTexte.x+=35;
+							break;
+						}
+						break;
+			}
+		}
+	}
+	strcpy(j->nom, tab_nom);
+	return j;
+}
+
+void saisie_joueurs_dans_table(TABLE* table){
+    
     /* initialisation des joueurs dans la table */
     JOUEUR* j,*j_suiv;
-    printf("\n---------- Saisie des joueurs dans la table ----------\n");
-    j=saisie_joueur();
+    j=saisie_joueur_sdl(renderer);
     table->tete=j;
-    for (i=2;i<=nb;i++){
-        j_suiv=saisie_joueur();
+    for (int i=2;i<=table->nb_joueurs;i++){
+        j_suiv=saisie_joueur_sdl(renderer);
         j->suivant=j_suiv;
         j=j_suiv;
     }
-    CROUPIER *c;
-    c = init_croupier();
-    table->croupier = c;
 }
 
 void saisie_joueurs_en_partie(TABLE *table){

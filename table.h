@@ -2,10 +2,11 @@
 #define __TABLE_H__
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
+#include <math.h>
+#include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include "joueur.h"
 #include "croupier.h"
 #include "fonction_sdl.h"
 #define MAX_JOUEURS 5
@@ -22,7 +23,8 @@ typedef struct table{
 TABLE* init_table();
 int table_est_pleine(TABLE* p);
 int table_est_vide(TABLE* p);
-void saisie_joueurs_croupier_dans_table(TABLE* table);
+JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer);
+void saisie_joueurs_dans_table(TABLE* table);
 void affiche_table(TABLE* p);
 void demande_mises(TABLE* p);
 int comptage_score_croupier(CROUPIER *c);
