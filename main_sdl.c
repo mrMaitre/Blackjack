@@ -85,7 +85,7 @@ int main(int argc, char **argv)
     
     /* Rectangles avec l'emplacement du capital du joueur de gauche à droite */
     capital_emp1.x = 48; 
-    capital_emp1.y = 345;
+    capital_emp1.y = 355;
     capital_emp1.w = 0;
     capital_emp1.h = 0;
     
@@ -211,37 +211,17 @@ Menu:
 	}
 	
 	SDL_Delay(500);
-	
 	saisie_joueurs_dans_table(table);
-		
 	SDL_Delay(1000);
-	
     reinitialiser_plateau(renderer);
-    
     SDL_Delay(20);
     
     /* Test affichage nom, capital et mises joueurs */
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur1", nomj_emp1, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp1, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp1, 0);
     
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur2", nomj_emp2, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp2, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp2, 0);
     
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur3", nomj_emp3, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp3, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp3, 0);
+    afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
     
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur4", nomj_emp4, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp4, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp4, 0);
-    
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, " Joueur5", nomj_emp5, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1000 $", capital_emp5, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "20 $", mise_emp5, 0);
-    
-    demande_mises(table);
+    //demande_mises(table);
 	
 	while(1){
 		if ( SDL_PollEvent(&event) )

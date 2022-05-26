@@ -10,12 +10,13 @@ TABLE* init_table(){
     return table;
 }
 
-JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer){
+JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 	JOUEUR * j;
     j=(JOUEUR *) malloc(sizeof(JOUEUR));
 	
 	char tab_nom[10] = "";
-	SDL_Rect RectTexte = {360, 425, 0, 0};
+	char tab_capital[6] = "";
+	SDL_Rect RectTexte = {360, 325, 0, 0};
 	
 	/* Remplir la structure */ 
 	j->mise=0;
@@ -38,7 +39,11 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer){
 		
 	SDL_Rect rect = {100, 275, 0, 0};
 	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le nom du joueur(entrez pour valider)", rect, 0);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le nom du joueur ", rect, 0);
+	SDL_Delay(20);
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 370);
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
 
 	/* Boucle pour afficher les lettres tapées au clavier */ 
 	while(continuer){
@@ -117,7 +122,7 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer){
 							case SDLK_m :
 								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "m", RectTexte, 0);
 								strcat(tab_nom, "m");
-								RectTexte.x+=35;
+								RectTexte.x+=45;
 							break;
 							case SDLK_n :
 								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "n", RectTexte, 0);
@@ -190,6 +195,88 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer){
 		}
 	}
 	strcpy(j->nom, tab_nom);
+	
+	rect.y = 400;
+	RectTexte.y = 450;
+	RectTexte.x = 360;
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le capital du joueur ", rect, 0);
+	SDL_Delay(20);
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 405);
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 435);
+	
+	continuer = 1;
+
+	/* Boucle pour afficher les lettres tapées au clavier */ 
+	while(continuer){
+			if ( SDL_PollEvent(&event) )
+			{
+				switch(event.type)
+				{
+					case SDL_WINDOWEVENT: // Événement de la fenêtre
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) return j;
+						break;
+					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
+						switch(event.key.keysym.sym){
+							case SDLK_RETURN :
+								continuer = 0;
+							break;
+							case SDLK_1 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "1", RectTexte, 0);
+								strcat(tab_capital, "1");
+								RectTexte.x+=30;
+							break;
+							case SDLK_2 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "2", RectTexte, 0);
+								strcat(tab_capital, "2");
+								RectTexte.x+=30;
+							break;
+							case SDLK_3 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "3", RectTexte, 0);
+								strcat(tab_capital, "3");
+								RectTexte.x+=30;
+							break;
+							case SDLK_4 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "4", RectTexte, 0);
+								strcat(tab_capital, "4");
+								RectTexte.x+=30;
+							break;
+							case SDLK_5 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "5", RectTexte, 0);
+								strcat(tab_capital, "5");
+								RectTexte.x+=30;
+							break;
+							case SDLK_6 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "6", RectTexte, 0);
+								strcat(tab_capital, "6");
+								RectTexte.x+=30;
+							break;
+							case SDLK_7 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "7", RectTexte, 0);
+								strcat(tab_capital, "7");
+								RectTexte.x+=30;
+							break;
+							case SDLK_8 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "8", RectTexte, 0);
+								strcat(tab_capital, "8");
+								RectTexte.x+=30;
+							break;
+							case SDLK_9 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "9", RectTexte, 0);
+								strcat(tab_capital, "9");
+								RectTexte.x+=30;
+							break;
+							case SDLK_0 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "0", RectTexte, 0);
+								strcat(tab_capital, "0");
+								RectTexte.x+=30;
+							break;
+						}
+						break;
+			}
+		}
+	}
+	j->capital = atoi(tab_capital);
 	return j;
 }
 
@@ -197,13 +284,16 @@ void saisie_joueurs_dans_table(TABLE* table){
     
     /* initialisation des joueurs dans la table */
     JOUEUR* j,*j_suiv;
-    j=saisie_joueur_sdl(renderer);
+    j=saisie_joueur_sdl(renderer, 1);
     table->tete=j;
     for (int i=2;i<=table->nb_joueurs;i++){
-        j_suiv=saisie_joueur_sdl(renderer);
+        j_suiv=saisie_joueur_sdl(renderer, i);
         j->suivant=j_suiv;
         j=j_suiv;
     }
+    CROUPIER *c;
+    c = init_croupier();
+    table->croupier = c;
 }
 
 void saisie_joueurs_en_partie(TABLE *table){
@@ -581,6 +671,20 @@ void joueur_double(JOUEUR *j, TABLE *t){
     j->tab_cartes[j->nb_cartes]=*tirer_carte(t->pioche);
     j->nb_cartes++;
 }
+
+void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_emp, SDL_Rect capital_emp){
+	JOUEUR * j;
+	j=table->tete;
+	int offset = 0;
+	while(j!=NULL){
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, j->nom, nomj_emp, offset);
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", capital_emp, offset);
+		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
+		j=j->suivant;
+		offset+=256;
+	}
+}
+		
 
 
 

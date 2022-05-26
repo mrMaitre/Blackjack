@@ -129,6 +129,27 @@ void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SD
 	TTF_CloseFont(Font);
 }
 
+void afficher_entier(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, int entier, SDL_Rect DstRect, int offsetX){
+	TTF_Font* Font = TTF_OpenFont(police, taille_police); /* Charge une police depuis un fichier .ttf*/
+	if(!Font)
+	{
+		printf("Erreur de création de la police : %s", TTF_GetError());
+		return;
+	}
+	DstRect.x += offsetX;
+	char texte[6];
+	sprintf(texte, "%d", entier);
+	SDL_Surface * surf = TTF_RenderText_Blended(Font, texte, TextColor);
+	SDL_Texture * TextSurface = SDL_CreateTextureFromSurface(renderer, surf);
+	SDL_QueryTexture(TextSurface, NULL, NULL, &DstRect.w, &DstRect.h);
+	SDL_RenderCopy(renderer, TextSurface, NULL, &DstRect);
+	
+	SDL_RenderPresent(renderer);
+	
+	SDL_FreeSurface(surf);
+	TTF_CloseFont(Font);
+}
+
 void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
 	if(n==1) image = loadImage("remp1.bmp", renderer);

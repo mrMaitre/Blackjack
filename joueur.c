@@ -7,7 +7,7 @@ JOUEUR* saisie_joueur(){
     printf("\tEntrez le nom du joueur : ");
     scanf("%s",j->nom);
     printf("\tEntrez le capital du joueur : ");
-    scanf("%f",&j->capital);
+    scanf("%d",&j->capital);
     j->mise=0;
     j->score = 0;
     j->en_jeu=1;
@@ -22,7 +22,7 @@ JOUEUR* saisie_joueur(){
 
 
 void affiche_joueur(JOUEUR* j){
-    printf("Joueur enregistre !:\n\tnom : %s\n\tcapital : %f\n",j->nom,j->capital);
+    printf("Joueur enregistre !:\n\tnom : %s\n\tcapital : %ds\n",j->nom,j->capital);
 }
 
 void affiche_carte_joueur(JOUEUR* j){

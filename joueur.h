@@ -8,8 +8,8 @@
 typedef struct joueur{
     char nom[25];
     int en_jeu;
-    float capital;
-    float mise;
+    int capital;
+    int mise;
     int score;
     CARTE tab_cartes[10];
     int nb_cartes;

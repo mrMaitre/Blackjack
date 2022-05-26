@@ -23,7 +23,7 @@ typedef struct table{
 TABLE* init_table();
 int table_est_pleine(TABLE* p);
 int table_est_vide(TABLE* p);
-JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer);
+JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num);
 void saisie_joueurs_dans_table(TABLE* table);
 void affiche_table(TABLE* p);
 void demande_mises(TABLE* p);
@@ -41,5 +41,6 @@ void joueur_double(JOUEUR *j, TABLE *t);
 int comptage_score_split_joueur(JOUEUR* j);
 void tirage_carte_joueur_split(TABLE *t,JOUEUR *j);
 void saisie_joueurs_en_partie(TABLE *table);
+void afficher_nom_capital(SDL_Renderer* renderer, TABLE *t, SDL_Rect nomj_emp, SDL_Rect capital_emp);
 
 #endif //TABLE_H_INCLUDED
