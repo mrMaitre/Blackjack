@@ -43,11 +43,18 @@ void tirage_carte_joueur_debut(SDL_Renderer *renderer, PIOCHE *p,JOUEUR *j, SDL_
     /*permet au joueur de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
+    int offset2 = 0;
     for(i=0;i<2;i++){
         carte_tiree = tirer_carte(p);
+        afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset+offset2, offset2);
+        SDL_Delay(200);
+        printf("%d\n", offset+offset2);
         j->tab_cartes[i] = *carte_tiree;
         j->nb_cartes++;
+        offset2+=15;
+        emp.x-=offset;
     }
+    affiche_carte_joueur(j);
 }
 
 

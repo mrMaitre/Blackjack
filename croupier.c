@@ -14,7 +14,7 @@ void affiche_carte_croupier(CROUPIER *c){
 	}
 }
 
-void tirage_carte_croupier_debut(PIOCHE *p,CROUPIER *c){
+void tirage_carte_croupier_debut(SDL_Renderer *renderer, PIOCHE *p,CROUPIER *c){
     /*permet au croupier de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;

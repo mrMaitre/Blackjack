@@ -279,6 +279,7 @@ Menu:
 
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
     afficher_mise(renderer, table, mise_emp1);
+    SDL_Delay(1000);
     tirage_debut_partie(renderer, table, carte_emp1);
     
 	

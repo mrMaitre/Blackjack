@@ -27,7 +27,7 @@ typedef struct joueur{
 JOUEUR* saisie_joueur();
 void affiche_joueur(JOUEUR* j);
 void affiche_carte_joueur(JOUEUR* j);
-void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j);
+void tirage_carte_joueur_debut(SDL_Renderer *renderer, PIOCHE *p,JOUEUR *j, SDL_Rect emp, int offset);
 void liberer_joueur(JOUEUR *j);
 int joueur_a_blackjack(JOUEUR *j);
 void joueur_split(JOUEUR *j);

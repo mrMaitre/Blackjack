@@ -42,7 +42,7 @@ char *StructToChaine(CARTE *c){
     color = c->couleur;
     switch(num){
         case 1:
-            nom_carte[7] = '1';
+            nom_carte[7] = 'A';
             break;
 
         case 2:

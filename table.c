@@ -451,7 +451,6 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 		if(mise>j->capital){
 			SDL_Delay(20);
 			afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "INCORRECT", RectTexte, 100);
-			RectTexte.x = 360;
 			SDL_Delay(500);
 		}
 		else {
@@ -459,6 +458,7 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 			j=j->suivant;
 			num++;
 		}
+		RectTexte.x = 360;
 	}
 }
 
@@ -470,7 +470,7 @@ void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp){
     while(j!=NULL){
         if(j->en_jeu) tirage_carte_joueur_debut(renderer,t->pioche,j, emp, offset);
         j=j->suivant;
-        offest+=256;
+        offset+=256;
     }
     tirage_carte_croupier_debut(renderer,t->pioche,t->croupier);
 }
