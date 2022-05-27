@@ -264,21 +264,20 @@ Menu:
 		}
 	}
 	
-	SDL_Delay(500);
 	saisie_joueurs_dans_table(renderer, table);
 	SDL_Delay(1000);
     reinitialiser_plateau(renderer);
-    SDL_Delay(500);
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
     table->croupier->nb_cartes = 0;
    	pioche = init_pioche();
    	assigner_pioche(table,pioche);
    	SDL_Delay(2000);
     demande_mises(renderer,table);
-    SDL_Delay(500);
+    SDL_Delay(20);
     reinitialiser_plateau(renderer);
-    SDL_Delay(500);
+
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
+    afficher_mise(renderer, table, mise_emp1);
     
 	
 	while(1){

@@ -42,5 +42,6 @@ int comptage_score_split_joueur(JOUEUR* j);
 void tirage_carte_joueur_split(TABLE *t,JOUEUR *j);
 void saisie_joueurs_en_partie(TABLE *table);
 void afficher_nom_capital(SDL_Renderer* renderer, TABLE *t, SDL_Rect nomj_emp, SDL_Rect capital_emp);
+void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp);
 
 #endif //TABLE_H_INCLUDED

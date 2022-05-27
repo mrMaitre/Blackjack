@@ -358,6 +358,7 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 	JOUEUR *j;
 	char tab_mise[6];
 	int num=1;
+	int mise;
 	int continuer;
 	SDL_Rect RectTexte = {360, 325, 0, 0};
 	SDL_Rect rect = {100, 275, 0, 0};
@@ -377,7 +378,7 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 		SDL_Delay(20);
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
 		SDL_Delay(20);
-		num++;
+
         while(continuer){
 			if ( SDL_PollEvent(&event) )
 			{
@@ -446,8 +447,17 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 				}
 			}
 		}
-		j->mise = atoi(tab_mise);
-		j=j->suivant;
+		mise = atoi(tab_mise);
+		if(mise>j->capital){
+			SDL_Delay(20);
+			afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "INCORRECT", RectTexte, 100);
+			SDL_Delay(500);
+		}
+		else {
+			j->mise = mise;
+			j=j->suivant;
+			num++;
+		}
 	}
 }
 
@@ -666,6 +676,23 @@ void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_em
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", capital_emp, offset);
 		SDL_Delay(20);
 		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
+		SDL_Delay(20);
+		j=j->suivant;
+		offset+=256;
+	}
+}
+
+void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
+	JOUEUR * j;
+	j=table->tete;
+	int offset = 0;
+	SDL_Color TextColor = {255,255,255};
+	SDL_Event *event;
+	while(j!=NULL){
+		SDL_Delay(20);
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
+		SDL_Delay(20);
+		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
 		SDL_Delay(20);
 		j=j->suivant;
 		offset+=256;
