@@ -47,14 +47,12 @@ void tirage_carte_joueur_debut(SDL_Renderer *renderer, PIOCHE *p,JOUEUR *j, SDL_
     for(i=0;i<2;i++){
         carte_tiree = tirer_carte(p);
         afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset+offset2, offset2);
-        SDL_Delay(200);
-        printf("%d\n", offset+offset2);
+        SDL_Delay(500);
         j->tab_cartes[i] = *carte_tiree;
         j->nb_cartes++;
         offset2+=15;
         emp.x-=offset;
     }
-    affiche_carte_joueur(j);
 }
 
 
