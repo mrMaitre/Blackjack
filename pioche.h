@@ -1,8 +1,12 @@
 #ifndef PIOCHE_H_INCLUDED
 #define PIOCHE_H_INCLUDED
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "string.h"
+#include <string.h>
+#include "fonction_sdl.h"
+
 
 #define NB_JEUX_CARTES 3
 

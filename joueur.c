@@ -39,7 +39,7 @@ void affiche_carte_joueur(JOUEUR* j){
     }
 }
 
-void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
+void tirage_carte_joueur_debut(SDL_Renderer *renderer, PIOCHE *p,JOUEUR *j, SDL_Rect emp, int offset){
     /*permet au joueur de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
@@ -49,7 +49,6 @@ void tirage_carte_joueur_debut(PIOCHE *p,JOUEUR *j){
         j->nb_cartes++;
     }
 }
-
 
 
 void liberer_joueur(JOUEUR *j){

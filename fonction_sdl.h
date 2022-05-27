@@ -1,15 +1,13 @@
 #ifndef __FONCTION_H__
 #define __FONCTION_H__
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "joueur.h"
-#include <SDL2/SDL_ttf.h>
 
 
 
-	
 int quitter(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer);
 
 void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *dstrect, int x_offset, int y_offset);

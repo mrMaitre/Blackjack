@@ -451,6 +451,7 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 		if(mise>j->capital){
 			SDL_Delay(20);
 			afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "INCORRECT", RectTexte, 100);
+			RectTexte.x = 360;
 			SDL_Delay(500);
 		}
 		else {
@@ -462,14 +463,16 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 }
 
 
-void tirage_debut_partie(TABLE *t){
+void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp){
     JOUEUR *j;
     j=t->tete;
+    int offset = 0;
     while(j!=NULL){
-        if(j->en_jeu) tirage_carte_joueur_debut(t->pioche,j);
+        if(j->en_jeu) tirage_carte_joueur_debut(renderer,t->pioche,j, emp, offset);
         j=j->suivant;
+        offest+=256;
     }
-    tirage_carte_croupier_debut(t->pioche,t->croupier);
+    tirage_carte_croupier_debut(renderer,t->pioche,t->croupier);
 }
 
 int comptage_score_croupier(CROUPIER *c){
@@ -608,6 +611,7 @@ void assigner_pioche(TABLE *t, PIOCHE *p){
     t->pioche=p;
 }
 
+
 void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j){
     /* permet au joueur de tirer des cartes pendant les mises */
     CARTE *carte_tiree;
@@ -668,7 +672,6 @@ void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_em
 	j=table->tete;
 	int offset = 0;
 	SDL_Color TextColor = {255,255,255};
-	SDL_Event *event;
 	while(j!=NULL){
 		SDL_Delay(20);
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, j->nom, nomj_emp, offset);
@@ -687,7 +690,6 @@ void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
 	j=table->tete;
 	int offset = 0;
 	SDL_Color TextColor = {255,255,255};
-	SDL_Event *event;
 	while(j!=NULL){
 		SDL_Delay(20);
 		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);

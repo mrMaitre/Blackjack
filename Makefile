@@ -19,11 +19,8 @@ main.o : table.h main.c
 main_sdl.o : table.h main_sdl.c
 	$(CC) $(FLAGS) -c main_sdl.c $(sdl2-config --cflags --libs) -o main_sdl.o
 	
-table.o : fonction_sdl.h croupier.h table.h table.c
+table.o : croupier.h joueur.h table.h table.c
 	$(CC) $(FLAGS) -c table.c -o table.o
-	
-fonction_sdl.o : joueur.h fonction_sdl.h fonction_sdl.c
-	$(CC) $(FLAGS) -c fonction_sdl.c -o fonction_sdl.o
 	
 joueur.o : pioche.h joueur.h joueur.c
 	$(CC) $(FLAGS) -c joueur.c -o joueur.o
@@ -31,8 +28,11 @@ joueur.o : pioche.h joueur.h joueur.c
 croupier.o : pioche.h croupier.h croupier.c
 	$(CC) $(FLAGS) -c croupier.c -o croupier.o
 	
-pioche.o : pioche.h pioche.c
+pioche.o : fonction_sdl.h pioche.h pioche.c
 	$(CC) $(FLAGS) -c pioche.c -o pioche.o
+	
+fonction_sdl.o : fonction_sdl.h fonction_sdl.c
+	$(CC) $(FLAGS) -c fonction_sdl.c -o fonction_sdl.o
 	
 	
 clean :

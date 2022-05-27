@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "croupier.h"
-#include "fonction_sdl.h"
+#include "joueur.h"
 #define MAX_JOUEURS 5
 
 typedef struct table{
@@ -31,7 +31,7 @@ int comptage_score_croupier(CROUPIER *c);
 int comptage_score_joueur(JOUEUR *j);
 int compter_score(CARTE* tab_cartes, int nb_cartes);
 void repartition_gains(TABLE *t);
-void tirage_debut_partie(TABLE *t);
+void tirage_debut_partie(SDL_Renderer* renderer, TABLE *t);
 void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, TABLE *t);
 void assigner_pioche(TABLE *t, PIOCHE *p);
 void tirage_carte_croupier_apres_mises(TABLE *t);
