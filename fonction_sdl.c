@@ -53,6 +53,26 @@ SDL_Texture *loadImage(const char path[], SDL_Renderer *renderer)
     return texture;
 }
 
+SDL_Texture *loadPNG(const char path[], SDL_Renderer *renderer)
+{
+    SDL_Surface *tmp = NULL; 
+    SDL_Texture *texture = NULL;
+    tmp = IMG_Load(path);
+    if(NULL == tmp)
+    {
+        fprintf(stderr, "Erreur IMG_Load : %s\n", SDL_GetError());
+        return NULL;
+    }
+    texture = SDL_CreateTextureFromSurface(renderer, tmp);
+    SDL_FreeSurface(tmp);
+    if(NULL == texture)
+    {
+        fprintf(stderr, "Erreur SDL_CreateTextureFromSurface : %s\n", SDL_GetError());
+        return NULL;
+    }
+    return texture;
+}
+
 /* Fonction qui change la couleur de la fenetre*/
 int setWindowColor(SDL_Renderer *renderer, SDL_Color color)
 {
@@ -160,8 +180,8 @@ void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 
 void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
-	if(n==1) image = loadImage("Action.bmp", renderer);
-	if(n==2) image = loadImage("Action2.bmp", renderer);
+	if(n==1) image = loadPNG("Action.png", renderer);
+	if(n==2) image = loadPNG("Action2.png", renderer);
 	if(n==3) image = loadImage("Choix3.bmp", renderer);
 	if(n==4) image = loadImage("Choix4.bmp", renderer);
 	if(n==5) image = loadImage("Choix5.bmp", renderer);

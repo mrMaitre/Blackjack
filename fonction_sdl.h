@@ -2,6 +2,7 @@
 #define __FONCTION_H__
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -17,6 +18,7 @@ int init(SDL_Window **window, SDL_Renderer **renderer, int w, int h);
 
 /* Fonction qui permet de passer d'une fichier à une texture*/
 SDL_Texture *loadImage(const char path[], SDL_Renderer *renderer);
+SDL_Texture *loadPNG(const char path[], SDL_Renderer *renderer);
 
 /* Fonction qui change la couleur de la fenetre*/
 int setWindowColor(SDL_Renderer *renderer, SDL_Color color);

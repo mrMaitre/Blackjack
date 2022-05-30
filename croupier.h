@@ -2,6 +2,7 @@
 #define CROUPIER_H_INCLUDED
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #include "pioche.h"
 
 typedef struct croupier{
