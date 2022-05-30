@@ -31,7 +31,7 @@ int comptage_score_croupier(CROUPIER *c);
 int comptage_score_joueur(JOUEUR *j);
 int compter_score(CARTE* tab_cartes, int nb_cartes);
 void repartition_gains(TABLE *t);
-void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp);
+void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp_j, SDL_Rect emp_c);
 void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, TABLE *t);
 void assigner_pioche(TABLE *t, PIOCHE *p);
 void tirage_carte_croupier_apres_mises(TABLE *t);
@@ -43,5 +43,6 @@ void tirage_carte_joueur_split(TABLE *t,JOUEUR *j);
 void saisie_joueurs_en_partie(TABLE *table);
 void afficher_nom_capital(SDL_Renderer* renderer, TABLE *t, SDL_Rect nomj_emp, SDL_Rect capital_emp);
 void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp);
+void liberer_table(TABLE *t);
 
 #endif //TABLE_H_INCLUDED

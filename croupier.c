@@ -14,14 +14,19 @@ void affiche_carte_croupier(CROUPIER *c){
 	}
 }
 
-void tirage_carte_croupier_debut(SDL_Renderer *renderer, PIOCHE *p,CROUPIER *c){
+void tirage_carte_croupier_debut(SDL_Renderer *renderer, PIOCHE *p, CROUPIER *c, SDL_Rect emp){
     /*permet au croupier de tirer ses 2 premieres cartes */
     CARTE *carte_tiree;
     int i;
+    int offset2 = 0;
     for(i=0;i<2;i++){
         carte_tiree = tirer_carte(p);
+        afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset2, 0);
+        SDL_Delay(500);
         c->tab_cartes[i] = *carte_tiree;
         c->nb_cartes++;
+        carte_tiree = tirer_carte(p);
+        offset2+=81;
     }
 }
 

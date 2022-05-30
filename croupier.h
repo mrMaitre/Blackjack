@@ -12,7 +12,7 @@ typedef struct croupier{
 
 CROUPIER *init_croupier();
 void affiche_carte_croupier(CROUPIER *c);
-void tirage_carte_croupier_debut(SDL_Renderer *renderer,PIOCHE *p,CROUPIER *c);
+void tirage_carte_croupier_debut(SDL_Renderer *renderer,PIOCHE *p,CROUPIER *c, SDL_Rect emp);
 void liberer_croupier(CROUPIER *c);
 int croupier_a_blackjack(CROUPIER *c);
 

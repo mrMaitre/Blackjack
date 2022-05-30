@@ -12,7 +12,7 @@ int quitter(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer){
 	    SDL_DestroyWindow(window);
 	TTF_Quit();
 	SDL_Quit();
-	return 0;
+	return EXIT_SUCCESS;
 }
 
 /* Initialisation de la SDL*/
@@ -152,6 +152,19 @@ void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	if(n==3) image = loadImage("remp3.bmp", renderer);
 	if(n==4) image = loadImage("remp4.bmp", renderer);
 	if(n==5) image = loadImage("remp5.bmp", renderer);
+	
+    if(NULL == image) return;
+	SDL_RenderCopy(renderer, image, NULL, dstrect);
+	SDL_RenderPresent(renderer);
+}
+
+void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
+	SDL_Texture *image = NULL;
+	if(n==1) image = loadImage("Choix1.bmp", renderer);
+	if(n==2) image = loadImage("Choix2.bmp", renderer);
+	if(n==3) image = loadImage("Choix3.bmp", renderer);
+	if(n==4) image = loadImage("Choix4.bmp", renderer);
+	if(n==5) image = loadImage("Choix5.bmp", renderer);
 	
     if(NULL == image) return;
 	SDL_RenderCopy(renderer, image, NULL, dstrect);

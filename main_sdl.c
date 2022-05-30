@@ -86,9 +86,11 @@ int main(int argc, char **argv)
     carte_croup_autre.y = 180;
     carte_croup_autre.w = 71;
     carte_croup_autre.h = 96;
+    
+    SDL_Rect choix_emp = {33, 645, 220, 75};
         
     /* Rectangles avec l'emplacement de la première carte de gauche à droite */
-    carte_emp1.x = 38;
+    carte_emp1.x = 48;
     carte_emp1.y = 410;
     carte_emp1.w = 71;
     carte_emp1.h = 96;
@@ -280,7 +282,13 @@ Menu:
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
     afficher_mise(renderer, table, mise_emp1);
     SDL_Delay(1000);
-    tirage_debut_partie(renderer, table, carte_emp1);
+    tirage_debut_partie(renderer, table, carte_emp1, carte_croup_autre);
+    
+	for(int i=1; i<=5; i++){
+    	choix(renderer, &choix_emp, i);
+    	choix_emp.x+=248;
+    }
+    
     
 	
 	while(1){
@@ -291,7 +299,8 @@ Menu:
 				case SDL_WINDOWEVENT: // Événement de la fenêtre
 				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
 				    {
-				        quitter(window, image, renderer);
+				    	liberer_table(table);
+				        return quitter(window, image, renderer);
 				    }
 				    break;
 				case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier

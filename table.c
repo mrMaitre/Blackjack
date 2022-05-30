@@ -463,16 +463,16 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 }
 
 
-void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp){
+void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp_j, SDL_Rect emp_c){
     JOUEUR *j;
     j=t->tete;
     int offset = 0;
     while(j!=NULL){
-        if(j->en_jeu) tirage_carte_joueur_debut(renderer,t->pioche,j, emp, offset);
+        if(j->en_jeu) tirage_carte_joueur_debut(renderer,t->pioche,j, emp_j, offset);
         j=j->suivant;
-        offset+=256;
+        offset+=248;
     }
-    tirage_carte_croupier_debut(renderer,t->pioche,t->croupier);
+    tirage_carte_croupier_debut(renderer,t->pioche,t->croupier, emp_c);
 }
 
 int comptage_score_croupier(CROUPIER *c){
@@ -699,6 +699,20 @@ void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
 		j=j->suivant;
 		offset+=256;
 	}
+}
+
+
+void liberer_table(TABLE *t){
+	JOUEUR *j = t->tete;
+	JOUEUR *j_suiv = t->tete->suivant;
+	while(j!=NULL){
+		liberer_joueur(j);
+		j=j_suiv;
+		j_suiv = j_suiv->suivant;
+	}
+	liberer_croupier(t->croupier);
+	liberer_pioche(t->pioche);
+	free(t);
 }
 		
 
