@@ -622,10 +622,25 @@ void tirage_carte_joueur_mises(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Re
     j->nb_cartes++;
 }
 
-void tirage_carte_joueur_split(TABLE *t,JOUEUR *j){
+
+void tirage_carte_joueur_split1(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
     /* permet au joueur de tirer des cartes pendant les mises */
     CARTE *carte_tiree;
     carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, 0, offset);
+    SDL_Delay(500);
+    j->tab_cartes[j->nb_cartes] = *carte_tiree;
+    j->nb_cartes++;
+}
+
+
+
+void tirage_carte_joueur_split2(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
+    /* permet au joueur de tirer des cartes pendant les mises */
+    CARTE *carte_tiree;
+    carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, 0, offset);
+    SDL_Delay(500);
     /*tableau carte de split*/
     j->tab_cartes_split[j->nb_cartes_split] = *carte_tiree;
     j->nb_cartes_split++;
@@ -683,7 +698,7 @@ void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_em
 		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
 		SDL_Delay(20);
 		j=j->suivant;
-		offset+=256;
+		offset+=248;
 	}
 }
 
@@ -699,7 +714,7 @@ void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
 		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
 		SDL_Delay(20);
 		j=j->suivant;
-		offset+=256;
+		offset+=248;
 	}
 }
 
@@ -717,7 +732,7 @@ void liberer_table(TABLE *t){
 	free(t);
 }
 
-int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
+int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
 	SDL_Event event;
 	SDL_bool quit = SDL_FALSE;
 	int tirage;
@@ -760,6 +775,72 @@ void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	afficher_carte(StructToChaine(&j->tab_cartes[1]), renderer, &carte2, 0, 0);
 }
 
+
+void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
+	SDL_Delay(20);
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset+150);
+	SDL_Delay(20);
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+170);
+	SDL_Delay(20);
+}
+
+
+void jeu_split(SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect choix_emp, SDL_Rect mise_emp, int i){
+	SDL_Rect carte1 = {48+offset, 425, 71, 96};
+	SDL_Rect carte2 = {159+offset, 425, 71, 96};
+	int tirage;
+	int offset_cartes=0;
+	choix(renderer, &choix_emp, i);
+	action(renderer, &choix_emp, 1);
+	while(tirage!=0 && tirage!=2 && j->score<21){
+		tirage = gestion_action(renderer, t, offset, 1, j);
+		switch(tirage){
+			case 0 :
+				choix(renderer, &choix_emp, i);
+				afficher_mise_split(j, renderer, t, mise_emp, offset);
+				SDL_Delay(200);
+				break;
+			case 1 : 
+				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes); 
+				offset_cartes+=15;
+				break;
+			case 2 : 
+				joueur_double(j,t); 
+				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes);
+				break;
+		}
+		j->score = comptage_score_joueur(j);
+	}
+	offset_cartes = 0;
+	tirage = 1;
+	choix(renderer, &choix_emp, i);
+	action(renderer, &choix_emp, 1);
+	while(tirage!=0 && tirage!=2 && j->score_split<21){
+		tirage = gestion_action(renderer, t, offset, 1, j);
+		switch(tirage){
+			case 0 : 
+				choix(renderer, &choix_emp, i);
+				afficher_mise_split(j, renderer, t, mise_emp, offset);
+				SDL_Delay(200);
+				break;
+			case 1 : 
+				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes); 
+				offset_cartes+=15;
+				break;
+			case 2 : 
+				joueur_double(j,t); 
+				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes);
+				break;
+		}
+		j->score_split = comptage_score_split_joueur(j);
+	}
+	
+}
 
 
 
