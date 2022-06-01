@@ -96,8 +96,8 @@ int main(int argc, char **argv)
     carte_emp1.w = 71;
     carte_emp1.h = 96;
     
-    carte_emp2.x = 294;
-    carte_emp2.y = 410;
+    carte_emp2.x = 78;
+    carte_emp2.y = 440;
     carte_emp2.w = 71;
     carte_emp2.h = 96;
     
@@ -286,18 +286,40 @@ Menu:
     tirage_debut_partie(renderer, table, carte_emp1, carte_croup_autre);
     
     int i = 1;
+    int offset = 0;
+    int offset_cartes = 0;
+    int tirage = 1;
+    JOUEUR *j = table->tete;
 	while(j!=NULL){
-			if(j->en_jeu){
-				j->score = comptage_score_joueur(j);
-				while(tirage!=0 && tirage!=2 && j->score<21){
-					affiche_carte_joueur(j);
-					choix(renderer, &choix_emp, i);
-					if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num== j->tab_cartes[1].num && j->split == 0){
-						action(renderer, &choix_emp, 2);
-						
-					}
+		if(j->en_jeu){
+			j->score = comptage_score_joueur(j);
+			while(tirage!=0 && tirage!=2 && j->score<21){
+				affiche_carte_joueur(j);
+				choix(renderer, &choix_emp, i);
+				if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
+					action(renderer, &choix_emp, 2);
+					tirage = gestion_action(renderer, table, offset, 2, j);
 				}
+				else {
+					action(renderer, &choix_emp, 1);
+					tirage = gestion_action(renderer, table, offset, 2, j);
+				}
+				switch(tirage){
+					case 0 : break;
+					case 1 : 
+						tirage_carte_joueur_mises(table,j,carte_emp2,offset_carte); 
+						offset_cartes+=15;
+						break;
+					case 2 : joueur_double(j,table); break;
+					case 3 : joueur_split(j); break;
+				}
+				j->score = comptage_score_joueur(j);
 			}
+		}
+		i++;
+		choix_emp.x+=248;
+		carte_emp2.x+=248;
+		offset+=248;
 	}
     
 	
