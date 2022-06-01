@@ -285,11 +285,20 @@ Menu:
     SDL_Delay(1000);
     tirage_debut_partie(renderer, table, carte_emp1, carte_croup_autre);
     
-	for(int i=1; i<=5; i++){
-    	choix(renderer, &choix_emp, i);
-    	choix_emp.x+=248;
-    }
-    
+    int i = 1;
+	while(j!=NULL){
+			if(j->en_jeu){
+				j->score = comptage_score_joueur(j);
+				while(tirage!=0 && tirage!=2 && j->score<21){
+					affiche_carte_joueur(j);
+					choix(renderer, &choix_emp, i);
+					if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num== j->tab_cartes[1].num && j->split == 0){
+						action(renderer, &choix_emp, 2);
+						
+					}
+				}
+			}
+	}
     
 	
 	while(1){

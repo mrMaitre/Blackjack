@@ -180,11 +180,21 @@ void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 
 void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
-	if(n==1) image = loadPNG("Action.png", renderer);
-	if(n==2) image = loadPNG("Action2.png", renderer);
+	if(n==1) image = loadPNG("Choix1.png", renderer);
+	if(n==2) image = loadPNG("Choix2.png", renderer);
 	if(n==3) image = loadImage("Choix3.bmp", renderer);
 	if(n==4) image = loadImage("Choix4.bmp", renderer);
 	if(n==5) image = loadImage("Choix5.bmp", renderer);
+	
+    if(NULL == image) return;
+	SDL_RenderCopy(renderer, image, NULL, dstrect);
+	SDL_RenderPresent(renderer);
+}
+
+void action(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
+	SDL_Texture *image = NULL;
+	if(n==1) image = loadPNG("Action1.png", renderer);
+	if(n==2) image = loadPNG("Action2.png", renderer);
 	
     if(NULL == image) return;
 	SDL_RenderCopy(renderer, image, NULL, dstrect);

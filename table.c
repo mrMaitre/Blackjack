@@ -714,6 +714,10 @@ void liberer_table(TABLE *t){
 	liberer_pioche(t->pioche);
 	free(t);
 }
+
+void gestion_action(SDL_Renderer *renderer, TABLE *t, int offset){
+	
+}
 		
 
 
