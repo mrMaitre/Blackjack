@@ -45,8 +45,7 @@ void saisie_joueurs_en_partie(TABLE *table);
 void afficher_nom_capital(SDL_Renderer* renderer, TABLE *t, SDL_Rect nomj_emp, SDL_Rect capital_emp);
 void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp);
 void liberer_table(TABLE *t);
-void gestion_action(SDL_Renderer *renderer, TABLE *t, int offset);
+void gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur);
 	
-}
 
 #endif //TABLE_H_INCLUDED
