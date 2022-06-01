@@ -730,6 +730,8 @@ int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR
 					if ((event.button.y>684 && event.button.y<720) && ((event.button.x>145 + offset) && (event.button.x<256 + offset)) && (joueur->capital >= 2*joueur->mise)) return 2;
 
 				    break;
+		}
+	}
 }
 		
 
