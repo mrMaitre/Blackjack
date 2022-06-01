@@ -295,31 +295,48 @@ Menu:
 			j->score = comptage_score_joueur(j);
 			while(tirage!=0 && tirage!=2 && j->score<21){
 				choix(renderer, &choix_emp, i);
-				if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
+				//if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
 					action(renderer, &choix_emp, 2);
 					tirage = gestion_action(window, image, renderer, table, offset, 2, j);
-				}
+				/*}
 				else {
 					action(renderer, &choix_emp, 1);
 					tirage = gestion_action(window, image, renderer, table, offset, 1, j);
 					printf("OK");
-				}
+				}*/
 				switch(tirage){
-					case 0 : break;
+					case 0 : 
+						choix(renderer, &choix_emp, i);
+						afficher_mise(renderer, table, mise_emp1);
+						break;
 					case 1 : 
 						tirage_carte_joueur_mises(renderer,table,j,carte_emp2,offset_cartes); 
 						offset_cartes+=15;
 						break;
-					case 2 : joueur_double(j,table); break;
-					case 3 : joueur_split(j); break;
+					case 2 : 
+						joueur_double(j,table); 
+						tirage_carte_joueur_mises(renderer,table,j,carte_emp2,offset_cartes);
+						break;
+					case 3 : 
+						joueur_split(j); 
+						SDL_Delay(20);
+						remp_carte(renderer, &split_emp1, i);
+						SDL_Delay(20);
+						afficher_cartes_split(renderer, j, offset);
+						break;
 				}
 				j->score = comptage_score_joueur(j);
 			}
 		}
+		choix(renderer, &choix_emp, i);
+		afficher_mise(renderer, table, mise_emp1);
 		i++;
 		choix_emp.x+=248;
 		carte_emp2.x+=248;
+		split_emp1.x += 248;
 		offset+=248;
+		tirage = 1;
+		offset_cartes = 0;
 		j = j->suivant;
 	}
     

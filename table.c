@@ -730,7 +730,6 @@ int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *rendere
 					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>33 + offset) && (event.button.x<143 + offset)) {
 						tirage = 0;
 						quit = SDL_TRUE;
-						printf("stand\n");
 					}
 					else
 					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>145 + offset) && (event.button.x<256 + offset) && (cas == 2) && (joueur->capital >= 2*joueur->mise)) {
@@ -754,7 +753,12 @@ int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *rendere
 	return tirage;
 }
 		
-
+void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Rect carte1 = {48+offset, 410, 71, 96};
+	SDL_Rect carte2 = {159+offset, 410, 71, 96};
+	afficher_carte(StructToChaine(&j->tab_cartes[0]), renderer, &carte1, 0, 0);
+	afficher_carte(StructToChaine(&j->tab_cartes[1]), renderer, &carte2, 0, 0);
+}
 
 
 

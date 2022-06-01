@@ -167,6 +167,7 @@ void afficher_entier(SDL_Renderer *renderer, char police[], int taille_police, S
 
 void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
+	dstrect->x += (n-1)*248;
 	if(n==1) image = loadImage("remp1.bmp", renderer);
 	if(n==2) image = loadImage("remp2.bmp", renderer);
 	if(n==3) image = loadImage("remp3.bmp", renderer);

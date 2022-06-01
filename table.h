@@ -46,6 +46,7 @@ void afficher_nom_capital(SDL_Renderer* renderer, TABLE *t, SDL_Rect nomj_emp, S
 void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp);
 void liberer_table(TABLE *t);
 int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur);
+void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset);
 	
 
 #endif //TABLE_H_INCLUDED
