@@ -31,6 +31,7 @@ void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SD
 void afficher_entier(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, int entier, SDL_Rect DstRect, int offsetX);
 void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n);
 void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n);
+void action(SDL_Renderer *renderer, SDL_Rect *dstrect, int n);
 
 	
 

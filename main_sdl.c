@@ -302,7 +302,7 @@ Menu:
 				}
 				else {
 					action(renderer, &choix_emp, 1);
-					tirage = gestion_action(renderer, table, offset, 2, j);
+					tirage = gestion_action(renderer, table, offset, 1, j);
 				}
 				switch(tirage){
 					case 0 : break;
