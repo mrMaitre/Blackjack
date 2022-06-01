@@ -717,8 +717,21 @@ void liberer_table(TABLE *t){
 	free(t);
 }
 
-void gestion_action(SDL_Renderer *renderer, TABLE *t, int offset){
-	
+int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
+	int place_joueur = joueur->
+			if ( SDL_PollEvent(&event) ){
+			switch(event.type)
+			{
+				case SDL_WINDOWEVENT: // Événement de la fenêtre
+				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) quitter(window, image, renderer);
+				    break;
+				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
+					if ((event.button.y>645 && event.button.y<681) && ((event.button.x>33 + offset) && (event.button.x<143 + offset)) return 0;
+					if ((event.button.y>645 && event.button.y<681) && ((event.button.x>145 + offset) && (event.button.x<256 + offset) && ((cas == 2) && (joueur->capital >= 2*joueur->mise))) && return 3;
+					if ((event.button.y>684 && event.button.y<720) && ((event.button.x>33 + offset) && (event.button.x<143 + offset)))return 1;
+					if ((event.button.y>684 && event.button.y<720) && ((event.button.x>145 + offset) && (event.button.x<256 + offset)) && (joueur->capital >= 2*joueur->mise)) return 2;
+
+				    break;
 }
 		
 
