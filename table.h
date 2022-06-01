@@ -36,7 +36,7 @@ void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp_j, SDL_R
 void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, TABLE *t);
 void assigner_pioche(TABLE *t, PIOCHE *p);
 void tirage_carte_croupier_apres_mises(TABLE *t);
-void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j, SDL_Rect emp, int offset);
+void tirage_carte_joueur_mises(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset);
 void sortie_joueur_table(JOUEUR *j,TABLE *t);
 void joueur_double(JOUEUR *j, TABLE *t);
 int comptage_score_split_joueur(JOUEUR* j);
@@ -45,7 +45,7 @@ void saisie_joueurs_en_partie(TABLE *table);
 void afficher_nom_capital(SDL_Renderer* renderer, TABLE *t, SDL_Rect nomj_emp, SDL_Rect capital_emp);
 void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp);
 void liberer_table(TABLE *t);
-void gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur);
+int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur);
 	
 
 #endif //TABLE_H_INCLUDED

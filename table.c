@@ -612,11 +612,11 @@ void assigner_pioche(TABLE *t, PIOCHE *p){
 }
 
 
-void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
+void tirage_carte_joueur_mises(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
     /* permet au joueur de tirer des cartes pendant les mises */
     CARTE *carte_tiree;
     carte_tiree = tirer_carte(t->pioche);
-    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset+offset2, offset2);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, offset);
     SDL_Delay(500);
     j->tab_cartes[j->nb_cartes] = *carte_tiree;
     j->nb_cartes++;
@@ -717,13 +717,16 @@ void liberer_table(TABLE *t){
 	free(t);
 }
 
-int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
-	int place_joueur = joueur->
+int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
+	SDL_Event event;
 		if ( SDL_PollEvent(&event) ){
 			switch(event.type)
 			{
 				case SDL_WINDOWEVENT: // Événement de la fenêtre
-				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) quitter(window, image, renderer);
+				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
+				    {
+				        return quitter(window, image, renderer);
+				    }
 				    break;
 				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
 					if ((event.button.y>645 && event.button.y<681) && ((event.button.x>33 + offset) && (event.button.x<143 + offset))) return 0;

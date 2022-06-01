@@ -298,16 +298,16 @@ Menu:
 				choix(renderer, &choix_emp, i);
 				if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
 					action(renderer, &choix_emp, 2);
-					tirage = gestion_action(renderer, table, offset, 2, j);
+					tirage = gestion_action(window, image, renderer, table, offset, 2, j);
 				}
 				else {
 					action(renderer, &choix_emp, 1);
-					tirage = gestion_action(renderer, table, offset, 1, j);
+					tirage = gestion_action(window, image, renderer, table, offset, 1, j);
 				}
 				switch(tirage){
 					case 0 : break;
 					case 1 : 
-						tirage_carte_joueur_mises(table,j,carte_emp2,offset_cartes); 
+						tirage_carte_joueur_mises(renderer,table,j,carte_emp2,offset_cartes); 
 						offset_cartes+=15;
 						break;
 					case 2 : joueur_double(j,table); break;
