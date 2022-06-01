@@ -307,7 +307,7 @@ Menu:
 				switch(tirage){
 					case 0 : break;
 					case 1 : 
-						tirage_carte_joueur_mises(table,j,carte_emp2,offset_carte); 
+						tirage_carte_joueur_mises(table,j,carte_emp2,offset_cartes); 
 						offset_cartes+=15;
 						break;
 					case 2 : joueur_double(j,table); break;
