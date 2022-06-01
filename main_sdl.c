@@ -294,7 +294,6 @@ Menu:
 		if(j->en_jeu){
 			j->score = comptage_score_joueur(j);
 			while(tirage!=0 && tirage!=2 && j->score<21){
-				affiche_carte_joueur(j);
 				choix(renderer, &choix_emp, i);
 				if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
 					action(renderer, &choix_emp, 2);
@@ -303,6 +302,7 @@ Menu:
 				else {
 					action(renderer, &choix_emp, 1);
 					tirage = gestion_action(window, image, renderer, table, offset, 1, j);
+					printf("OK");
 				}
 				switch(tirage){
 					case 0 : break;
@@ -320,6 +320,7 @@ Menu:
 		choix_emp.x+=248;
 		carte_emp2.x+=248;
 		offset+=248;
+		j = j->suivant;
 	}
     
 	

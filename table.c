@@ -719,34 +719,33 @@ void liberer_table(TABLE *t){
 
 int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
 	SDL_Event event;
+	SDL_bool quit = SDL_FALSE;
 	int tirage;
 	int continuer = 1;
-	while(continuer){
+	while(!quit){
 		if (SDL_PollEvent(&event)){
 			switch(event.type)
 			{
-				case SDL_WINDOWEVENT: // Événement de la fenêtre
-					if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
-					{
-						return quitter(window, image, renderer);
-					}
-					break;
 				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
 					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>33 + offset) && (event.button.x<143 + offset)) {
 						tirage = 0;
-						continuer = 0;
+						quit = SDL_TRUE;
+						printf("stand\n");
 					}
+					else
 					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>145 + offset) && (event.button.x<256 + offset) && (cas == 2) && (joueur->capital >= 2*joueur->mise)) {
-						tirage = 0;
-						continuer = 0;
+						tirage = 3;
+						quit = SDL_TRUE;
 					}
+					else
 					if ((event.button.y>684) && (event.button.y<720) && (event.button.x>33 + offset) && (event.button.x<143 + offset)) {
-						tirage = 0;
-						continuer = 0;
+						tirage = 1;
+						quit = SDL_TRUE;
 					}
+					else
 					if ((event.button.y>684) && (event.button.y<720) && (event.button.x>145 + offset) && (event.button.x<256 + offset) && (joueur->capital >= 2*joueur->mise)) {
-						tirage = 0;
-						continuer = 0;
+						tirage = 2;
+						quit = SDL_TRUE;
 					}
 					break;
 			}
