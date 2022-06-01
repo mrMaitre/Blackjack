@@ -612,10 +612,12 @@ void assigner_pioche(TABLE *t, PIOCHE *p){
 }
 
 
-void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j){
+void tirage_carte_joueur_mises(TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
     /* permet au joueur de tirer des cartes pendant les mises */
     CARTE *carte_tiree;
     carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset+offset2, offset2);
+    SDL_Delay(500);
     j->tab_cartes[j->nb_cartes] = *carte_tiree;
     j->nb_cartes++;
 }
