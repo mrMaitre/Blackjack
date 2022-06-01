@@ -305,7 +305,8 @@ Menu:
 					printf("OK");
 				}*/
 				switch(tirage){
-					case 0 : 
+					case 0 :
+						tirage = 2;
 						break;
 					case 1 : 
 						tirage_carte_joueur_mises(renderer,table,j,carte_emp2,offset_cartes); 
