@@ -646,14 +646,18 @@ void tirage_carte_joueur_split2(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_R
     j->nb_cartes_split++;
 }
 
-void tirage_carte_croupier_apres_mises(TABLE *t){
+
+void tirage_carte_croupier_apres_mises(SDL_Renderer *renderer,TABLE *t, SDL_Rect emp, int offset){
     /* permet au croupier de tirer des cartes jusqu'a avoir un score superieur a 16 */
     CROUPIER *c = t->croupier;
     CARTE *carte_tiree;
     carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, 0);
+    SDL_Delay(500);
     c->tab_cartes[c->nb_cartes] = *carte_tiree;
     c->nb_cartes++;
 }
+
 
 void sortie_joueur_table(JOUEUR *j,TABLE *t){
     JOUEUR *j_cour,*j_ancien;
@@ -736,7 +740,6 @@ int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR
 	SDL_Event event;
 	SDL_bool quit = SDL_FALSE;
 	int tirage;
-	int continuer = 1;
 	while(!quit){
 		if (SDL_PollEvent(&event)){
 			switch(event.type)
@@ -777,16 +780,16 @@ void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 
 void afficher_score(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	SDL_Color TextColor = {255,255,255};
-	SDL_Rect score = {190+offset, 355, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->score, score, 0);
+	SDL_Rect score = {220+offset, 360, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score, 0);
 }
 
 void afficher_score_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	SDL_Color TextColor = {255,255,255};
-	SDL_Rect score1 = {130+offset, 355, 71, 96};
-	SDL_Rect score2 = {190+offset, 355, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->score, score1, 0);
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->score_split, score2, 0);
+	SDL_Rect score1 = {170+offset, 360, 71, 96};
+	SDL_Rect score2 = {220+offset, 360, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score1, 0);
+	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score_split, score2, 0);
 }
 
 void afficher_blackjack(SDL_Renderer *renderer, JOUEUR * j, int offset){
