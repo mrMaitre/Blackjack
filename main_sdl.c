@@ -387,6 +387,7 @@ Menu:
 		offset+=81;
 		SDL_Delay(500);
 	}
+	afficher_score_croupier(renderer, table->croupier);
 	repartition_gains(table);
     
 	

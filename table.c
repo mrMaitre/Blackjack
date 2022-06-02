@@ -792,6 +792,12 @@ void afficher_score_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score_split, score2, 0);
 }
 
+void afficher_score_croupier(SDL_Renderer *renderer, CROUPIER *c){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect score = {340, 140, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 25, TextColor, c->score, score, 0);
+}
+
 void afficher_blackjack(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	SDL_Color TextColor = {255,255,255};
 	SDL_Rect blackjack = {80+offset, 355, 71, 96};

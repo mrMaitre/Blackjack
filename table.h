@@ -50,6 +50,7 @@ int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR
 void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset);
 void afficher_score(SDL_Renderer *renderer, JOUEUR * j, int offset);
 void afficher_score_split(SDL_Renderer *renderer, JOUEUR * j, int offset);
+void afficher_score_croupier(SDL_Renderer *renderer, CROUPIER *c);
 void afficher_blackjack(SDL_Renderer *renderer, JOUEUR * j, int offset);
 void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp, int offset);
 void jeu_split(SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect choix_emp, SDL_Rect mise_emp, int i);
