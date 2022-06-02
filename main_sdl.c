@@ -89,6 +89,7 @@ int main(int argc, char **argv)
     carte_croup_autre.h = 96;
     
     SDL_Rect choix_emp = {33, 645, 220, 75};
+    SDL_Rect start = {40, 40, 150, 160};
         
     /* Rectangles avec l'emplacement de la première carte de gauche à droite */
     carte_emp1.x = 48;
@@ -269,13 +270,31 @@ Menu:
 	}
 	
 	saisie_joueurs_dans_table(renderer, table);
-	SDL_Delay(1000);
+	SDL_Delay(500);
     reinitialiser_plateau(renderer);
+    afficher_start(renderer, start);
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
     table->croupier->nb_cartes = 0;
    	pioche = init_pioche();
    	assigner_pioche(table,pioche);
-   	SDL_Delay(2000);
+   	SDL_Delay(500);
+   	int continuer = 1;
+   	while(continuer){	
+		if ( SDL_PollEvent(&event) )
+		{
+			switch(event.type)
+			{
+				case SDL_WINDOWEVENT: // Événement de la fenêtre
+				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) quitter(window, image, renderer);
+				    break;
+				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
+					if(event.button.y>40 && event.button.y<200 && event.button.x>40 && event.button.x<190){
+						continuer = 0;
+					}
+				    break;
+			}
+		}
+	}
     demande_mises(renderer,table);
     SDL_Delay(20);
     reinitialiser_plateau(renderer);
@@ -290,23 +309,26 @@ Menu:
     int offset_cartes = 0;
     int tirage = 1;
     JOUEUR *j = table->tete;
+    int a_split = 0;;
 	while(j!=NULL){
 		if(j->en_jeu){
 			j->score = comptage_score_joueur(j);
+			if(joueur_a_blackjack(j)) afficher_blackjack(renderer, j, offset);
 			while(tirage!=0 && tirage!=2 && j->score<21){
 				choix(renderer, &choix_emp, i);
-				//if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
+				if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
 					action(renderer, &choix_emp, 2);
 					tirage = gestion_action(renderer, table, offset, 2, j);
-				/*}
+				}
 				else {
 					action(renderer, &choix_emp, 1);
 					tirage = gestion_action(renderer, table, offset, 1, j);
 					printf("OK");
-				}*/
+				}
 				switch(tirage){
 					case 0 :
-						tirage = 2;
+						tirage = 0;
+						SDL_Delay(20);
 						break;
 					case 1 : 
 						tirage_carte_joueur_mises(renderer,table,j,carte_emp2,offset_cartes); 
@@ -323,6 +345,7 @@ Menu:
 						SDL_Delay(20);
 						afficher_cartes_split(renderer, j, offset);
 						SDL_Delay(20);
+						a_split = 1;
 						break;
 				}
 				j->score = comptage_score_joueur(j);
@@ -333,9 +356,12 @@ Menu:
 				}
 			}
 		}
+		if(a_split) afficher_score_split(renderer, j, offset);
+		else afficher_score(renderer, j, offset);
+		SDL_Delay(20);
 		choix(renderer, &choix_emp, i);
 		afficher_mise(renderer, table, mise_emp1);
-		afficher_mise_split(j, renderer, table, mise_emp1, offset);
+		if(a_split) afficher_mise_split(j, renderer, table, mise_emp1, offset);
 		i++;
 		choix_emp.x+=248;
 		carte_emp2.x+=248;
@@ -344,6 +370,7 @@ Menu:
 		tirage = 1;
 		offset_cartes = 0;
 		j = j->suivant;
+		a_split = 0;
 	}
     
 	

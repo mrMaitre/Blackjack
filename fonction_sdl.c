@@ -124,6 +124,13 @@ void afficher_vierge(SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 }
 
+void afficher_start(SDL_Renderer *renderer, SDL_Rect start){
+	SDL_Texture *image = NULL;
+	image = loadPNG("Start.png", renderer);
+	SDL_RenderCopy(renderer, image, NULL, &start);
+    SDL_RenderPresent(renderer);
+}
+
 /* Affiche texte */
 void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect, int offsetX){
 	TTF_Font* Font = TTF_OpenFont(police, taille_police); /* Charge une police depuis un fichier .ttf*/

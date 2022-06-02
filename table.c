@@ -775,6 +775,26 @@ void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	afficher_carte(StructToChaine(&j->tab_cartes[1]), renderer, &carte2, 0, 0);
 }
 
+void afficher_score(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect score = {190+offset, 355, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->score, score, 0);
+}
+
+void afficher_score_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect score1 = {130+offset, 355, 71, 96};
+	SDL_Rect score2 = {190+offset, 355, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->score, score1, 0);
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->score_split, score2, 0);
+}
+
+void afficher_blackjack(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect blackjack = {80+offset, 355, 71, 96};
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "BLACKJACK", blackjack, 0);
+}
+
 
 void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp, int offset){
 	SDL_Color TextColor = {255,255,255};

@@ -27,6 +27,7 @@ void reinitialiser_plateau(SDL_Renderer *renderer);
 void saisie_des_joueurs(SDL_Renderer *renderer);
 void afficher_menu(SDL_Renderer *renderer);
 void afficher_vierge(SDL_Renderer *renderer);
+void afficher_start(SDL_Renderer *renderer, SDL_Rect start);
 void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, char texte[], SDL_Rect DstRect, int offsetX);
 void afficher_entier(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, int entier, SDL_Rect DstRect, int offsetX);
 void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n);
