@@ -31,7 +31,7 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t);
 int comptage_score_croupier(CROUPIER *c);
 int comptage_score_joueur(JOUEUR *j);
 int compter_score(CARTE* tab_cartes, int nb_cartes);
-void repartition_gains(TABLE *t);
+void repartition_gains(SDL_Renderer* renderer, TABLE *t);
 void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp_j, SDL_Rect emp_c);
 void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, TABLE *t);
 void assigner_pioche(TABLE *t, PIOCHE *p);

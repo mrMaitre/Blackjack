@@ -388,7 +388,7 @@ Menu:
 		SDL_Delay(500);
 	}
 	afficher_score_croupier(renderer, table->croupier);
-	repartition_gains(table);
+	repartition_gains(renderer, table);
     
 	
 	while(1){
@@ -414,7 +414,7 @@ Menu:
 				    }
 				    if ( event.key.keysym.sym == SDLK_e ) //Touche e
 				    {
-				        afficher_carte("cartes/10c.bmp", renderer, &carte_emp2, 15, 15);
+				        afficher_carte("cartes/Dc.bmp", renderer, &carte_emp2, 15, 15);
 				    }
 				    if ( event.key.keysym.sym == SDLK_r) //Touche r
 				    {

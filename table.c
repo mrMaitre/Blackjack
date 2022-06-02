@@ -518,39 +518,44 @@ int compter_score(CARTE* tab_cartes, int nb_cartes){
 }
 
 
-void repartition_gains(TABLE *t){
+void repartition_gains(SDL_Renderer* renderer, TABLE *t){
     JOUEUR *j;
+    SDL_Rect rect_texte = {100, 665, 0, 0};
+    SDL_Color TextColor = {255, 255, 255};
     j=t->tete;
     while(j!=NULL){
         if(j->en_jeu){
-            if(j->score > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
+            if(j->score > 21){
+            	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
+            }
             else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)){
                 j->capital+=j->mise;
-                printf("%s : egalite, vous recuperez la mise!\n",j->nom);
+                afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte, 0);
             }
             else if(joueur_a_blackjack(j)){
-                printf("%s : Bravo vous gangnez 2.5x votre mise (Blackjack)!\n",j->nom);
+            	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "BLACKJACK !", rect_texte, 0);
                 j->capital+=(j->mise*2.5);
             }
             else if(j->score > t->croupier->score || t->croupier->score >21){
                 j->capital+=(j->mise*2);
-                printf("%s : Bravo vous doublez votre mise (score plus eleve que celui du croupier/croupier out)!\n",j->nom);
+                afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
             }
-            else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
+            else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
             if(j->split){
-                if(j->score_split > 21) printf("%s : vous avez perdu (score trop eleve!)\n",j->nom);
+                if(j->score_split > 21) afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "PERDU", rect_texte, 0);
                 else if(j->score_split == t->croupier->score){
                     j->capital+=j->mise_split;
-                    printf("%s : egalite, vous recuperez la mise!\n",j->nom);
+                    afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte, 0);
                 }
                 else if(j->score_split > t->croupier->score || t->croupier->score >21){
                     j->capital+=(j->mise_split*2);
-                    printf("%s : Bravo vous doublez votre mise (score plus eleve que celui du croupier/croupier out)!\n",j->nom);
+                     afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
                 }
-                else printf("%s : Dommage, vous avez perdu (score plus faible que celui du croupier)\n",j->nom);
+                else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
             }
         }
         j=j->suivant;
+        rect_texte.x += 256;
     }
 
 }
