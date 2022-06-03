@@ -393,8 +393,8 @@ boucle:
 	afficher_score_croupier(renderer, table->croupier);
 	repartition_gains(renderer, table);
     offset = 0;
+    choix_emp.x = 33;
     SDL_Delay(2000);
-    goto boucle;
-	
+    goto boucle;	
 }
 	
