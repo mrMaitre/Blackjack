@@ -270,7 +270,10 @@ Menu:
 	}
 	
 	saisie_joueurs_dans_table(renderer, table);
+	JOUEUR* t_table = table->tete;
 	SDL_Delay(500);
+
+boucle:
     reinitialiser_plateau(renderer);
     afficher_start(renderer, start);
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
@@ -295,7 +298,7 @@ Menu:
 			}
 		}
 	}
-    demande_mises(renderer,table);
+    demande_mises(renderer, table);
     SDL_Delay(20);
     reinitialiser_plateau(renderer);
 
@@ -308,7 +311,7 @@ Menu:
     int offset = 0;
     int offset_cartes = 0;
     int tirage = 1;
-    JOUEUR *j = table->tete;
+    JOUEUR *j = t_table;
     int a_split = 0;;
 	while(j!=NULL){
 		if(j->en_jeu){
@@ -389,90 +392,9 @@ Menu:
 	}
 	afficher_score_croupier(renderer, table->croupier);
 	repartition_gains(renderer, table);
-    
+    offset = 0;
+    SDL_Delay(2000);
+    goto boucle;
 	
-	while(1){
-		if ( SDL_PollEvent(&event) )
-		{
-			switch(event.type)
-			{
-				case SDL_WINDOWEVENT: // Événement de la fenêtre
-				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
-				    {
-				    	liberer_table(table);
-				        return quitter(window, image, renderer);
-				    }
-				    break;
-				case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
-				    if ( event.key.keysym.sym == SDLK_ESCAPE ) //Touche Échap
-				    {
-				        goto Menu;
-				    }
-				    if ( event.key.keysym.sym == SDLK_a) //Touche a
-				    {
-						afficher_carte("cartes/3c.bmp", renderer, &carte_emp1, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_e ) //Touche e
-				    {
-				        afficher_carte("cartes/Dc.bmp", renderer, &carte_emp2, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_r) //Touche r
-				    {
-						afficher_carte("cartes/3c.bmp", renderer, &carte_emp3, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_t ) 
-				    {
-				        afficher_carte("cartes/6d.bmp", renderer, &carte_emp4, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_y )
-				    {
-				        afficher_carte("cartes/Js.bmp", renderer, &carte_emp5, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_u) 
-				    {
-						afficher_carte("cartes/Dos.bmp", renderer, &carte_croup_dos, 0, 0);
-				    }
-				    if ( event.key.keysym.sym == SDLK_i ) 
-				    {
-				        afficher_carte("cartes/Ah.bmp", renderer, &carte_croup_autre, 73, 0);
-				    }
-				    if ( event.key.keysym.sym == SDLK_z) 
-				    {
-						afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "mange tes morts", nomj_emp1, 0);
-				    }
-				    if ( event.key.keysym.sym == SDLK_c ) 
-				    {
-				        reinitialiser_plateau(renderer);
-				    }
-				   
-				    if ( event.key.keysym.sym == SDLK_f) 
-				    {
-						remp_carte(renderer, &split_emp1, 1);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_g) 
-				    {
-						remp_carte(renderer, &split_emp2, 2);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_h) 
-				    {
-						remp_carte(renderer, &split_emp3, 3);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_j) 
-				    {
-						remp_carte(renderer, &split_emp4, 4);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_k) 
-				    {
-						remp_carte(renderer, &split_emp5, 5);
-
-				    }
-				    break;
-			}
-		}
-	}
 }
 	

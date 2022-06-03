@@ -548,8 +548,8 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
                     afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte, 0);
                 }
                 else if(j->score_split > t->croupier->score || t->croupier->score >21){
-                    j->capital+=(j->mise_split*2);
-                     afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
+                    j->capital += (j->mise_split*2);
+                    afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
                 }
                 else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
             }
