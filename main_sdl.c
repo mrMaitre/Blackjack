@@ -13,15 +13,12 @@ int main(int argc, char **argv)
 
 	SDL_Window *window;
 	SDL_Texture *image;
-	int statut;
 	SDL_Renderer *renderer;
 	SDL_Event event;
 
 
 	/* Couleur du texte ici blanc*/
-	SDL_Color TextColor;
-
-
+	//SDL_Color TextColor;
 
 	/* Rectangles avec l'emplacement des cartes du croupier */
 	SDL_Rect carte_croup_dos;
@@ -30,52 +27,52 @@ int main(int argc, char **argv)
 	/* Rectangles avec l'emplacement de la première carte de gauche à droite */
 	SDL_Rect carte_emp1;
 	SDL_Rect carte_emp2;
-	SDL_Rect carte_emp3;
-	SDL_Rect carte_emp4;
-	SDL_Rect carte_emp5;
+	//SDL_Rect carte_emp3;
+	//SDL_Rect carte_emp4;
+	//SDL_Rect carte_emp5;
 
 	/* Rectangles avec l'emplacement du nom du joueur de gauche à droite */
 	SDL_Rect nomj_emp1; 
-	SDL_Rect nomj_emp2;
-	SDL_Rect nomj_emp3; 
-	SDL_Rect nomj_emp4;
-	SDL_Rect nomj_emp5; 
+	//SDL_Rect nomj_emp2;
+	//SDL_Rect nomj_emp3; 
+	//SDL_Rect nomj_emp4;
+	//SDL_Rect nomj_emp5; 
 
 	/* Rectangles avec l'emplacement du capital du joueur de gauche à droite */
 	SDL_Rect capital_emp1; 
-	SDL_Rect capital_emp2;
-	SDL_Rect capital_emp3; 
-	SDL_Rect capital_emp4;
-	SDL_Rect capital_emp5; 
+	//SDL_Rect capital_emp2;
+	//SDL_Rect capital_emp3; 
+	//SDL_Rect capital_emp4;
+	//SDL_Rect capital_emp5; 
 
 	/* Rectangles avec l'emplacement de la mise du joueur de gauche à droite */
 	SDL_Rect mise_emp1; 
-	SDL_Rect mise_emp2;
-	SDL_Rect mise_emp3; 
-	SDL_Rect mise_emp4;
-	SDL_Rect mise_emp5; 
+	//SDL_Rect mise_emp2;
+	//SDL_Rect mise_emp3; 
+	//SDL_Rect mise_emp4;
+	//SDL_Rect mise_emp5; 
 
 	/* Rectangles avec l'emplacement de la zone a supprimer pour split */
 	SDL_Rect split_emp1; 
-	SDL_Rect split_emp2;
-	SDL_Rect split_emp3; 
-	SDL_Rect split_emp4;
-	SDL_Rect split_emp5; 
+	//SDL_Rect split_emp2;
+	//SDL_Rect split_emp3; 
+	//SDL_Rect split_emp4;
+	//SDL_Rect split_emp5; 
 
 	/*Rectangle écriture mise*/
-	SDL_Rect mise;
+	//SDL_Rect mise;
     
 
 	window = NULL;
     image = NULL;
-    statut = EXIT_FAILURE;
+    //statut = EXIT_FAILURE;
     renderer = NULL;
     
 
 	/* Couleur du texte ici blanc*/
-	TextColor.r = 255;
+	/*TextColor.r = 255;
 	TextColor.g = 255;
-	TextColor.b = 255;
+	TextColor.b = 255;*/
 	
     /* Rectangles avec l'emplacement des cartes du croupier */
     carte_croup_dos.x = 380;
@@ -102,7 +99,7 @@ int main(int argc, char **argv)
     carte_emp2.w = 71;
     carte_emp2.h = 96;
     
-    carte_emp3.x = 550;
+    /*carte_emp3.x = 550;
     carte_emp3.y = 410;
     carte_emp3.w = 71;
     carte_emp3.h = 96;
@@ -115,7 +112,7 @@ int main(int argc, char **argv)
     carte_emp5.x = 1062;
     carte_emp5.y = 410;
     carte_emp5.w = 71;
-    carte_emp5.h = 96;
+    carte_emp5.h = 96;*/
     
     /* Rectangles avec l'emplacement du nom du joueur de gauche à droite */
     nomj_emp1.x = 48; 
@@ -123,7 +120,7 @@ int main(int argc, char **argv)
     nomj_emp1.w = 0;
     nomj_emp1.h = 0;
     
-    nomj_emp2.x = 304; 
+    /*nomj_emp2.x = 304; 
     nomj_emp2.y = 320;
     nomj_emp2.w = 0;
     nomj_emp2.h = 0;
@@ -141,7 +138,7 @@ int main(int argc, char **argv)
     nomj_emp5.x = 1072; 
     nomj_emp5.y = 320;
     nomj_emp5.w = 0;
-    nomj_emp5.h = 0;
+    nomj_emp5.h = 0;*/
     
     
     /* Rectangles avec l'emplacement du capital du joueur de gauche à droite */
@@ -150,7 +147,7 @@ int main(int argc, char **argv)
     capital_emp1.w = 0;
     capital_emp1.h = 0;
     
-    capital_emp2.x = 304; 
+    /*capital_emp2.x = 304; 
     capital_emp2.y = 345;
     capital_emp2.w = 0;
     capital_emp2.h = 0;
@@ -168,7 +165,7 @@ int main(int argc, char **argv)
     capital_emp5.x = 1072; 
     capital_emp5.y = 345;
     capital_emp5.w = 0;
-    capital_emp5.h = 0;
+    capital_emp5.h = 0;*/
     
     
     /* Rectangles avec l'emplacement de la mise du joueur de gauche à droite */
@@ -177,7 +174,7 @@ int main(int argc, char **argv)
     mise_emp1.w = 0;
     mise_emp1.h = 0;
     
-    mise_emp2.x = 304; 
+    /*mise_emp2.x = 304; 
     mise_emp2.y = 660;
     mise_emp2.w = 0;
     mise_emp2.h = 0;
@@ -195,7 +192,7 @@ int main(int argc, char **argv)
     mise_emp5.x = 1072; 
     mise_emp5.y = 660;
     mise_emp5.w = 0;
-    mise_emp5.h = 0;
+    mise_emp5.h = 0;*/
     
     
     /* Rectangles avec l'emplacement de la zone a supprimer pour split */
@@ -204,7 +201,7 @@ int main(int argc, char **argv)
     split_emp1.w = 200;
     split_emp1.h = 160;
     
-    split_emp2.x = 292; 
+    /*split_emp2.x = 292; 
     split_emp2.y = 410;
     split_emp2.w = 200;
     split_emp2.h = 160;
@@ -222,19 +219,19 @@ int main(int argc, char **argv)
     split_emp5.x = 1036; 
     split_emp5.y = 410;
     split_emp5.w = 200;
-    split_emp5.h = 160;
+    split_emp5.h = 160;*/
     
     
     /*Rectangle écriture mise*/
-    mise.x = 500;
+    /*mise.x = 500;
     mise.y = 400;
     mise.w = 0;
-    mise.h = 0;
+    mise.h = 0;*/
     
     
     if(init(&window, &renderer, 1280, 720) != 0 ) quitter(window, image, renderer);
 
-    statut = EXIT_SUCCESS;
+    //statut = EXIT_SUCCESS;
     
     time_t heure;
     srand((unsigned int) time(&heure));
@@ -245,7 +242,7 @@ int main(int argc, char **argv)
     table = init_table();
 
     
-Menu:    
+//Menu:    
 	afficher_menu(renderer);
     
     while(table->nb_joueurs == 0){	
@@ -270,7 +267,10 @@ Menu:
 	}
 	
 	saisie_joueurs_dans_table(renderer, table);
+	JOUEUR* t_table = table->tete;
 	SDL_Delay(500);
+
+boucle:
     reinitialiser_plateau(renderer);
     afficher_start(renderer, start);
     afficher_nom_capital(renderer, table, nomj_emp1, capital_emp1);
@@ -295,7 +295,7 @@ Menu:
 			}
 		}
 	}
-    demande_mises(renderer,table);
+    demande_mises(renderer, table);
     SDL_Delay(20);
     reinitialiser_plateau(renderer);
 
@@ -308,8 +308,9 @@ Menu:
     int offset = 0;
     int offset_cartes = 0;
     int tirage = 1;
-    JOUEUR *j = table->tete;
+    JOUEUR *j = t_table;
     int a_split = 0;
+
 	while(j!=NULL){
 		if(j->en_jeu){
 			j->score = comptage_score_joueur(j);
@@ -394,90 +395,11 @@ Menu:
 	}
 	afficher_score_croupier(renderer, table->croupier);
 	repartition_gains(renderer, table);
-    
-	
-	while(1){
-		if ( SDL_PollEvent(&event) )
-		{
-			switch(event.type)
-			{
-				case SDL_WINDOWEVENT: // Événement de la fenêtre
-				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
-				    {
-				    	liberer_table(table);
-				        return quitter(window, image, renderer);
-				    }
-				    break;
-				case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
-				    if ( event.key.keysym.sym == SDLK_ESCAPE ) //Touche Échap
-				    {
-				        goto Menu;
-				    }
-				    if ( event.key.keysym.sym == SDLK_a) //Touche a
-				    {
-						afficher_carte("cartes/3c.bmp", renderer, &carte_emp1, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_e ) //Touche e
-				    {
-				        afficher_carte("cartes/Dc.bmp", renderer, &carte_emp2, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_r) //Touche r
-				    {
-						afficher_carte("cartes/3c.bmp", renderer, &carte_emp3, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_t ) 
-				    {
-				        afficher_carte("cartes/6d.bmp", renderer, &carte_emp4, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_y )
-				    {
-				        afficher_carte("cartes/Js.bmp", renderer, &carte_emp5, 15, 15);
-				    }
-				    if ( event.key.keysym.sym == SDLK_u) 
-				    {
-						afficher_carte("cartes/Dos.bmp", renderer, &carte_croup_dos, 0, 0);
-				    }
-				    if ( event.key.keysym.sym == SDLK_i ) 
-				    {
-				        afficher_carte("cartes/Ah.bmp", renderer, &carte_croup_autre, 73, 0);
-				    }
-				    if ( event.key.keysym.sym == SDLK_z) 
-				    {
-						afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "mange tes morts", nomj_emp1, 0);
-				    }
-				    if ( event.key.keysym.sym == SDLK_c ) 
-				    {
-				        reinitialiser_plateau(renderer);
-				    }
-				   
-				    if ( event.key.keysym.sym == SDLK_f) 
-				    {
-						remp_carte(renderer, &split_emp1, 1);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_g) 
-				    {
-						remp_carte(renderer, &split_emp2, 2);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_h) 
-				    {
-						remp_carte(renderer, &split_emp3, 3);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_j) 
-				    {
-						remp_carte(renderer, &split_emp4, 4);
-
-				    }
-				    if ( event.key.keysym.sym == SDLK_k) 
-				    {
-						remp_carte(renderer, &split_emp5, 5);
-
-				    }
-				    break;
-			}
-		}
-	}
+    offset = 0;
+    choix_emp.x = 33;
+	carte_emp2.x = 304;
+	split_emp1.x = 44;
+    SDL_Delay(2000);
+    goto boucle;	
 }
 	

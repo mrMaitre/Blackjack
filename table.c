@@ -530,15 +530,15 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
             	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
             }
             else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)){
-                j->capital+=j->mise;
+                j->capital += j->mise;
                 afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte, 0);
             }
             else if(joueur_a_blackjack(j)){
             	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "BLACKJACK !", rect_texte, 0);
-                j->capital+=(j->mise*2.5);
+                j->capital += (j->mise*2.5);
             }
             else if(j->score > t->croupier->score || t->croupier->score >21){
-                j->capital+=(j->mise*2);
+                j->capital += (j->mise);
                 afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
             }
             else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
