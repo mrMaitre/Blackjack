@@ -309,15 +309,15 @@ Menu:
     int offset_cartes = 0;
     int tirage = 1;
     JOUEUR *j = table->tete;
-    int a_split = 0;;
+    int a_split = 0;
 	while(j!=NULL){
 		if(j->en_jeu){
 			j->score = comptage_score_joueur(j);
-			if(joueur_a_blackjack(j)) {
+			/*if(joueur_a_blackjack(j)) {
 				SDL_Delay(20);
 				afficher_blackjack(renderer, j, offset);
 				SDL_Delay(20);
-			}
+			}*/
 			while(tirage!=0 && tirage!=2 && j->score<21){
 				choix(renderer, &choix_emp, i);
 				if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
@@ -355,7 +355,9 @@ Menu:
 				j->score = comptage_score_joueur(j);
 				if(tirage==3){
 					jeu_split(renderer, table, j, offset, choix_emp, mise_emp1, i);
+					SDL_Delay(20);
 					choix(renderer, &choix_emp, i);
+					SDL_Delay(20);
 					tirage = 0;
 				}
 			}
@@ -378,12 +380,15 @@ Menu:
 	}
 	SDL_Delay(2000);
 	afficher_carte(table->croupier->tab_cartes[0].nom_image, renderer, &carte_croup_dos, 0, 0);
+	SDL_Delay(20);
 	table->croupier->score = comptage_score_croupier(table->croupier);
 	SDL_Delay(500);
 	offset = 162;
 	while(table->croupier->score<17){
 		tirage_carte_croupier_apres_mises(renderer, table, carte_croup_dos, offset);
+		SDL_Delay(20);
 		table->croupier->score = comptage_score_croupier(table->croupier);
+		SDL_Delay(20);
 		offset+=81;
 		SDL_Delay(500);
 	}

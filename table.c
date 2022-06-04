@@ -521,6 +521,7 @@ int compter_score(CARTE* tab_cartes, int nb_cartes){
 void repartition_gains(SDL_Renderer* renderer, TABLE *t){
     JOUEUR *j;
     SDL_Rect rect_texte = {100, 665, 0, 0};
+    SDL_Rect rect_texte_split = {100, 690, 0, 0};
     SDL_Color TextColor = {255, 255, 255};
     j=t->tete;
     while(j!=NULL){
@@ -542,20 +543,21 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
             }
             else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
             if(j->split){
-                if(j->score_split > 21) afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "PERDU", rect_texte, 0);
+                if(j->score_split > 21) afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
                 else if(j->score_split == t->croupier->score){
                     j->capital+=j->mise_split;
-                    afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte, 0);
+                    afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte_split, 0);
                 }
                 else if(j->score_split > t->croupier->score || t->croupier->score >21){
                     j->capital+=(j->mise_split*2);
-                     afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
+                     afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte_split, 0);
                 }
-                else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
+                else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
             }
         }
         j=j->suivant;
-        rect_texte.x += 256;
+        rect_texte.x += 248;
+        rect_texte_split.x+=248;
     }
 
 }
@@ -841,19 +843,24 @@ void jeu_split(SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect
 				break;
 			case 1 : 
 				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes); 
+				SDL_Delay(20);
 				offset_cartes+=15;
 				break;
 			case 2 : 
 				joueur_double(j,t); 
 				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes);
+				SDL_Delay(20);
 				break;
 		}
 		j->score = comptage_score_joueur(j);
 	}
 	offset_cartes = 0;
 	tirage = 1;
+	SDL_Delay(20);
 	choix(renderer, &choix_emp, i);
+	SDL_Delay(20);
 	action(renderer, &choix_emp, 1);
+	SDL_Delay(20);
 	while(tirage!=0 && tirage!=2 && j->score_split<21){
 		tirage = gestion_action(renderer, t, offset, 1, j);
 		switch(tirage){
@@ -864,11 +871,13 @@ void jeu_split(SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect
 				break;
 			case 1 : 
 				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes); 
+				SDL_Delay(20);
 				offset_cartes+=15;
 				break;
 			case 2 : 
 				joueur_double(j,t); 
 				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes);
+				SDL_Delay(20);
 				break;
 		}
 		j->score_split = comptage_score_split_joueur(j);
