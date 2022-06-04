@@ -703,9 +703,9 @@ void sortie_joueur_table(JOUEUR *j,TABLE *t){
 }
 
 void joueur_double(JOUEUR *j, TABLE *t){
-    j->capital-=j->mise;
-    j->mise*=2;
-    j->tab_cartes[j->nb_cartes]=*tirer_carte(t->pioche);
+    j->capital -= j->mise;
+    j->mise *= 2;
+    j->tab_cartes[j->nb_cartes] = *tirer_carte(t->pioche);
     j->nb_cartes++;
 }
 
