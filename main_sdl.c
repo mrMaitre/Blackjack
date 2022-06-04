@@ -397,9 +397,11 @@ boucle:
 	repartition_gains(renderer, table);
     offset = 0;
     choix_emp.x = 33;
-	carte_emp2.x = 304;
+	carte_emp2.x = 78;
+	carte_emp1.x = 48;
+    carte_emp1.y = 410;
 	split_emp1.x = 44;
-    SDL_Delay(2000);
+    SDL_Delay(4000);
     goto boucle;	
 }
 	

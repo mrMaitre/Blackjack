@@ -528,6 +528,7 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
         if(j->en_jeu){
             if(j->score > 21){
             	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
+            	j->capital -= j->mise;
             }
             else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)){
                 j->capital += j->mise;
@@ -541,20 +542,33 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
                 j->capital += (j->mise);
                 afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
             }
-            else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
+            else {
+            	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
+            	j->capital -= j->mise;
+            }
             if(j->split){
                 if(j->score_split > 21) afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
                 else if(j->score_split == t->croupier->score){
-                    j->capital+=j->mise_split;
+                    j->capital += j->mise_split;
                     afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte_split, 0);
                 }
                 else if(j->score_split > t->croupier->score || t->croupier->score >21){
-                    j->capital+=(j->mise_split*2);
-                     afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte_split, 0);
+                    j->capital += (j->mise_split*2);
+                    afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte_split, 0);
                 }
-                else afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
+                else {
+                	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
+                	j->capital -= j->mise;
+                }
             }
         }
+        j->score = 0;
+        j->mise=0;
+		j->nb_cartes=0;
+		j->split=0;
+		j->mise_split=0;
+		j->nb_cartes_split=0;
+		j->score_split=0;
         j=j->suivant;
         rect_texte.x += 248;
         rect_texte_split.x+=248;
