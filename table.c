@@ -300,35 +300,106 @@ void saisie_joueurs_dans_table(SDL_Renderer *renderer, TABLE* table){
     table->croupier = c;
 }
 
-void saisie_joueurs_en_partie(TABLE *table){
-    int nb,i,cpt;
+void saisie_joueurs_en_partie(TABLE *table, SDL_Renderer *renderer){
+    int nb,i,cpt, continuer = 1, saisie;
+    SDL_Rect joueur = {160,340,0,0};
+    SDL_Rect RectTexte = {900, 340, 0, 0};
+    SDL_Event event;
+    SDL_Color TextColor = {255,255,255};
+    nb = 5 - table->nb_joueurs;
+    char txt[] = "Combien de joueur voulez-vous ajouter ? ";
+    char plus[] = { '(', 'm', 'a', 'x', ' ', nb+'0', ')', '\0' };
+    strcat(txt, plus);
+    saisie = nb;
+    
     /* initialisation du nombre de joueurs dans la table */
-    do {
-        printf("\nCombien y a t-il de joueurs en plus sur la table (max %d) ? ",MAX_JOUEURS);
-        scanf("%d",&nb);
-    } while (nb<0 || (nb+ table->nb_joueurs)>5);
+    
+    SDL_Delay(20);
+	reste_part(renderer, "Ajout_joueur.png");
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, txt, joueur, 0);
+	SDL_Delay(20);
+    
+   	while(continuer){
+			if ( SDL_PollEvent(&event) )
+			{
+				switch(event.type)
+				{
+					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
+						switch(event.key.keysym.sym){
+							case SDLK_RETURN :
+								saisie = 0;
+								continuer = 0;
+							break;
+							case SDLK_1 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1", RectTexte, 0);
+								saisie = 1;
+								RectTexte.x+=60;
+							break;
+							case SDLK_2 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "2", RectTexte, 0);
+								saisie = 2;
+								RectTexte.x+=60;
+							break;
+							case SDLK_3 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "3", RectTexte, 0);
+								saisie = 3;
+								RectTexte.x+=60;
+							break;
+							case SDLK_4 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "4", RectTexte, 0);
+								saisie = 4;
+								RectTexte.x+=60;
+							break;
+							case SDLK_5 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "5", RectTexte, 0);
+								saisie = 5;
+								RectTexte.x+=60;
+							break;
+							case SDLK_0 :
+								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "0", RectTexte, 0);
+								saisie = 0;
+								RectTexte.x+=60;
+							break;
+						}
+						break;
+				}
+			}
+			if(saisie>nb) {
+				afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "INCORRECT", RectTexte, 0);
+				continuer = 1;
+				RectTexte.x -= 60;
+				SDL_Delay(500);
+				reste_part(renderer, "Ajout_joueur.png");
+				SDL_Delay(20);
+				afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, txt, joueur, 0);
+				SDL_Delay(20);
+			}
+	}
+	SDL_Delay(20);
 
     /* initialisation des joueurs dans la table */
     JOUEUR* j,*j_suiv;
-    printf("\n---------- Saisie des joueurs dans la table ----------\n");
+    i = table->nb_joueurs+1;
+    //printf("\n---------- Saisie des joueurs dans la table ----------\n");
     if(table->nb_joueurs == 0){
-        j=saisie_joueur();
+        j=saisie_joueur_sdl(renderer, i);
         table->tete=j;
-        cpt = nb;
+        cpt = saisie;
     }
     else{
         j = table->tete;
         while(j->suivant != NULL){
             j = j->suivant;
         }
-        cpt = nb+1;
+        cpt = table->nb_joueurs+1;
     }
-    for (i=2;i<=cpt;i++){
-        j_suiv=saisie_joueur();
+    for (i=cpt;i<cpt+saisie;i++){
+        j_suiv=saisie_joueur_sdl(renderer, i);
         j->suivant=j_suiv;
         j=j_suiv;
     }
-    table->nb_joueurs += nb;
+    table->nb_joueurs += saisie;
 }
 
 int table_est_pleine(TABLE* t){
@@ -580,23 +651,23 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
 void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t){
 	JOUEUR *j;
 	int statut;
-    SDL_Rect phrase = {500,200,0,0};
-    SDL_Rect phrase2 = {600,200,0,0};
-    SDL_Rect joueur = {700,200,0,0};
+	//SDL_Rect fond = {140, 235, 1000, 250};
+    SDL_Rect joueur = {200,340,0,0};
     SDL_Event event;
 	SDL_Color TextColor = {255,255,255};
     char txt[40];
-    /*printf("\n---------- Qui reste dans la partie ? ----------\n");*/
-    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "Qui reste dans la partie ?", phrase, 0);
-    afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "(pour rester tapper 1, pour quitter tapper 0)", phrase2, 0);
     if (table_est_vide(t)==1) printf("La table est vide");
     else{
         j=t->tete;
         while(j!=NULL){
+        	statut = 2;
+        	SDL_Delay(20);
+        	reste_part(renderer, "Reste_part.png");
+        	SDL_Delay(20);
             strcpy(txt,j->nom);
             strcat(txt, " ? ");
-            afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, txt, joueur, 0);
-            while(event.key.keysym.sym == SDLK_RETURN){
+            afficher_texte(renderer, "BOOKMANL.ttf", 40, TextColor, txt, joueur, 0);
+            while(statut == 2){
 				if (SDL_PollEvent(&event))
 				{
 					switch(event.type)
@@ -607,15 +678,11 @@ void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *rende
 								quitter(window, image, renderer);
 							}
 							break;
-						case SDL_KEYDOWN	: // Événement de relâchement d'une touche clavier
-							if ( event.key.keysym.sym == SDLK_1 ) //Touche 1
-							{
-								statut=1;
-							}if ( event.key.keysym.sym == SDLK_0 ) //Touche 1
-							{
-								statut=0;
-							}
-                    }
+						case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
+							if(event.button.x>705 && event.button.x<885 && event.button.y>310 && event.button.y<410) statut = 1;
+							else if(event.button.x>890 && event.button.x<1070 && event.button.y>310 && event.button.y<410) statut = 0;
+							break;
+					}
                 }
             }
             if(statut){

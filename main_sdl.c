@@ -229,8 +229,11 @@ int main(int argc, char **argv)
     mise.h = 0;*/
     
     
+    
+    
+    
     if(init(&window, &renderer, 1280, 720) != 0 ) quitter(window, image, renderer);
-
+    
     //statut = EXIT_SUCCESS;
     
     time_t heure;
@@ -240,6 +243,20 @@ int main(int argc, char **argv)
     //JOUEUR *j;
     //int tirage = 1,choix;
     table = init_table();
+    
+    if ( SDL_PollEvent(&event) )
+		{
+			switch(event.type)
+			{
+				case SDL_WINDOWEVENT: // Événement de la fenêtre
+				    if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
+				    {
+				    	liberer_table(table);
+				        return quitter(window, image, renderer);
+				    }
+				    break;
+			}
+
 
     
 //Menu:    
@@ -394,14 +411,21 @@ boucle:
 		SDL_Delay(500);
 	}
 	afficher_score_croupier(renderer, table->croupier);
+	SDL_Delay(20);
 	repartition_gains(renderer, table);
+	SDL_Delay(2000);
+	reste_sur_table(window, image, renderer, table);
+	SDL_Delay(20);
+	saisie_joueurs_en_partie(table, renderer);
     offset = 0;
     choix_emp.x = 33;
 	carte_emp2.x = 78;
 	carte_emp1.x = 48;
     carte_emp1.y = 410;
 	split_emp1.x = 44;
-    SDL_Delay(4000);
-    goto boucle;	
+	free(pioche);
+    SDL_Delay(1000);
+    goto boucle;
+    }
 }
 	

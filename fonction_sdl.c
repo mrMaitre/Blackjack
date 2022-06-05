@@ -209,4 +209,15 @@ void action(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 }
 
 
+void reste_part(SDL_Renderer *renderer, char txt[]){
+	SDL_Rect rect = {140, 235, 1000, 250};
+	SDL_Texture *image = NULL;
+	image = loadPNG(txt, renderer);
+	
+    if(NULL == image) return;
+	SDL_RenderCopy(renderer, image, NULL, &rect);
+	SDL_RenderPresent(renderer);
+}
+
+
 

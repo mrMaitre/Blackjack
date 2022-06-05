@@ -5,6 +5,7 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
+#include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
@@ -42,7 +43,7 @@ void joueur_double(JOUEUR *j, TABLE *t);
 int comptage_score_split_joueur(JOUEUR* j);
 void tirage_carte_joueur_split1(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset);
 void tirage_carte_joueur_split2(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset);
-void saisie_joueurs_en_partie(TABLE *table);
+void saisie_joueurs_en_partie(TABLE *table, SDL_Renderer *renderer);
 void afficher_nom_capital(SDL_Renderer* renderer, TABLE *t, SDL_Rect nomj_emp, SDL_Rect capital_emp);
 void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp);
 void liberer_table(TABLE *t);
