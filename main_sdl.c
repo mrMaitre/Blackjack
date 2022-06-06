@@ -142,6 +142,7 @@ boucle:
     afficher_mise(renderer, table, mise_emp1);
     SDL_Delay(1000);
     tirage_debut_partie(renderer, table, carte_emp1, carte_croup_dos);
+    SDL_Delay(20);
     
     int i = 1;
     int offset = 0;
@@ -227,8 +228,9 @@ boucle:
 		table->croupier->score = comptage_score_croupier(table->croupier);
 		SDL_Delay(20);
 		offset+=81;
-		SDL_Delay(500);
+		SDL_Delay(20);
 	}
+	SDL_Delay(20);
 	afficher_score_croupier(renderer, table->croupier);
 	SDL_Delay(20);
 	repartition_gains(renderer, table);

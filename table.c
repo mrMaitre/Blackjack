@@ -489,6 +489,7 @@ void tirage_carte_croupier_apres_mises(SDL_Renderer *renderer,TABLE *t, SDL_Rect
     CROUPIER *c = t->croupier;
     CARTE *carte_tiree;
     carte_tiree = tirer_carte(t->pioche);
+    SDL_Delay(20);
     afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, 0);
     SDL_Delay(500);
     c->tab_cartes[c->nb_cartes] = *carte_tiree;
