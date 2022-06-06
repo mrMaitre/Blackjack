@@ -824,7 +824,7 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
 
 
 int reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t){
-	JOUEUR *j;
+	JOUEUR *j, *j_suiv;
 	int statut;
 	//SDL_Rect fond = {140, 235, 1000, 250};
     SDL_Rect joueur = {200,340,0,0};
@@ -864,9 +864,13 @@ int reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *render
             if(statut){
                 j->split=0;
                 j->en_jeu = 1;
+                j=j->suivant;
             }
-            else sortie_joueur_table(j,t);
-            j=j->suivant;
+            else {
+            	j_suiv = j->suivant;
+            	sortie_joueur_table(j,t);
+            	j = j_suiv;
+            }
         }
     }
     return 1;
