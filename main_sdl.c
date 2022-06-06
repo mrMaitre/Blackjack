@@ -153,20 +153,21 @@ boucle:
 	while(j!=NULL){
 		if(j->en_jeu){
 			j->score = comptage_score_joueur(j);
-			while(tirage!=0 && tirage!=2 && j->score<21){
+			while(tirage!=4 && tirage!=2 && j->score<21){
 				choix(renderer, &choix_emp, i);
 				if(j->nb_cartes==2 && j->capital >= j->mise && j->tab_cartes[0].num == j->tab_cartes[1].num && j->split == 0){
 					action(renderer, &choix_emp, 2);
-					tirage = gestion_action(renderer, table, offset, 2, j);
+					tirage = gestion_action(window, image, renderer, table, offset, 2, j);
+					if(tirage == EXIT_SUCCESS) goto exit;
 				}
 				else {
 					action(renderer, &choix_emp, 1);
-					tirage = gestion_action(renderer, table, offset, 1, j);
-					printf("OK");
+					tirage = gestion_action(window, image, renderer, table, offset, 1, j);
+					if(tirage == EXIT_SUCCESS) goto exit;
 				}
 				switch(tirage){
-					case 0 :
-						tirage = 0;
+					case 4 :
+						tirage = 4;
 						SDL_Delay(20);
 						break;
 					case 1 : 
@@ -189,11 +190,12 @@ boucle:
 				}
 				j->score = comptage_score_joueur(j);
 				if(tirage==3){
-					jeu_split(renderer, table, j, offset, choix_emp, mise_emp1, i);
+					statut = jeu_split(window, image, renderer, table, j, offset, choix_emp, mise_emp1, i);
+					if(statut == EXIT_SUCCESS) goto exit;
 					SDL_Delay(20);
 					choix(renderer, &choix_emp, i);
 					SDL_Delay(20);
-					tirage = 0;
+					tirage = 4;
 				}
 			}
 		}
@@ -231,7 +233,8 @@ boucle:
 	SDL_Delay(20);
 	repartition_gains(renderer, table);
 	SDL_Delay(2000);
-	reste_sur_table(window, image, renderer, table);
+	statut = reste_sur_table(window, image, renderer, table);
+	if(statut == EXIT_SUCCESS) goto exit;
 	SDL_Delay(20);
 	statut = saisie_joueurs_en_partie(window, image, table, renderer);
 	if(statut == EXIT_SUCCESS) goto exit;

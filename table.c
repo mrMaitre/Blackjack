@@ -20,6 +20,11 @@ int table_est_vide(TABLE* t){
     return 0;
 }
 
+void assigner_pioche(TABLE *t, PIOCHE *p){
+    t->pioche=p;
+}
+
+
 int saisie_joueurs_dans_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE* table){
     
     /* initialisation des joueurs dans la table */
@@ -320,6 +325,7 @@ JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* 
 
 
 
+
 int saisie_joueurs_en_partie(SDL_Window *window, SDL_Texture *image, TABLE *table, SDL_Renderer *renderer){
     int nb,i,cpt, continuer = 1, saisie;
     SDL_Rect joueur = {160,340,0,0};
@@ -429,18 +435,69 @@ int saisie_joueurs_en_partie(SDL_Window *window, SDL_Texture *image, TABLE *tabl
 }
 
 
-void affiche_table(TABLE* t){
+
+
+void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp_j, SDL_Rect emp_c){
     JOUEUR *j;
-    printf("\n---------- Affichage de la table ----------\n");
-    if (table_est_vide(t)==1) printf("La table est vide");
-    else{
-        j=t->tete;
-        while(j!=NULL){
-            if(j->en_jeu) affiche_joueur(j);
-            j=j->suivant;
-        }
+    j=t->tete;
+    int offset = 0;
+    while(j!=NULL){
+        if(j->en_jeu) tirage_carte_joueur_debut(renderer,t->pioche,j, emp_j, offset);
+        j=j->suivant;
+        offset+=248;
     }
+    tirage_carte_croupier_debut(renderer,t->pioche,t->croupier, emp_c);
 }
+
+void tirage_carte_joueur_mises(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
+    /* permet au joueur de tirer des cartes pendant les mises */
+    CARTE *carte_tiree;
+    carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, offset);
+    SDL_Delay(500);
+    j->tab_cartes[j->nb_cartes] = *carte_tiree;
+    j->nb_cartes++;
+}
+
+
+void tirage_carte_joueur_split1(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
+    /* permet au joueur de tirer des cartes pendant les mises */
+    CARTE *carte_tiree;
+    carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, 0, offset);
+    SDL_Delay(500);
+    j->tab_cartes[j->nb_cartes] = *carte_tiree;
+    j->nb_cartes++;
+}
+
+
+
+void tirage_carte_joueur_split2(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
+    /* permet au joueur de tirer des cartes pendant les mises */
+    CARTE *carte_tiree;
+    carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, 0, offset);
+    SDL_Delay(500);
+    /*tableau carte de split*/
+    j->tab_cartes_split[j->nb_cartes_split] = *carte_tiree;
+    j->nb_cartes_split++;
+}
+
+
+void tirage_carte_croupier_apres_mises(SDL_Renderer *renderer,TABLE *t, SDL_Rect emp, int offset){
+    /* permet au croupier de tirer des cartes jusqu'a avoir un score superieur a 16 */
+    CROUPIER *c = t->croupier;
+    CARTE *carte_tiree;
+    carte_tiree = tirer_carte(t->pioche);
+    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, 0);
+    SDL_Delay(500);
+    c->tab_cartes[c->nb_cartes] = *carte_tiree;
+    c->nb_cartes++;
+}
+
+
+
+
 
 int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, TABLE* t){
 	JOUEUR *j;
@@ -559,17 +616,112 @@ int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer
 }
 
 
-void tirage_debut_partie(SDL_Renderer *renderer, TABLE *t, SDL_Rect emp_j, SDL_Rect emp_c){
-    JOUEUR *j;
-    j=t->tete;
-    int offset = 0;
-    while(j!=NULL){
-        if(j->en_jeu) tirage_carte_joueur_debut(renderer,t->pioche,j, emp_j, offset);
-        j=j->suivant;
-        offset+=248;
-    }
-    tirage_carte_croupier_debut(renderer,t->pioche,t->croupier, emp_c);
+
+int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
+	SDL_Event event;
+	SDL_bool quit = SDL_FALSE;
+	int tirage;
+	while(!quit){
+		if (SDL_PollEvent(&event)){
+			switch(event.type)
+			{	
+				case SDL_WINDOWEVENT: // Événement de la fenêtre
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ){
+							liberer_table(t);
+							quitter(window, image, renderer);
+							return EXIT_SUCCESS;
+						}
+						break;
+				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
+					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>33 + offset) && (event.button.x<143 + offset)) {
+						tirage = 4;
+						quit = SDL_TRUE;
+					}
+					else
+					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>145 + offset) && (event.button.x<256 + offset) && (cas == 2) && (joueur->capital >= 2*joueur->mise)) {
+						tirage = 3;
+						quit = SDL_TRUE;
+					}
+					else
+					if ((event.button.y>684) && (event.button.y<720) && (event.button.x>33 + offset) && (event.button.x<143 + offset)) {
+						tirage = 1;
+						quit = SDL_TRUE;
+					}
+					else
+					if ((event.button.y>684) && (event.button.y<720) && (event.button.x>145 + offset) && (event.button.x<256 + offset) && (joueur->capital >= 2*joueur->mise)) {
+						tirage = 2;
+						quit = SDL_TRUE;
+					}
+					break;
+			}
+		}
+	}
+	return tirage;
 }
+
+
+int jeu_split(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect choix_emp, SDL_Rect mise_emp, int i){
+	SDL_Rect carte1 = {48+offset, 425, 71, 96};
+	SDL_Rect carte2 = {159+offset, 425, 71, 96};
+	int tirage;
+	int offset_cartes=0;
+	choix(renderer, &choix_emp, i);
+	action(renderer, &choix_emp, 1);
+	while(tirage!=4 && tirage!=2 && j->score<21){
+		tirage = gestion_action(window, image, renderer, t, offset, 1, j);
+		if(tirage==EXIT_SUCCESS) return EXIT_SUCCESS;
+		switch(tirage){
+			case 4 :
+				choix(renderer, &choix_emp, i);
+				afficher_mise_split(j, renderer, t, mise_emp, offset);
+				SDL_Delay(200);
+				break;
+			case 1 : 
+				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes); 
+				SDL_Delay(20);
+				offset_cartes+=15;
+				break;
+			case 2 : 
+				joueur_double(j,t); 
+				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes);
+				SDL_Delay(20);
+				break;
+		}
+		j->score = comptage_score_joueur(j);
+	}
+	offset_cartes = 0;
+	tirage = 1;
+	SDL_Delay(20);
+	choix(renderer, &choix_emp, i);
+	SDL_Delay(20);
+	action(renderer, &choix_emp, 1);
+	SDL_Delay(20);
+	while(tirage!=4 && tirage!=2 && j->score_split<21){
+		tirage = gestion_action(window, image, renderer, t, offset, 1, j);
+		if(tirage==EXIT_SUCCESS) return EXIT_SUCCESS;
+		switch(tirage){
+			case 4 : 
+				choix(renderer, &choix_emp, i);
+				afficher_mise_split(j, renderer, t, mise_emp, offset);
+				SDL_Delay(200);
+				break;
+			case 1 : 
+				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes); 
+				SDL_Delay(20);
+				offset_cartes+=15;
+				break;
+			case 2 : 
+				joueur_double(j,t); 
+				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes);
+				SDL_Delay(20);
+				break;
+		}
+		j->score_split = comptage_score_split_joueur(j);
+	}
+	return 1;
+}
+
+
 
 int comptage_score_croupier(CROUPIER *c){
     /*permet de compter le score du croupier */
@@ -670,7 +822,7 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
 }
 
 
-void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t){
+int reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t){
 	JOUEUR *j;
 	int statut;
 	//SDL_Rect fond = {140, 235, 1000, 250};
@@ -697,7 +849,8 @@ void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *rende
 						case SDL_WINDOWEVENT: // Événement de la fenêtre
 							if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) // Fermeture de la fenêtre
 							{
-								quitter(window, image, renderer);
+								liberer_table(t);
+								return quitter(window, image, renderer);
 							}
 							break;
 						case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
@@ -715,57 +868,7 @@ void reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *rende
             j=j->suivant;
         }
     }
-}
-
-void assigner_pioche(TABLE *t, PIOCHE *p){
-    t->pioche=p;
-}
-
-
-void tirage_carte_joueur_mises(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
-    /* permet au joueur de tirer des cartes pendant les mises */
-    CARTE *carte_tiree;
-    carte_tiree = tirer_carte(t->pioche);
-    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, offset);
-    SDL_Delay(500);
-    j->tab_cartes[j->nb_cartes] = *carte_tiree;
-    j->nb_cartes++;
-}
-
-
-void tirage_carte_joueur_split1(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
-    /* permet au joueur de tirer des cartes pendant les mises */
-    CARTE *carte_tiree;
-    carte_tiree = tirer_carte(t->pioche);
-    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, 0, offset);
-    SDL_Delay(500);
-    j->tab_cartes[j->nb_cartes] = *carte_tiree;
-    j->nb_cartes++;
-}
-
-
-
-void tirage_carte_joueur_split2(SDL_Renderer *renderer,TABLE *t,JOUEUR *j, SDL_Rect emp, int offset){
-    /* permet au joueur de tirer des cartes pendant les mises */
-    CARTE *carte_tiree;
-    carte_tiree = tirer_carte(t->pioche);
-    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, 0, offset);
-    SDL_Delay(500);
-    /*tableau carte de split*/
-    j->tab_cartes_split[j->nb_cartes_split] = *carte_tiree;
-    j->nb_cartes_split++;
-}
-
-
-void tirage_carte_croupier_apres_mises(SDL_Renderer *renderer,TABLE *t, SDL_Rect emp, int offset){
-    /* permet au croupier de tirer des cartes jusqu'a avoir un score superieur a 16 */
-    CROUPIER *c = t->croupier;
-    CARTE *carte_tiree;
-    carte_tiree = tirer_carte(t->pioche);
-    afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, 0);
-    SDL_Delay(500);
-    c->tab_cartes[c->nb_cartes] = *carte_tiree;
-    c->nb_cartes++;
+    return 1;
 }
 
 
@@ -796,99 +899,7 @@ void joueur_double(JOUEUR *j, TABLE *t){
     j->mise *= 2;
 }
 
-int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
-	SDL_Event event;
-	SDL_bool quit = SDL_FALSE;
-	int tirage;
-	while(!quit){
-		if (SDL_PollEvent(&event)){
-			switch(event.type)
-			{
-				case SDL_MOUSEBUTTONDOWN : //Evenement de la souris
-					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>33 + offset) && (event.button.x<143 + offset)) {
-						tirage = 0;
-						quit = SDL_TRUE;
-					}
-					else
-					if ((event.button.y>645) && (event.button.y<681) && (event.button.x>145 + offset) && (event.button.x<256 + offset) && (cas == 2) && (joueur->capital >= 2*joueur->mise)) {
-						tirage = 3;
-						quit = SDL_TRUE;
-					}
-					else
-					if ((event.button.y>684) && (event.button.y<720) && (event.button.x>33 + offset) && (event.button.x<143 + offset)) {
-						tirage = 1;
-						quit = SDL_TRUE;
-					}
-					else
-					if ((event.button.y>684) && (event.button.y<720) && (event.button.x>145 + offset) && (event.button.x<256 + offset) && (joueur->capital >= 2*joueur->mise)) {
-						tirage = 2;
-						quit = SDL_TRUE;
-					}
-					break;
-			}
-		}
-	}
-	return tirage;
-}
 
-
-void jeu_split(SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect choix_emp, SDL_Rect mise_emp, int i){
-	SDL_Rect carte1 = {48+offset, 425, 71, 96};
-	SDL_Rect carte2 = {159+offset, 425, 71, 96};
-	int tirage;
-	int offset_cartes=0;
-	choix(renderer, &choix_emp, i);
-	action(renderer, &choix_emp, 1);
-	while(tirage!=0 && tirage!=2 && j->score<21){
-		tirage = gestion_action(renderer, t, offset, 1, j);
-		switch(tirage){
-			case 0 :
-				choix(renderer, &choix_emp, i);
-				afficher_mise_split(j, renderer, t, mise_emp, offset);
-				SDL_Delay(200);
-				break;
-			case 1 : 
-				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes); 
-				SDL_Delay(20);
-				offset_cartes+=15;
-				break;
-			case 2 : 
-				joueur_double(j,t); 
-				tirage_carte_joueur_split1(renderer,t,j,carte1,offset_cartes);
-				SDL_Delay(20);
-				break;
-		}
-		j->score = comptage_score_joueur(j);
-	}
-	offset_cartes = 0;
-	tirage = 1;
-	SDL_Delay(20);
-	choix(renderer, &choix_emp, i);
-	SDL_Delay(20);
-	action(renderer, &choix_emp, 1);
-	SDL_Delay(20);
-	while(tirage!=0 && tirage!=2 && j->score_split<21){
-		tirage = gestion_action(renderer, t, offset, 1, j);
-		switch(tirage){
-			case 0 : 
-				choix(renderer, &choix_emp, i);
-				afficher_mise_split(j, renderer, t, mise_emp, offset);
-				SDL_Delay(200);
-				break;
-			case 1 : 
-				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes); 
-				SDL_Delay(20);
-				offset_cartes+=15;
-				break;
-			case 2 : 
-				joueur_double(j,t); 
-				tirage_carte_joueur_split2(renderer,t,j,carte2,offset_cartes);
-				SDL_Delay(20);
-				break;
-		}
-		j->score_split = comptage_score_split_joueur(j);
-	}
-}
 
 
 void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_emp, SDL_Rect capital_emp){
@@ -976,28 +987,34 @@ void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Re
 
 
 void liberer_table(TABLE *t){
+	int cpt_j = 0;
+	int flag = 0;
+	printf("Liberation de ");
 	if(t->tete!=NULL){
 		JOUEUR *j = t->tete;
 		JOUEUR *j_suiv = t->tete->suivant;
 		liberer_joueur(j);
-		printf("OKj\n");
+		cpt_j++;
+		flag = 1;
 		while(j_suiv!=NULL){
 			j=j_suiv;
 			liberer_joueur(j);
-			printf("OKj\n");
+			cpt_j++;
 			j_suiv = j_suiv->suivant;
 		}
+		printf("%d joueur(s)", cpt_j);
 	}
 	if(t->croupier!=NULL){
 		liberer_croupier(t->croupier);
-		printf("OKc\n");
+		printf(", du croupier");
 	}
 	if(t->pioche!=NULL){
 		liberer_pioche(t->pioche);
-		printf("OKp\n");
+		printf(", de la pioche ");
 	}
 	free(t);
-	printf("OKt\n");
+	if(!flag) printf("la table OK !\n");
+	else printf("et de la table OK !\n");
 }
 
 
