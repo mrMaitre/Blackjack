@@ -10,7 +10,36 @@ TABLE* init_table(){
     return table;
 }
 
-JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
+int table_est_pleine(TABLE* t){
+    if(t->nb_joueurs==MAX_JOUEURS) return 1;
+    return 0;
+}
+
+int table_est_vide(TABLE* t){
+    if(t->nb_joueurs==0) return 1;
+    return 0;
+}
+
+int saisie_joueurs_dans_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE* table){
+    
+    /* initialisation des joueurs dans la table */
+    JOUEUR* j,*j_suiv;
+    j=saisie_joueur_sdl(window, image, renderer, 1, table);
+    if(j==NULL) return EXIT_SUCCESS;
+    table->tete=j;
+    for (int i=2;i<=table->nb_joueurs;i++){
+        j_suiv=saisie_joueur_sdl(window, image, renderer, i, table);
+        if(j_suiv==NULL) return EXIT_SUCCESS;
+        j->suivant=j_suiv;
+        j=j_suiv;
+    }
+    CROUPIER *c;
+    c = init_croupier();
+    table->croupier = c;
+    return 1;
+}
+
+JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, int num, TABLE* table){
 	JOUEUR * j;
     j=(JOUEUR *) malloc(sizeof(JOUEUR));
 	
@@ -32,10 +61,7 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 	int continuer = 1;
 	
 	/*Affiche le plateau vierge*/
-	SDL_Texture *image = NULL;
-	image = loadImage("Vierge.bmp", renderer);
-	SDL_RenderCopy(renderer, image, NULL, NULL);
-	SDL_RenderPresent(renderer);
+	afficher_vierge(renderer);
 	SDL_Event event;
 	SDL_Color TextColor = {255,255,255};
 		
@@ -54,7 +80,11 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 				switch(event.type)
 				{
 					case SDL_WINDOWEVENT: // Événement de la fenêtre
-						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) return j;
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ){
+							liberer_table(table);
+							quitter(window, image, renderer);
+							return NULL;
+						}
 						break;
 					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
 						switch(event.key.keysym.sym){
@@ -218,7 +248,11 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 				switch(event.type)
 				{
 					case SDL_WINDOWEVENT: // Événement de la fenêtre
-						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) return j;
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ){
+							liberer_table(table);
+							quitter(window, image, renderer);
+							return NULL;
+						}
 						break;
 					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
 						switch(event.key.keysym.sym){
@@ -284,23 +318,9 @@ JOUEUR* saisie_joueur_sdl(SDL_Renderer* renderer, int num){
 	return j;
 }
 
-void saisie_joueurs_dans_table(SDL_Renderer *renderer, TABLE* table){
-    
-    /* initialisation des joueurs dans la table */
-    JOUEUR* j,*j_suiv;
-    j=saisie_joueur_sdl(renderer, 1);
-    table->tete=j;
-    for (int i=2;i<=table->nb_joueurs;i++){
-        j_suiv=saisie_joueur_sdl(renderer, i);
-        j->suivant=j_suiv;
-        j=j_suiv;
-    }
-    CROUPIER *c;
-    c = init_croupier();
-    table->croupier = c;
-}
 
-void saisie_joueurs_en_partie(TABLE *table, SDL_Renderer *renderer){
+
+int saisie_joueurs_en_partie(SDL_Window *window, SDL_Texture *image, TABLE *table, SDL_Renderer *renderer){
     int nb,i,cpt, continuer = 1, saisie;
     SDL_Rect joueur = {160,340,0,0};
     SDL_Rect RectTexte = {900, 340, 0, 0};
@@ -325,10 +345,16 @@ void saisie_joueurs_en_partie(TABLE *table, SDL_Renderer *renderer){
 			{
 				switch(event.type)
 				{
+					case SDL_WINDOWEVENT: // Événement de la fenêtre
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ){
+							liberer_table(table);
+							quitter(window, image, renderer);
+							return EXIT_SUCCESS;
+						}
+						break;
 					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
 						switch(event.key.keysym.sym){
 							case SDLK_RETURN :
-								saisie = 0;
 								continuer = 0;
 							break;
 							case SDLK_1 :
@@ -368,7 +394,6 @@ void saisie_joueurs_en_partie(TABLE *table, SDL_Renderer *renderer){
 			if(saisie>nb) {
 				afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "INCORRECT", RectTexte, 0);
 				continuer = 1;
-				RectTexte.x -= 60;
 				SDL_Delay(500);
 				reste_part(renderer, "Ajout_joueur.png");
 				SDL_Delay(20);
@@ -383,7 +408,7 @@ void saisie_joueurs_en_partie(TABLE *table, SDL_Renderer *renderer){
     i = table->nb_joueurs+1;
     //printf("\n---------- Saisie des joueurs dans la table ----------\n");
     if(table->nb_joueurs == 0){
-        j=saisie_joueur_sdl(renderer, i);
+        j=saisie_joueur_sdl(window, image, renderer, i, table);
         table->tete=j;
         cpt = saisie;
     }
@@ -395,22 +420,14 @@ void saisie_joueurs_en_partie(TABLE *table, SDL_Renderer *renderer){
         cpt = table->nb_joueurs+1;
     }
     for (i=cpt;i<cpt+saisie;i++){
-        j_suiv=saisie_joueur_sdl(renderer, i);
+        j_suiv=saisie_joueur_sdl(window, image, renderer, i, table);
         j->suivant=j_suiv;
         j=j_suiv;
     }
     table->nb_joueurs += saisie;
+    return 1;
 }
 
-int table_est_pleine(TABLE* t){
-    if(t->nb_joueurs==MAX_JOUEURS) return 1;
-    return 0;
-}
-
-int table_est_vide(TABLE* t){
-    if(t->nb_joueurs==0) return 1;
-    return 0;
-}
 
 void affiche_table(TABLE* t){
     JOUEUR *j;
@@ -425,7 +442,7 @@ void affiche_table(TABLE* t){
     }
 }
 
-void demande_mises(SDL_Renderer* renderer, TABLE* t){
+int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, TABLE* t){
 	JOUEUR *j;
 	char tab_mise[6];
 	int num=1;
@@ -435,7 +452,7 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 	SDL_Rect rect = {100, 275, 0, 0};
 	SDL_Event event;
 	SDL_Color TextColor = {255,255,255};
-	if (table_est_vide(t)==1) return;
+	if (table_est_vide(t)==1) return 1;
     j=t->tete;
     while(j!=NULL){
     	strcpy(tab_mise, "");
@@ -456,7 +473,11 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 				switch(event.type)
 				{
 					case SDL_WINDOWEVENT: // Événement de la fenêtre
-						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ) return;
+						if ( event.window.event == SDL_WINDOWEVENT_CLOSE ){
+							liberer_table(t);
+							quitter(window, image, renderer);
+							return EXIT_SUCCESS;
+						}
 						break;
 					case SDL_KEYDOWN: // Événement de relâchement d'une touche clavier
 						switch(event.key.keysym.sym){
@@ -525,12 +546,16 @@ void demande_mises(SDL_Renderer* renderer, TABLE* t){
 			SDL_Delay(500);
 		}
 		else {
+			if(mise == 0) j->en_jeu = 0;
+			else j->en_jeu = 1;
 			j->mise = mise;
+			j->capital -= mise;
 			j=j->suivant;
 			num++;
 		}
 		RectTexte.x = 360;
 	}
+	return 1;
 }
 
 
@@ -599,7 +624,6 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
         if(j->en_jeu){
             if(j->score > 21){
             	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
-            	j->capital -= j->mise;
             }
             else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)){
                 j->capital += j->mise;
@@ -610,12 +634,11 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
                 j->capital += (j->mise*2.5);
             }
             else if(j->score > t->croupier->score || t->croupier->score >21){
-                j->capital += (j->mise);
+                j->capital += (j->mise*2);
                 afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
             }
             else {
             	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
-            	j->capital -= j->mise;
             }
             if(j->split){
                 if(j->score_split > 21) afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
@@ -629,7 +652,6 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
                 }
                 else {
                 	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
-                	j->capital -= j->mise;
                 }
             }
         }
@@ -772,56 +794,6 @@ void sortie_joueur_table(JOUEUR *j,TABLE *t){
 void joueur_double(JOUEUR *j, TABLE *t){
     j->capital -= j->mise;
     j->mise *= 2;
-    j->tab_cartes[j->nb_cartes] = *tirer_carte(t->pioche);
-    j->nb_cartes++;
-}
-
-void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_emp, SDL_Rect capital_emp){
-	JOUEUR * j;
-	j=table->tete;
-	int offset = 0;
-	SDL_Color TextColor = {255,255,255};
-	while(j!=NULL){
-		SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, j->nom, nomj_emp, offset);
-		SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", capital_emp, offset);
-		SDL_Delay(20);
-		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
-		SDL_Delay(20);
-		j=j->suivant;
-		offset+=248;
-	}
-}
-
-void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
-	JOUEUR * j;
-	j=table->tete;
-	int offset = 0;
-	SDL_Color TextColor = {255,255,255};
-	while(j!=NULL){
-		SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
-		SDL_Delay(20);
-		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
-		SDL_Delay(20);
-		j=j->suivant;
-		offset+=248;
-	}
-}
-
-
-void liberer_table(TABLE *t){
-	JOUEUR *j = t->tete;
-	JOUEUR *j_suiv = t->tete->suivant;
-	while(j!=NULL){
-		liberer_joueur(j);
-		j=j_suiv;
-		j_suiv = j_suiv->suivant;
-	}
-	liberer_croupier(t->croupier);
-	liberer_pioche(t->pioche);
-	free(t);
 }
 
 int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
@@ -857,53 +829,6 @@ int gestion_action(SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR
 		}
 	}
 	return tirage;
-}
-		
-void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
-	SDL_Rect carte1 = {48+offset, 410, 71, 96};
-	SDL_Rect carte2 = {159+offset, 410, 71, 96};
-	afficher_carte(StructToChaine(&j->tab_cartes[0]), renderer, &carte1, 0, 0);
-	afficher_carte(StructToChaine(&j->tab_cartes[1]), renderer, &carte2, 0, 0);
-}
-
-void afficher_score(SDL_Renderer *renderer, JOUEUR * j, int offset){
-	SDL_Color TextColor = {255,255,255};
-	SDL_Rect score = {220+offset, 360, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score, 0);
-}
-
-void afficher_score_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
-	SDL_Color TextColor = {255,255,255};
-	SDL_Rect score1 = {170+offset, 360, 71, 96};
-	SDL_Rect score2 = {220+offset, 360, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score1, 0);
-	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score_split, score2, 0);
-}
-
-void afficher_score_croupier(SDL_Renderer *renderer, CROUPIER *c){
-	SDL_Color TextColor = {255,255,255};
-	SDL_Rect score = {340, 140, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 25, TextColor, c->score, score, 0);
-}
-
-void afficher_blackjack(SDL_Renderer *renderer, JOUEUR * j, int offset){
-	SDL_Color TextColor = {255,255,255};
-	SDL_Rect blackjack = {80+offset, 355, 71, 96};
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "BLACKJACK", blackjack, 0);
-}
-
-
-void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp, int offset){
-	SDL_Color TextColor = {255,255,255};
-	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
-	SDL_Delay(20);
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
-	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset+150);
-	SDL_Delay(20);
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+170);
-	SDL_Delay(20);
 }
 
 
@@ -963,7 +888,116 @@ void jeu_split(SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect
 		}
 		j->score_split = comptage_score_split_joueur(j);
 	}
-	
+}
+
+
+void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_emp, SDL_Rect capital_emp){
+	JOUEUR * j;
+	j=table->tete;
+	int offset = 0;
+	SDL_Color TextColor = {255,255,255};
+	while(j!=NULL){
+		SDL_Delay(20);
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, j->nom, nomj_emp, offset);
+		SDL_Delay(20);
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", capital_emp, offset);
+		SDL_Delay(20);
+		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
+		SDL_Delay(20);
+		j=j->suivant;
+		offset+=248;
+	}
+}
+
+void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
+	JOUEUR * j;
+	j=table->tete;
+	int offset = 0;
+	SDL_Color TextColor = {255,255,255};
+	while(j!=NULL){
+		SDL_Delay(20);
+		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
+		SDL_Delay(20);
+		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
+		SDL_Delay(20);
+		j=j->suivant;
+		offset+=248;
+	}
+}
+
+		
+void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Rect carte1 = {48+offset, 410, 71, 96};
+	SDL_Rect carte2 = {159+offset, 410, 71, 96};
+	afficher_carte(StructToChaine(&j->tab_cartes[0]), renderer, &carte1, 0, 0);
+	afficher_carte(StructToChaine(&j->tab_cartes[1]), renderer, &carte2, 0, 0);
+}
+
+void afficher_score(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect score = {220+offset, 360, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score, 0);
+}
+
+void afficher_score_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect score1 = {170+offset, 360, 71, 96};
+	SDL_Rect score2 = {220+offset, 360, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score1, 0);
+	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score_split, score2, 0);
+}
+
+void afficher_score_croupier(SDL_Renderer *renderer, CROUPIER *c){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect score = {340, 140, 71, 96};
+	afficher_entier(renderer, "BOOKMANL.ttf", 25, TextColor, c->score, score, 0);
+}
+
+void afficher_blackjack(SDL_Renderer *renderer, JOUEUR * j, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Rect blackjack = {80+offset, 355, 71, 96};
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "BLACKJACK", blackjack, 0);
+}
+
+
+void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp, int offset){
+	SDL_Color TextColor = {255,255,255};
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
+	SDL_Delay(20);
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
+	SDL_Delay(20);
+	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset+150);
+	SDL_Delay(20);
+	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+170);
+	SDL_Delay(20);
+}
+
+
+
+void liberer_table(TABLE *t){
+	if(t->tete!=NULL){
+		JOUEUR *j = t->tete;
+		JOUEUR *j_suiv = t->tete->suivant;
+		liberer_joueur(j);
+		printf("OKj\n");
+		while(j_suiv!=NULL){
+			j=j_suiv;
+			liberer_joueur(j);
+			printf("OKj\n");
+			j_suiv = j_suiv->suivant;
+		}
+	}
+	if(t->croupier!=NULL){
+		liberer_croupier(t->croupier);
+		printf("OKc\n");
+	}
+	if(t->pioche!=NULL){
+		liberer_pioche(t->pioche);
+		printf("OKp\n");
+	}
+	free(t);
+	printf("OKt\n");
 }
 
 
