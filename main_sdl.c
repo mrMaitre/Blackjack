@@ -10,7 +10,6 @@
 
 int main(int argc, char **argv)
 {
-
 	SDL_Window *window;
 	SDL_Texture *image;
 	SDL_Renderer *renderer;
@@ -46,7 +45,6 @@ int main(int argc, char **argv)
     image = NULL;
     renderer = NULL;
     
-    
     if(init(&window, &renderer, 1280, 720) != 0 ) {
     	quitter(window, image, renderer);
 		statut = EXIT_SUCCESS;
@@ -58,7 +56,7 @@ int main(int argc, char **argv)
     PIOCHE* pioche;
     table = init_table();
     
-    if ( SDL_PollEvent(&event) )
+    if ( SDL_PollEvent(&event) ) //Quitter la sdl si clic sur le bouton fermer la fenetre 
 		{
 			switch(event.type)
 			{
@@ -71,9 +69,8 @@ int main(int argc, char **argv)
 				    break;
 			}
 
-
-    
-//Menu:    
+    //Debut de la partie : 
+    //Ajout des joueurs 
 	afficher_menu(renderer);
     
     while(table->nb_joueurs == 0){	
@@ -104,7 +101,8 @@ int main(int argc, char **argv)
 	if(statut == EXIT_SUCCESS) goto exit;
 	JOUEUR* t_table = table->tete;
 	SDL_Delay(500);
-
+	
+	//Debut du jeu 
 boucle:
     reinitialiser_plateau(renderer);
     afficher_start(renderer, start);
