@@ -8,11 +8,6 @@ CROUPIER *init_croupier(){
     return c;
 }
 
-void affiche_carte_croupier(CROUPIER *c){
-	for(int i = 0; i<c->nb_cartes; i++){
-    	printf("Carte %d : %d\n",i+1,c->tab_cartes[i].num);
-	}
-}
 
 void tirage_carte_croupier_debut(SDL_Renderer *renderer, PIOCHE *p, CROUPIER *c, SDL_Rect emp){
     /*permet au croupier de tirer ses 2 premieres cartes */

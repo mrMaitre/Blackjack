@@ -2,7 +2,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "fonction_sdl.h"
 
-
+/* Permet de quitter la sdl en liberant la memoire */
 int quitter(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer){
 	if(NULL != image)
 	    SDL_DestroyTexture(image);
@@ -53,6 +53,7 @@ SDL_Texture *loadImage(const char path[], SDL_Renderer *renderer)
     return texture;
 }
 
+/* Permet de charger un fichier au format PNG sur une texture */ 
 SDL_Texture *loadPNG(const char path[], SDL_Renderer *renderer)
 {
     SDL_Surface *tmp = NULL; 
@@ -83,6 +84,7 @@ int setWindowColor(SDL_Renderer *renderer, SDL_Color color)
     return 0;  
 }
 
+/* Affiche une image sur un renderer avec possibilité d'ajouter un décalage */ 
 void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *dstrect, int x_offset, int y_offset){
 	SDL_Texture *image = NULL;
 	dstrect->x += x_offset;
@@ -101,6 +103,7 @@ void reinitialiser_plateau(SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 }
 
+/* Affiche l'ecran de saisie des joueurs */
 void saisie_des_joueurs(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
 	image = loadImage("saisie_joueur.bmp", renderer);
@@ -124,6 +127,7 @@ void afficher_vierge(SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 }
 
+/* Affiche le bouton start */
 void afficher_start(SDL_Renderer *renderer, SDL_Rect start){
 	SDL_Texture *image = NULL;
 	image = loadPNG("Start.png", renderer);
@@ -151,6 +155,7 @@ void afficher_texte(SDL_Renderer *renderer, char police[], int taille_police, SD
 	TTF_CloseFont(Font);
 }
 
+/* Affiche un entier */ 
 void afficher_entier(SDL_Renderer *renderer, char police[], int taille_police, SDL_Color TextColor, int entier, SDL_Rect DstRect, int offsetX){
 	TTF_Font* Font = TTF_OpenFont(police, taille_police); /* Charge une police depuis un fichier .ttf*/
 	if(!Font)
@@ -172,6 +177,7 @@ void afficher_entier(SDL_Renderer *renderer, char police[], int taille_police, S
 	TTF_CloseFont(Font);
 }
 
+/* Reinitialise le carre du joueur passé en paramètre */
 void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
 	if(n==1) image = loadImage("remp1.bmp", renderer);
@@ -185,6 +191,7 @@ void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_RenderPresent(renderer);
 }
 
+/* Enleve le carre du choix d'action du joueur */ 
 void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
 	if(n==1) image = loadPNG("Choix1.bmp", renderer);
@@ -198,6 +205,7 @@ void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_RenderPresent(renderer);
 }
 
+/* Affiche le carré d'action du joueur */ 
 void action(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
 	if(n==1) image = loadPNG("Action1.png", renderer);
@@ -208,7 +216,7 @@ void action(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_RenderPresent(renderer);
 }
 
-
+/* Affiche l'ecran de choix de depart du joueur */ 
 void reste_part(SDL_Renderer *renderer, char txt[]){
 	SDL_Rect rect = {140, 235, 1000, 250};
 	SDL_Texture *image = NULL;
