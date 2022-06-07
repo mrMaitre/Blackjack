@@ -2,6 +2,7 @@
 
 char nom_carte[14];
 
+/* Initialise la structure de la pioche */
 PIOCHE* init_pioche(){
     int i,j,k;
     PIOCHE * p;
@@ -34,6 +35,7 @@ PIOCHE* init_pioche(){
     return p;
 }
 
+/* Permet de passer d'une structure de carte à une chaine de caracteres*/
 char *StructToChaine(CARTE *c){
     int num;
     strcpy(nom_carte,"cartes/xx.bmp");
@@ -110,6 +112,7 @@ char *StructToChaine(CARTE *c){
     return nom_carte;
 }
 
+/* Permet de tirer une carte de la pioche */
 CARTE* tirer_carte(PIOCHE *p){
     int alea,i;
     CARTE *c,*c_prec;;
@@ -122,16 +125,6 @@ CARTE* tirer_carte(PIOCHE *p){
     c_prec->suivant=c->suivant;
     p->nb_cartes--;
     return c;
-}
-
-void afficher_pioche(PIOCHE *p){
-    printf("___ affichge pioche ___\n");
-    CARTE *c = p->tete;
-    while(c->suivant != NULL){
-        printf("couleur : %d, num : %d et nom_image : %s\n",c->couleur,c->num,c->nom_image);
-        c = c->suivant;
-    }
-    printf("couleur : %d, num : %d et nom_image : %s\n",c->couleur,c->num,c->nom_image);
 }
 
 void liberer_pioche(PIOCHE *p){
