@@ -98,7 +98,7 @@ void afficher_carte(const char nom_fichier[], SDL_Renderer *renderer, SDL_Rect *
 /* Fonction qui revient au plateau vide */
 void reinitialiser_plateau(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
-	image = loadImage("Plateau.bmp", renderer);
+	image = loadImage("sdl/images/Plateau.bmp", renderer);
 	SDL_RenderCopy(renderer, image, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
@@ -106,7 +106,7 @@ void reinitialiser_plateau(SDL_Renderer *renderer){
 /* Affiche l'ecran de saisie des joueurs */
 void saisie_des_joueurs(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
-	image = loadImage("saisie_joueur.bmp", renderer);
+	image = loadImage("sdl/images/saisie_joueur.bmp", renderer);
 	SDL_RenderCopy(renderer, image, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
@@ -114,7 +114,7 @@ void saisie_des_joueurs(SDL_Renderer *renderer){
 /* Fonction qui affiche le menu du jeu */
 void afficher_menu(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
-	image = loadImage("Menu.bmp", renderer);
+	image = loadImage("sdl/images/Menu.bmp", renderer);
 	SDL_RenderCopy(renderer, image, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
@@ -122,7 +122,7 @@ void afficher_menu(SDL_Renderer *renderer){
 /* Fonction qui affiche le menu du jeu */
 void afficher_vierge(SDL_Renderer *renderer){
 	SDL_Texture *image = NULL;
-	image = loadImage("Vierge.bmp", renderer);
+	image = loadImage("sdl/images/Vierge.bmp", renderer);
 	SDL_RenderCopy(renderer, image, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
@@ -130,7 +130,7 @@ void afficher_vierge(SDL_Renderer *renderer){
 /* Affiche le bouton start */
 void afficher_start(SDL_Renderer *renderer, SDL_Rect start){
 	SDL_Texture *image = NULL;
-	image = loadPNG("Start.png", renderer);
+	image = loadPNG("sdl/images/Start.png", renderer);
 	SDL_RenderCopy(renderer, image, NULL, &start);
     SDL_RenderPresent(renderer);
 }
@@ -180,11 +180,11 @@ void afficher_entier(SDL_Renderer *renderer, char police[], int taille_police, S
 /* Reinitialise le carre du joueur passé en paramètre */
 void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
-	if(n==1) image = loadImage("remp1.bmp", renderer);
-	if(n==2) image = loadImage("remp2.bmp", renderer);
-	if(n==3) image = loadImage("remp3.bmp", renderer);
-	if(n==4) image = loadImage("remp4.bmp", renderer);
-	if(n==5) image = loadImage("remp5.bmp", renderer);
+	if(n==1) image = loadImage("sdl/images/remp1.bmp", renderer);
+	if(n==2) image = loadImage("sdl/images/remp2.bmp", renderer);
+	if(n==3) image = loadImage("sdl/images/remp3.bmp", renderer);
+	if(n==4) image = loadImage("sdl/images/remp4.bmp", renderer);
+	if(n==5) image = loadImage("sdl/images/remp5.bmp", renderer);
 	
     if(NULL == image) return;
 	SDL_RenderCopy(renderer, image, NULL, dstrect);
@@ -194,11 +194,11 @@ void remp_carte(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 /* Enleve le carre du choix d'action du joueur */ 
 void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
-	if(n==1) image = loadPNG("Choix1.bmp", renderer);
-	if(n==2) image = loadPNG("Choix2.bmp", renderer);
-	if(n==3) image = loadImage("Choix3.bmp", renderer);
-	if(n==4) image = loadImage("Choix4.bmp", renderer);
-	if(n==5) image = loadImage("Choix5.bmp", renderer);
+	if(n==1) image = loadImage("sdl/images/Choix1.bmp", renderer);
+	if(n==2) image = loadImage("sdl/images/Choix2.bmp", renderer);
+	if(n==3) image = loadImage("sdl/images/Choix3.bmp", renderer);
+	if(n==4) image = loadImage("sdl/images/Choix4.bmp", renderer);
+	if(n==5) image = loadImage("sdl/images/Choix5.bmp", renderer);
 	
     if(NULL == image) return;
 	SDL_RenderCopy(renderer, image, NULL, dstrect);
@@ -208,8 +208,8 @@ void choix(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 /* Affiche le carré d'action du joueur */ 
 void action(SDL_Renderer *renderer, SDL_Rect *dstrect, int n){
 	SDL_Texture *image = NULL;
-	if(n==1) image = loadPNG("Action1.png", renderer);
-	if(n==2) image = loadPNG("Action2.png", renderer);
+	if(n==1) image = loadPNG("sdl/images/Action1.png", renderer);
+	if(n==2) image = loadPNG("sdl/images/Action2.png", renderer);
 	
     if(NULL == image) return;
 	SDL_RenderCopy(renderer, image, NULL, dstrect);

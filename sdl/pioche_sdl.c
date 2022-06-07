@@ -1,6 +1,6 @@
-#include "pioche.h"
+#include "pioche_sdl.h"
 
-char nom_carte[14];
+char nom_carte[18];
 
 /* Initialise la structure de la pioche */
 PIOCHE* init_pioche(){
@@ -38,75 +38,75 @@ PIOCHE* init_pioche(){
 /* Permet de passer d'une structure de carte à une chaine de caracteres*/
 char *StructToChaine(CARTE *c){
     int num;
-    strcpy(nom_carte,"cartes/xx.bmp");
+    strcpy(nom_carte,"sdl/cartes/xx.bmp");
     COULEUR color;
     num = c->num;
     color = c->couleur;
     switch(num){
         case 1:
-            nom_carte[7] = 'A';
+            nom_carte[11] = 'A';
             break;
 
         case 2:
-            nom_carte[7] = '2';
+            nom_carte[11] = '2';
             break;
 
         case 3 :
-            nom_carte[7] = '3';
+            nom_carte[11] = '3';
             break;
 
         case 4 :
-            nom_carte[7] = '4';
+            nom_carte[11] = '4';
             break;
 
         case 5:
-            nom_carte[7] = '5';
+            nom_carte[11] = '5';
             break;
         case 6:
-            nom_carte[7] = '6';
+            nom_carte[11] = '6';
             break;
 
         case 7:
-            nom_carte[7] = '7';
+            nom_carte[11] = '7';
             break;
 
         case 8 :
-            nom_carte[7] = '8';
+            nom_carte[11] = '8';
             break;
 
         case 9 :
-            nom_carte[7] = '9';
+            nom_carte[11] = '9';
             break;
 
         case 10:
-            nom_carte[7] = 'D';
+            nom_carte[11] = 'D';
             break;
 
         case 11:
-            nom_carte[7] = 'J';
+            nom_carte[11] = 'J';
             break;
 
         case 12 :
-            nom_carte[7] = 'Q';
+            nom_carte[11] = 'Q';
             break;
 
         case 13 :
-            nom_carte[7] = 'K';
+            nom_carte[11] = 'K';
             break;
     }
     switch(color){
 
         case CARREAU :
-            nom_carte[8] = 'd';
+            nom_carte[12] = 'd';
             break;
         case COEUR :
-            nom_carte[8] = 'h';
+            nom_carte[12] = 'h';
             break;
         case PIC :
-            nom_carte[8] = 's';
+            nom_carte[12] = 's';
             break;
         case TREFLE :
-            nom_carte[8] = 'c';
+            nom_carte[12] = 'c';
             break;
     }
     return nom_carte;

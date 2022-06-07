@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "table.h"
+#include "table_sdl.h"
 
 
 
@@ -222,9 +222,7 @@ boucle:
 	offset = 162;
 	while(table->croupier->score<17){
 		tirage_carte_croupier_apres_mises(renderer, table, carte_croup_dos, offset);
-		SDL_Delay(20);
 		table->croupier->score = comptage_score_croupier(table->croupier);
-		SDL_Delay(20);
 		offset+=81;
 		SDL_Delay(20);
 	}
@@ -235,7 +233,6 @@ boucle:
 	SDL_Delay(2000);
 	statut = reste_sur_table(window, image, renderer, table);
 	if(statut == EXIT_SUCCESS) goto exit;
-	SDL_Delay(20);
 	statut = saisie_joueurs_en_partie(window, image, table, renderer);
 	if(statut == EXIT_SUCCESS) goto exit;
     offset = 0;

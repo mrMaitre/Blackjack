@@ -1,4 +1,4 @@
-#include "table.h"
+#include "table_sdl.h"
 
 /* Initialise la structure de la table */
 TABLE* init_table(){
@@ -29,9 +29,9 @@ int saisie_joueurs_dans_table(SDL_Window *window, SDL_Texture *image, SDL_Render
     
     /* initialisation des joueurs dans la table */
     JOUEUR* j,*j_suiv;
-    j=saisie_joueur_sdl(window, image, renderer, 1, table);
-    if(j==NULL) return EXIT_SUCCESS;
-    table->tete=j;
+    table->tete=saisie_joueur_sdl(window, image, renderer, 1, table);
+    if(table->tete==NULL) return EXIT_SUCCESS;
+    j=table->tete;
     for (int i=2;i<=table->nb_joueurs;i++){
         j_suiv=saisie_joueur_sdl(window, image, renderer, i, table);
         if(j_suiv==NULL) return EXIT_SUCCESS;
@@ -73,11 +73,11 @@ JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* 
 		
 	SDL_Rect rect = {100, 275, 0, 0};
 	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le nom du joueur ", rect, 0);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "Entrez le nom du joueur ", rect, 0);
 		SDL_Delay(20);
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 370);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, num, rect, 370);
 		SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
 
 	/* Boucle pour afficher les lettres tapées au clavier */ 
 	while(continuer){
@@ -98,132 +98,132 @@ JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* 
 								continuer = 0;
 							break;
 							case SDLK_a :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "a", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "a", RectTexte, 0);
 								strcat(tab_nom, "a");
 								RectTexte.x+=35;
 							break;
 							case SDLK_b :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "b", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "b", RectTexte, 0);
 								strcat(tab_nom, "b");
 								RectTexte.x+=35;
 							break;
 							case SDLK_c :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "c", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "c", RectTexte, 0);
 								strcat(tab_nom, "c");
 								RectTexte.x+=35;
 							break;
 							case SDLK_d :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "d", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "d", RectTexte, 0);
 								strcat(tab_nom, "d");
 								RectTexte.x+=35;
 							break;
 							case SDLK_e :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "e", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "e", RectTexte, 0);
 								strcat(tab_nom, "e");
 								RectTexte.x+=35;
 							break;
 							case SDLK_f :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "f", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "f", RectTexte, 0);
 								strcat(tab_nom, "f");
 								RectTexte.x+=30;
 							break;
 							case SDLK_g :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "g", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "g", RectTexte, 0);
 								strcat(tab_nom, "g");
 								RectTexte.x+=35;
 							break;
 							case SDLK_h :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "h", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "h", RectTexte, 0);
 								strcat(tab_nom, "h");
 								RectTexte.x+=35;
 							break;
 							case SDLK_i :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "i", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "i", RectTexte, 0);
 								strcat(tab_nom, "i");
 								RectTexte.x+=25;
 							break;
 							case SDLK_j :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "j", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "j", RectTexte, 0);
 								strcat(tab_nom, "j");
 								RectTexte.x+=25;
 							break;
 							case SDLK_k :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "k", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "k", RectTexte, 0);
 								strcat(tab_nom, "k");
 								RectTexte.x+=35;
 							break;
 							case SDLK_l :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "l", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "l", RectTexte, 0);
 								strcat(tab_nom, "l");
 								RectTexte.x+=25;
 							break;
 							case SDLK_m :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "m", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "m", RectTexte, 0);
 								strcat(tab_nom, "m");
 								RectTexte.x+=45;
 							break;
 							case SDLK_n :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "n", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "n", RectTexte, 0);
 								strcat(tab_nom, "n");
 								RectTexte.x+=35;
 							break;
 							case SDLK_o :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "o", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "o", RectTexte, 0);
 								strcat(tab_nom, "o");
 								RectTexte.x+=35;
 							break;
 							case SDLK_p :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "p", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "p", RectTexte, 0);
 								strcat(tab_nom, "p");
 								RectTexte.x+=35;
 							break;
 							case SDLK_q :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "q", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "q", RectTexte, 0);
 								strcat(tab_nom, "q");
 								RectTexte.x+=35;
 							break;
 							case SDLK_r :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "r", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "r", RectTexte, 0);
 								strcat(tab_nom, "r");
 								RectTexte.x+=30;
 							break;
 							case SDLK_s :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "s", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "s", RectTexte, 0);
 								strcat(tab_nom, "s");
 								RectTexte.x+=35;
 							break;
 							case SDLK_t :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "t", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "t", RectTexte, 0);
 								strcat(tab_nom, "t");
 								RectTexte.x+=30;
 							break;
 							case SDLK_u :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "u", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "u", RectTexte, 0);
 								strcat(tab_nom, "u");
 								RectTexte.x+=35;
 							break;
 							case SDLK_v :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "v", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "v", RectTexte, 0);
 								strcat(tab_nom, "v");
 								RectTexte.x+=35;
 							break;
 							case SDLK_w :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "w", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "w", RectTexte, 0);
 								strcat(tab_nom, "w");
 								RectTexte.x+=35;
 							break;
 							case SDLK_x :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "x", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "x", RectTexte, 0);
 								strcat(tab_nom, "x");
 								RectTexte.x+=35;
 							break;
 							case SDLK_y :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "y", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "y", RectTexte, 0);
 								strcat(tab_nom, "y");
 								RectTexte.x+=35;
 							break;
 							case SDLK_z :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "z", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "z", RectTexte, 0);
 								strcat(tab_nom, "z");
 								RectTexte.x+=35;
 							break;
@@ -238,11 +238,11 @@ JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* 
 	RectTexte.y = 450;
 	RectTexte.x = 360;
 	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez le capital du joueur ", rect, 0);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "Entrez le capital du joueur ", rect, 0);
 	SDL_Delay(20);
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 405);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, num, rect, 405);
 	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 435);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 435);
 	SDL_Delay(20);
 	
 	continuer = 1;
@@ -266,52 +266,52 @@ JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* 
 								continuer = 0;
 							break;
 							case SDLK_1 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "1", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "1", RectTexte, 0);
 								strcat(tab_capital, "1");
 								RectTexte.x+=30;
 							break;
 							case SDLK_2 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "2", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "2", RectTexte, 0);
 								strcat(tab_capital, "2");
 								RectTexte.x+=30;
 							break;
 							case SDLK_3 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "3", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "3", RectTexte, 0);
 								strcat(tab_capital, "3");
 								RectTexte.x+=30;
 							break;
 							case SDLK_4 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "4", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "4", RectTexte, 0);
 								strcat(tab_capital, "4");
 								RectTexte.x+=30;
 							break;
 							case SDLK_5 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "5", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "5", RectTexte, 0);
 								strcat(tab_capital, "5");
 								RectTexte.x+=30;
 							break;
 							case SDLK_6 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "6", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "6", RectTexte, 0);
 								strcat(tab_capital, "6");
 								RectTexte.x+=30;
 							break;
 							case SDLK_7 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "7", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "7", RectTexte, 0);
 								strcat(tab_capital, "7");
 								RectTexte.x+=30;
 							break;
 							case SDLK_8 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "8", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "8", RectTexte, 0);
 								strcat(tab_capital, "8");
 								RectTexte.x+=30;
 							break;
 							case SDLK_9 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "9", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "9", RectTexte, 0);
 								strcat(tab_capital, "9");
 								RectTexte.x+=30;
 							break;
 							case SDLK_0 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "0", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "0", RectTexte, 0);
 								strcat(tab_capital, "0");
 								RectTexte.x+=30;
 							break;
@@ -342,9 +342,9 @@ int saisie_joueurs_en_partie(SDL_Window *window, SDL_Texture *image, TABLE *tabl
     /* initialisation du nombre de joueurs dans la table */
     
     SDL_Delay(20);
-	reste_part(renderer, "Ajout_joueur.png");
+	reste_part(renderer, "sdl/images/Ajout_joueur.png");
 	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, txt, joueur, 0);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, txt, joueur, 0);
 	SDL_Delay(20);
     
    	while(continuer){
@@ -365,32 +365,32 @@ int saisie_joueurs_en_partie(SDL_Window *window, SDL_Texture *image, TABLE *tabl
 								continuer = 0;
 							break;
 							case SDLK_1 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "1", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "1", RectTexte, 0);
 								saisie = 1;
 								RectTexte.x+=60;
 							break;
 							case SDLK_2 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "2", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "2", RectTexte, 0);
 								saisie = 2;
 								RectTexte.x+=60;
 							break;
 							case SDLK_3 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "3", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "3", RectTexte, 0);
 								saisie = 3;
 								RectTexte.x+=60;
 							break;
 							case SDLK_4 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "4", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "4", RectTexte, 0);
 								saisie = 4;
 								RectTexte.x+=60;
 							break;
 							case SDLK_5 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "5", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "5", RectTexte, 0);
 								saisie = 5;
 								RectTexte.x+=60;
 							break;
 							case SDLK_0 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "0", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "0", RectTexte, 0);
 								saisie = 0;
 								RectTexte.x+=60;
 							break;
@@ -399,12 +399,12 @@ int saisie_joueurs_en_partie(SDL_Window *window, SDL_Texture *image, TABLE *tabl
 				}
 			}
 			if(saisie>nb) {
-				afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "INCORRECT", RectTexte, 0);
+				afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "INCORRECT", RectTexte, 0);
 				continuer = 1;
 				SDL_Delay(500);
-				reste_part(renderer, "Ajout_joueur.png");
+				reste_part(renderer, "sdl/images/Ajout_joueur.png");
 				SDL_Delay(20);
-				afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, txt, joueur, 0);
+				afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, txt, joueur, 0);
 				SDL_Delay(20);
 			}
 	}
@@ -490,7 +490,6 @@ void tirage_carte_croupier_apres_mises(SDL_Renderer *renderer,TABLE *t, SDL_Rect
     CROUPIER *c = t->croupier;
     CARTE *carte_tiree;
     carte_tiree = tirer_carte(t->pioche);
-    SDL_Delay(20);
     afficher_carte(StructToChaine(carte_tiree), renderer, &emp, offset, 0);
     SDL_Delay(500);
     c->tab_cartes[c->nb_cartes] = *carte_tiree;
@@ -516,11 +515,11 @@ int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer
     	SDL_Delay(20);
     	afficher_vierge(renderer);
     	SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "Entrez la mise du joueur ", rect, 0);
+		afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "Entrez la mise du joueur ", rect, 0);
 		SDL_Delay(20);
-		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, num, rect, 370);
+		afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, num, rect, 370);
 		SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
+		afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "(entrer pour valider) :", rect, 400);
 		SDL_Delay(20);
 
         while(continuer){
@@ -541,52 +540,52 @@ int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer
 								continuer = 0;
 							break;
 							case SDLK_1 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "1", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "1", RectTexte, 0);
 								strcat(tab_mise, "1");
 								RectTexte.x+=30;
 							break;
 							case SDLK_2 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "2", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "2", RectTexte, 0);
 								strcat(tab_mise, "2");
 								RectTexte.x+=30;
 							break;
 							case SDLK_3 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "3", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "3", RectTexte, 0);
 								strcat(tab_mise, "3");
 								RectTexte.x+=30;
 							break;
 							case SDLK_4 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "4", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "4", RectTexte, 0);
 								strcat(tab_mise, "4");
 								RectTexte.x+=30;
 							break;
 							case SDLK_5 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "5", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "5", RectTexte, 0);
 								strcat(tab_mise, "5");
 								RectTexte.x+=30;
 							break;
 							case SDLK_6 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "6", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "6", RectTexte, 0);
 								strcat(tab_mise, "6");
 								RectTexte.x+=30;
 							break;
 							case SDLK_7 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "7", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "7", RectTexte, 0);
 								strcat(tab_mise, "7");
 								RectTexte.x+=30;
 							break;
 							case SDLK_8 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "8", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "8", RectTexte, 0);
 								strcat(tab_mise, "8");
 								RectTexte.x+=30;
 							break;
 							case SDLK_9 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "9", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "9", RectTexte, 0);
 								strcat(tab_mise, "9");
 								RectTexte.x+=30;
 							break;
 							case SDLK_0 :
-								afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "0", RectTexte, 0);
+								afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "0", RectTexte, 0);
 								strcat(tab_mise, "0");
 								RectTexte.x+=30;
 							break;
@@ -598,7 +597,7 @@ int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer
 		mise = atoi(tab_mise);
 		if(mise>j->capital){
 			SDL_Delay(20);
-			afficher_texte(renderer, "BOOKMANL.ttf", 50, TextColor, "INCORRECT", RectTexte, 100);
+			afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 50, TextColor, "INCORRECT", RectTexte, 100);
 			SDL_Delay(500);
 		}
 		else {
@@ -773,35 +772,35 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
     while(j!=NULL){
         if(j->en_jeu){
             if(j->score > 21){
-            	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
+            	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
             }
             else if((joueur_a_blackjack(j) && croupier_a_blackjack(t->croupier)) || (j->score == t->croupier->score)){
                 j->capital += j->mise;
-                afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte, 0);
+                afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte, 0);
             }
             else if(joueur_a_blackjack(j)){
-            	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "BLACKJACK !", rect_texte, 0);
+            	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "BLACKJACK !", rect_texte, 0);
                 j->capital += (j->mise*2.5);
             }
             else if(j->score > t->croupier->score || t->croupier->score >21){
                 j->capital += (j->mise*2);
-                afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
+                afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte, 0);
             }
             else {
-            	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
+            	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte, 0);
             }
             if(j->split){
-                if(j->score_split > 21) afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
+                if(j->score_split > 21) afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
                 else if(j->score_split == t->croupier->score){
                     j->capital += j->mise_split;
-                    afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte_split, 0);
+                    afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "EGALITE", rect_texte_split, 0);
                 }
                 else if(j->score_split > t->croupier->score || t->croupier->score >21){
                     j->capital += (j->mise_split*2);
-                    afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte_split, 0);
+                    afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "GAGNE", rect_texte_split, 0);
                 }
                 else {
-                	afficher_texte(renderer, "BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
+                	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, "PERDU", rect_texte_split, 0);
                 }
             }
         }
@@ -834,11 +833,11 @@ int reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *render
         while(j!=NULL){
         	statut = 2;
         	SDL_Delay(20);
-        	reste_part(renderer, "Reste_part.png");
+        	reste_part(renderer, "sdl/images/Reste_part.png");
         	SDL_Delay(20);
             strcpy(txt,j->nom);
             strcat(txt, " ? ");
-            afficher_texte(renderer, "BOOKMANL.ttf", 40, TextColor, txt, joueur, 0);
+            afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 40, TextColor, txt, joueur, 0);
             while(statut == 2){
 				if (SDL_PollEvent(&event))
 				{
@@ -910,11 +909,11 @@ void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_em
 	SDL_Color TextColor = {255,255,255};
 	while(j!=NULL){
 		SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, j->nom, nomj_emp, offset);
+		afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, j->nom, nomj_emp, offset);
 		SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", capital_emp, offset);
+		afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "$", capital_emp, offset);
 		SDL_Delay(20);
-		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
+		afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, j->capital, capital_emp, offset+20);
 		SDL_Delay(20);
 		j=j->suivant;
 		offset+=248;
@@ -928,9 +927,9 @@ void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
 	SDL_Color TextColor = {255,255,255};
 	while(j!=NULL){
 		SDL_Delay(20);
-		afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
+		afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
 		SDL_Delay(20);
-		afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
+		afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
 		SDL_Delay(20);
 		j=j->suivant;
 		offset+=248;
@@ -947,40 +946,40 @@ void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 void afficher_score(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	SDL_Color TextColor = {255,255,255};
 	SDL_Rect score = {220+offset, 360, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score, 0);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, j->score, score, 0);
 }
 
 void afficher_score_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	SDL_Color TextColor = {255,255,255};
 	SDL_Rect score1 = {170+offset, 360, 71, 96};
 	SDL_Rect score2 = {220+offset, 360, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score, score1, 0);
-	afficher_entier(renderer, "BOOKMANL.ttf", 20, TextColor, j->score_split, score2, 0);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, j->score, score1, 0);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 20, TextColor, j->score_split, score2, 0);
 }
 
 void afficher_score_croupier(SDL_Renderer *renderer, CROUPIER *c){
 	SDL_Color TextColor = {255,255,255};
 	SDL_Rect score = {340, 140, 71, 96};
-	afficher_entier(renderer, "BOOKMANL.ttf", 25, TextColor, c->score, score, 0);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 25, TextColor, c->score, score, 0);
 }
 
 void afficher_blackjack(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	SDL_Color TextColor = {255,255,255};
 	SDL_Rect blackjack = {80+offset, 355, 71, 96};
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "BLACKJACK", blackjack, 0);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "BLACKJACK", blackjack, 0);
 }
 
 
 void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp, int offset){
 	SDL_Color TextColor = {255,255,255};
 	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset);
 	SDL_Delay(20);
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+20);
 	SDL_Delay(20);
-	afficher_texte(renderer, "BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset+150);
+	afficher_texte(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, "$", mise_emp, offset+150);
 	SDL_Delay(20);
-	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+170);
+	afficher_entier(renderer, "sdl/police/BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+170);
 	SDL_Delay(20);
 }
 

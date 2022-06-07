@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
-#include "pioche.h"
+#include "pioche_sdl.h"
 
 typedef struct croupier{
     CARTE tab_cartes[10]; /*cartes tirees par le croupier */

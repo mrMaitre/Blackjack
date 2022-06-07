@@ -17,7 +17,7 @@ typedef struct carte{
     int num;
     COULEUR couleur;
     struct carte * suivant;
-    char nom_image[14];
+    char nom_image[18];
 }CARTE;
 
 typedef struct pioche{

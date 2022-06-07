@@ -2,9 +2,9 @@
 
 Jeu de blackjack en C
 
-Compiler : ```make code``` (normal) ou ```make sdl``` (sdl)
+Compiler : ```make texte``` (txt) ou ```make sdl2``` (sdl)
 
-Executer : ```./code``` (normal) ou ```./sdl``` (sdl)
+Executer : ```./texte``` (txt) ou ```./sdl2``` (sdl)
 
 ## Getting started
 

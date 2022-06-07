@@ -9,8 +9,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
-#include "croupier.h"
-#include "joueur.h"
+#include "croupier_sdl.h"
+#include "joueur_sdl.h"
 #define MAX_JOUEURS 5
 
 typedef struct table{

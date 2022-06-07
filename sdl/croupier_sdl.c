@@ -1,4 +1,4 @@
-#include "croupier.h"
+#include "croupier_sdl.h"
 
 CROUPIER *init_croupier(){
     /*initialise la structure croupier */
@@ -14,7 +14,7 @@ void tirage_carte_croupier_debut(SDL_Renderer *renderer, PIOCHE *p, CROUPIER *c,
     CARTE *carte_tiree;
     int offset2 = 0;
     carte_tiree = tirer_carte(p);
-    afficher_carte("cartes/Dos.bmp", renderer, &emp, offset2, 0);
+    afficher_carte("sdl/cartes/Dos.bmp", renderer, &emp, offset2, 0);
     SDL_Delay(500);
     c->tab_cartes[0] = *carte_tiree;
     c->nb_cartes++;

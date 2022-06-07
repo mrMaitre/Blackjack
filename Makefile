@@ -2,38 +2,65 @@
 
 CC = gcc
 FLAGS = -std=c11 -Wall
-OBJS = main.o table.o joueur.o croupier.o pioche.o
-OBJS1 = main_sdl.o table.o joueur.o croupier.o pioche.o fonction_sdl.o
-EXE = code
-EXE1 = sdl
+OBJS = txt/main.o txt/table.o txt/joueur.o txt/croupier.o txt/pioche.o
+OBJS1 = sdl/main_sdl.o sdl/table_sdl.o sdl/joueur_sdl.o sdl/croupier_sdl.o sdl/pioche_sdl.o sdl/fonction_sdl.o
 
-$(EXE) : $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $(EXE)
+
+# Executables
+
+texte : $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o texte
 	
-$(EXE1) : $(OBJS1)
-	$(CC) $(FLAGS) $(OBJS1) -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -o $(EXE1)
+sdl2 : $(OBJS1)
+	$(CC) $(FLAGS) $(OBJS1) -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -o sdl2
 	
-main.o : table.h main.c
-	$(CC) $(FLAGS) -c main.c -o main.o
 	
-main_sdl.o : table.h main_sdl.c
-	$(CC) $(FLAGS) -c main_sdl.c $(sdl2-config --cflags --libs) -o main_sdl.o
+# Cibles txt
 	
-table.o : croupier.h joueur.h table.h table.c
-	$(CC) $(FLAGS) -c table.c -o table.o
+txt/main.o : txt/table.h txt/main.c
+	$(CC) $(FLAGS) -c txt/main.c -o txt/main.o
 	
-joueur.o : pioche.h joueur.h joueur.c
-	$(CC) $(FLAGS) -c joueur.c -o joueur.o
+txt/table.o : txt/croupier.h txt/joueur.h txt/table.h txt/table.c
+	$(CC) $(FLAGS) -c txt/table.c -o txt/table.o
 	
-croupier.o : pioche.h croupier.h croupier.c
-	$(CC) $(FLAGS) -c croupier.c -o croupier.o
+txt/joueur.o : txt/pioche.h txt/joueur.h txt/joueur.c
+	$(CC) $(FLAGS) -c txt/joueur.c -o txt/joueur.o
 	
-pioche.o : fonction_sdl.h pioche.h pioche.c
-	$(CC) $(FLAGS) -c pioche.c -o pioche.o
+txt/croupier.o : txt/pioche.h txt/croupier.h txt/croupier.c
+	$(CC) $(FLAGS) -c txt/croupier.c -o txt/croupier.o
 	
-fonction_sdl.o : fonction_sdl.h fonction_sdl.c
-	$(CC) $(FLAGS) -c fonction_sdl.c -o fonction_sdl.o
+txt/pioche.o : txt/pioche.h txt/pioche.c
+	$(CC) $(FLAGS) -c txt/pioche.c -o txt/pioche.o
 	
+	
+# Cibles sdl
+	
+sdl/main_sdl.o : sdl/table_sdl.h sdl/main_sdl.c
+	$(CC) $(FLAGS) -c sdl/main_sdl.c $(sdl2-config --cflags --libs) -o sdl/main_sdl.o
+	
+sdl/table_sdl.o : sdl/croupier_sdl.h sdl/joueur_sdl.h sdl/table_sdl.h sdl/table_sdl.c
+	$(CC) $(FLAGS) -c sdl/table_sdl.c -o sdl/table_sdl.o
+	
+sdl/joueur_sdl.o : sdl/pioche_sdl.h sdl/joueur_sdl.h sdl/joueur_sdl.c
+	$(CC) $(FLAGS) -c sdl/joueur_sdl.c -o sdl/joueur_sdl.o
+	
+sdl/croupier_sdl.o : sdl/pioche_sdl.h sdl/croupier_sdl.h sdl/croupier_sdl.c
+	$(CC) $(FLAGS) -c sdl/croupier_sdl.c -o sdl/croupier_sdl.o
+	
+sdl/pioche_sdl.o : sdl/fonction_sdl.h sdl/pioche_sdl.h sdl/pioche_sdl.c
+	$(CC) $(FLAGS) -c sdl/pioche_sdl.c -o sdl/pioche_sdl.o
+	
+sdl/fonction_sdl.o : sdl/fonction_sdl.h sdl/fonction_sdl.c
+	$(CC) $(FLAGS) -c sdl/fonction_sdl.c -o sdl/fonction_sdl.o
+	
+	
+# Clean
+
+clean_texte :
+	rm txt/*.o texte
+	
+clean_sdl2 :
+	rm sdl/*.o sdl2
 	
 clean :
-	rm *.o $(EXE1)
+	rm txt/*.o sdl/*.o texte sdl2

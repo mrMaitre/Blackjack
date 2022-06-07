@@ -1,43 +1,6 @@
-#include "joueur.h"
-
-JOUEUR* saisie_joueur(){
-	JOUEUR * j;
-    j=(JOUEUR *) malloc(sizeof(JOUEUR));
-    printf("Saisie du joueur\n");
-    printf("\tEntrez le nom du joueur : ");
-    scanf("%s",j->nom);
-    printf("\tEntrez le capital du joueur : ");
-    scanf("%d",&j->capital);
-    j->mise=0;
-    j->score = 0;
-    j->en_jeu=1;
-    j->nb_cartes=0;
-    j->split=0;
-    j->mise_split=0;
-    j->nb_cartes_split=0;
-    j->score_split=0;
-    j->suivant=NULL;
-    return j;
-}
+#include "joueur_sdl.h"
 
 
-void affiche_joueur(JOUEUR* j){
-    printf("Joueur enregistre !:\n\tnom : %s\n\tcapital : %ds\n",j->nom,j->capital);
-}
-
-void affiche_carte_joueur(JOUEUR* j){
-    int i;
-	printf("%s :\n",j->nom);
-	for(i = 0; i<j->nb_cartes; i++){
-    	printf("\tCarte %d : %d\n",i+1,j->tab_cartes[i].num);
-	}
-    if(j->split){
-        printf("Jeu split :\n");
-        for(i=0;i<j->nb_cartes_split;i++){
-            printf("\tCarte %d : %d\n",i+1,j->tab_cartes_split[i].num);
-        }
-    }
-}
 
 void tirage_carte_joueur_debut(SDL_Renderer *renderer, PIOCHE *p,JOUEUR *j, SDL_Rect emp, int offset){
     /*permet au joueur de tirer ses 2 premieres cartes */
@@ -75,4 +38,10 @@ void joueur_split(JOUEUR *j){
     j->score = j->tab_cartes_split[0].num;
     j->score_split = j->tab_cartes_split[0].num;
 }
+
+
+
+
+
+
 
