@@ -1,6 +1,6 @@
 #include "table.h"
 
-
+/* Initialise la structure de la table */
 TABLE* init_table(){
     TABLE * table;
     table = (TABLE *) malloc(sizeof(TABLE));
@@ -44,6 +44,7 @@ int saisie_joueurs_dans_table(SDL_Window *window, SDL_Texture *image, SDL_Render
     return 1;
 }
 
+/* Fonction permettant de gerer l'affichage de l'ajout des joueurs ainsi que leur mise et l'ajout des informations dans les structures */
 JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, int num, TABLE* table){
 	JOUEUR * j;
     j=(JOUEUR *) malloc(sizeof(JOUEUR));
@@ -325,7 +326,7 @@ JOUEUR* saisie_joueur_sdl(SDL_Window *window, SDL_Texture *image, SDL_Renderer* 
 
 
 
-
+/* Fonction permettant de gerer l'affichage de l'ajout des joueurs ainsi que leur mise et l'ajout des informations dans les structures en partie */
 int saisie_joueurs_en_partie(SDL_Window *window, SDL_Texture *image, TABLE *table, SDL_Renderer *renderer){
     int nb,i,cpt, continuer = 1, saisie;
     SDL_Rect joueur = {160,340,0,0};
@@ -497,9 +498,6 @@ void tirage_carte_croupier_apres_mises(SDL_Renderer *renderer,TABLE *t, SDL_Rect
 }
 
 
-
-
-
 int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer, TABLE* t){
 	JOUEUR *j;
 	char tab_mise[6];
@@ -616,8 +614,7 @@ int demande_mises(SDL_Window *window, SDL_Texture *image, SDL_Renderer* renderer
 	return 1;
 }
 
-
-
+/* GEstion des actions des clics des actions des joueurs */
 int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, int offset, int cas, JOUEUR* joueur){
 	SDL_Event event;
 	SDL_bool quit = SDL_FALSE;
@@ -660,7 +657,7 @@ int gestion_action(SDL_Window *window, SDL_Texture *image, SDL_Renderer *rendere
 	return tirage;
 }
 
-
+/* Gere le split des joueurs */
 int jeu_split(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t, JOUEUR *j, int offset, SDL_Rect choix_emp, SDL_Rect mise_emp, int i){
 	SDL_Rect carte1 = {48+offset, 425, 71, 96};
 	SDL_Rect carte2 = {159+offset, 425, 71, 96};
@@ -766,7 +763,7 @@ int compter_score(CARTE* tab_cartes, int nb_cartes){
 	return score;
 }
 
-
+/* Affiche la victoire et les defaites et répartie les gains */ 
 void repartition_gains(SDL_Renderer* renderer, TABLE *t){
     JOUEUR *j;
     SDL_Rect rect_texte = {100, 665, 0, 0};
@@ -822,7 +819,7 @@ void repartition_gains(SDL_Renderer* renderer, TABLE *t){
 
 }
 
-
+/* Gere la possibilité d'ajout et de retrait d'un joueur en fin de partie */
 int reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *renderer, TABLE *t){
 	JOUEUR *j, *j_suiv;
 	int statut;
@@ -876,7 +873,7 @@ int reste_sur_table(SDL_Window *window, SDL_Texture *image, SDL_Renderer *render
     return 1;
 }
 
-
+/* Gere la sortie de table d'un joueur */
 void sortie_joueur_table(JOUEUR *j,TABLE *t){
     JOUEUR *j_cour,*j_ancien;
     if(j==t->tete){
@@ -905,8 +902,7 @@ void joueur_double(JOUEUR *j, TABLE *t){
 }
 
 
-
-
+/* Affiche le nom et le capital des joueurs */
 void afficher_nom_capital(SDL_Renderer *renderer, TABLE *table, SDL_Rect nomj_emp, SDL_Rect capital_emp){
 	JOUEUR * j;
 	j=table->tete;
@@ -941,7 +937,6 @@ void afficher_mise(SDL_Renderer *renderer, TABLE *table, SDL_Rect mise_emp){
 	}
 }
 
-		
 void afficher_cartes_split(SDL_Renderer *renderer, JOUEUR * j, int offset){
 	SDL_Rect carte1 = {48+offset, 410, 71, 96};
 	SDL_Rect carte2 = {159+offset, 410, 71, 96};
@@ -988,8 +983,6 @@ void afficher_mise_split(JOUEUR *j, SDL_Renderer *renderer, TABLE *table, SDL_Re
 	afficher_entier(renderer, "BOOKMANL.ttf", 30, TextColor, j->mise, mise_emp, offset+170);
 	SDL_Delay(20);
 }
-
-
 
 void liberer_table(TABLE *t){
 	int cpt_j = 0;
