@@ -2,9 +2,13 @@
 
 Jeu de blackjack en C
 
+Installation librairie SDL2 :
+```sudo apt install libsdl2-2.0-0 libsdl2-gfx-1.0-0 libsdl2-image-2.0-0 libsdl2-mixer-2.0-0 libsdl2-net-2.0-0 libsdl2-ttf-2.0-0```
+
 Compiler : ```make texte``` (txt) ou ```make sdl2``` (sdl)
 
 Executer : ```./texte``` (txt) ou ```./sdl2``` (sdl)
+
 
 ## Getting started
 
